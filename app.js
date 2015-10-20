@@ -80,6 +80,8 @@ app.get('/', (req, res) => {
   }
 });
 
+
+
 app.get('/team', (req, res) => {
   //TODO
   var result;
@@ -110,6 +112,42 @@ app.get('/about', (req, res) => {
     notFound404(req, res);
   } else {
     res.render('about');
+  }
+});
+app.get('/roomView', (req, res) => {
+  //TODO
+  var result = team.all();
+  if (!result.success) {
+    notFound404(req, res);
+  } else {
+    res.render('roomView');
+  }
+});
+app.get('/roomCreation', (req, res) => {
+  //TODO
+  var result = team.all();
+  if (!result.success) {
+    notFound404(req, res);
+  } else {
+    res.render('roomCreation');
+  }
+});
+app.get('/splash', (req, res) => {
+  //TODO
+  var result = team.all();
+  if (!result.success) {
+    notFound404(req, res);
+  } else {
+    res.render('splash');
+  }
+});
+app.get('/sesion', (req, res) => {
+  //TODO
+  var result = team.all();
+  if (!result.success) {
+    notFound404(req, res);
+  } else {
+    res.render('sesion');
   }
 });
 
