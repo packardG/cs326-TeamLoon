@@ -80,9 +80,19 @@ app.get('/', (req, res) => {
   }
 });
 
-app.get('/team/jdoe', (req, res) => {
-  // TODO
-  var result = team.one('jdoe');
+app.get('/team', (req, res) => {
+  //TODO
+  var result;
+  var queryVal = req.query.user;
+
+  //Check to see if query was valid
+  if(!queryVal){
+    result = team.all();
+  }
+  else{
+    result = team.one(queryVal);
+  }
+
   if (!result.success) {
     notFound404(req, res);
   } else {
@@ -93,81 +103,13 @@ app.get('/team/jdoe', (req, res) => {
   }
 });
 
-app.get('/team/pgilson', (req, res) => {
-  // TODO
-  var result = team.one('pgilson');
+app.get('/about', (req, res) => {
+  //TODO
+  var result = team.all();
   if (!result.success) {
     notFound404(req, res);
   } else {
-    res.render('team', {
-      members: result.data,
-      pageTestScript: '/qa/tests-team.js'
-    });
-  }
-});
-
-app.get('/team/acbentle', (req, res) => {
-  // TODO
-  var result = team.one('acbentle');
-  if (!result.success) {
-    notFound404(req, res);
-  } else {
-    res.render('team', {
-      members: result.data,
-      pageTestScript: '/qa/tests-team.js'
-    });
-  }
-});
-
-app.get('/team/tdaigle', (req, res) => {
-  // TODO
-  var result = team.one('tdaigle');
-  if (!result.success) {
-    notFound404(req, res);
-  } else {
-    res.render('team', {
-      members: result.data,
-      pageTestScript: '/qa/tests-team.js'
-    });
-  }
-});
-
-app.get('/team/tdng', (req, res) => {
-  // TODO
-  var result = team.one('tdng');
-  if (!result.success) {
-    notFound404(req, res);
-  } else {
-    res.render('team', {
-      members: result.data,
-      pageTestScript: '/qa/tests-team.js'
-    });
-  }
-});
-
-app.get('/team/pjmcd0', (req, res) => {
-  // TODO
-  var result = team.one('pjmcd0');
-  if (!result.success) {
-    notFound404(req, res);
-  } else {
-    res.render('team', {
-      members: result.data,
-      pageTestScript: '/qa/tests-team.js'
-    });
-  }
-});
-
-app.get('/team/pjhurley', (req, res) => {
-  // TODO
-  var result = team.one('pjhurley');
-  if (!result.success) {
-    notFound404(req, res);
-  } else {
-    res.render('team', {
-      members: result.data,
-      pageTestScript: '/qa/tests-team.js'
-    });
+    res.render('about');
   }
 });
 
