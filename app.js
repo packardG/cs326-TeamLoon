@@ -68,7 +68,7 @@ app.use(testmw);
 var team = require('./lib/team.js');
 
 app.get('/', (req, res) => {
-  //TODO
+
   var result = team.all();
   if (!result.success) {
     notFound404(req, res);
@@ -83,7 +83,7 @@ app.get('/', (req, res) => {
 
 
 app.get('/team', (req, res) => {
-  //TODO
+
   var result;
   var queryVal = req.query.user;
 
@@ -106,7 +106,7 @@ app.get('/team', (req, res) => {
 });
 
 app.get('/about', (req, res) => {
-  //TODO
+
   var result = team.all();
   if (!result.success) {
     notFound404(req, res);
@@ -115,7 +115,7 @@ app.get('/about', (req, res) => {
   }
 });
 app.get('/roomView', (req, res) => {
-  //TODO
+
   var result = team.all();
   if (!result.success) {
     notFound404(req, res);
@@ -124,7 +124,7 @@ app.get('/roomView', (req, res) => {
   }
 });
 app.get('/roomCreation', (req, res) => {
-  //TODO
+
   var result = team.all();
   if (!result.success) {
     notFound404(req, res);
@@ -133,7 +133,7 @@ app.get('/roomCreation', (req, res) => {
   }
 });
 app.get('/splash', (req, res) => {
-  //TODO
+
   var result = team.all();
   if (!result.success) {
     notFound404(req, res);
@@ -142,7 +142,7 @@ app.get('/splash', (req, res) => {
   }
 });
 app.get('/sesion', (req, res) => {
-  //TODO
+
   var result = team.all();
   if (!result.success) {
     notFound404(req, res);
