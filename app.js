@@ -73,11 +73,9 @@ app.get('/', (req, res) => {
   if (!result.success) {
     notFound404(req, res);
   } else {
-    res.render('team', {
-      members: result.data,
-      pageTestScript: '/qa/tests-team.js'
-    });
+    res.render('splash');
   }
+
 });
 
 
@@ -132,15 +130,7 @@ app.get('/roomCreation', (req, res) => {
     res.render('roomCreation');
   }
 });
-app.get('/splash', (req, res) => {
 
-  var result = team.all();
-  if (!result.success) {
-    notFound404(req, res);
-  } else {
-    res.render('splash');
-  }
-});
 app.get('/sesion', (req, res) => {
 
   var result = team.all();
