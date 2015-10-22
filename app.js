@@ -109,7 +109,9 @@ app.get('/about', (req, res) => {
   if (!result.success) {
     notFound404(req, res);
   } else {
-    res.render('about');
+    res.render('about', {
+      logo : '/img/logo.png'
+    });
   }
 });
 
