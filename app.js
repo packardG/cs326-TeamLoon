@@ -73,12 +73,12 @@ app.get('/', (req, res) => {
   if (!result.success) {
     notFound404(req, res);
   } else {
-    res.render('splash');
+    res.render('wireframe', {
+      image: "/img/splash.png",
+    });
   }
 
 });
-
-
 
 app.get('/team', (req, res) => {
 
@@ -112,13 +112,28 @@ app.get('/about', (req, res) => {
     res.render('about');
   }
 });
+
+app.get('/aboutsofaking', (req, res) => {
+
+  var result = team.all();
+  if (!result.success) {
+    notFound404(req, res);
+  } else {
+    res.render('wireframe', {
+      image: "/img/aboutsofaking.png",
+    });
+  }
+});
+
 app.get('/roomView', (req, res) => {
 
   var result = team.all();
   if (!result.success) {
     notFound404(req, res);
   } else {
-    res.render('roomView');
+    res.render('wireframe', {
+      image: "/img/roomView.png",
+    });
   }
 });
 app.get('/roomCreation', (req, res) => {
@@ -127,7 +142,9 @@ app.get('/roomCreation', (req, res) => {
   if (!result.success) {
     notFound404(req, res);
   } else {
-    res.render('roomCreation');
+    res.render('wireframe', {
+      image: "/img/roomCreation.png",
+    });
   }
 });
 
@@ -137,7 +154,9 @@ app.get('/sesion', (req, res) => {
   if (!result.success) {
     notFound404(req, res);
   } else {
-    res.render('sesion');
+    res.render('wireframe', {
+      image: "/img/sessionName.png",
+    });
   }
 });
 
