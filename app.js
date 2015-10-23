@@ -150,7 +150,7 @@ app.get('/roomCreation', (req, res) => {
   }
 });
 
-app.get('/sesion', (req, res) => {
+app.get('/session', (req, res) => {
 
   var result = team.all();
   if (!result.success) {
