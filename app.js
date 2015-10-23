@@ -98,6 +98,7 @@ app.get('/team', (req, res) => {
   } else {
     res.render('team', {
       members: result.data,
+      logo: '/img/logo.png',
       pageTestScript: '/qa/tests-team.js'
     });
   }
