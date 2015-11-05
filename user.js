@@ -1,5 +1,3 @@
-import geolocation.js;
-
 /*
 Early implementation of user class. The ID parameter must be generated at time
 of instantiation by outside function that generates random integer and checks
@@ -11,13 +9,10 @@ function returns a position object that can be assigned to the user. This contai
 the users coordinates.
 */
 function user(ID, screenName, pos) {
-  var uniqueID;
-  var name;
-  var position;
-
-  uniqueID = ID;
-
-  name = screenName;
-
-  position = pos;
+  return {
+    ID: ID,
+    screenName: screenName,
+    uid : ++nextUID,
+    pos: pos
+  };
 }
