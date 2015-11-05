@@ -12,7 +12,6 @@ function user(ID, screenName, pos) {
   return {
     ID: ID,
     screenName: screenName,
-    uid : ++nextUID,
     pos: pos
   };
 }
