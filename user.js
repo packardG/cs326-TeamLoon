@@ -15,7 +15,7 @@ function user(ID, screenName, pos) {
   var name;
   var position;
 
-  uniqueID = IDs;
+  uniqueID = ID;
 
   name = screenName;
 
