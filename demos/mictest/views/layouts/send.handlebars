@@ -1,0 +1,23 @@
+{{body}}
+<script> console.log(location.port);</script>
+<script src="scripts/peerjs/peer.js"></script>
+<script>
+console.log("sanity Check1");
+var peer = new Peer(1, {
+	host: location.hostname,
+	port: 27000,
+	path: '/peerjs'
+})
+var conn
+function connecttt() {
+  conn = peer.connect(2);
+  console.log(conn.peer);
+}
+
+function sendD() {
+	conn.send("Hello");
+}
+</script>
+
+<button onclick="connecttt();">Connect</button>
+<button onclick="sendD();">Hello</button>
