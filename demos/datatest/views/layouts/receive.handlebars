@@ -13,15 +13,5 @@ peer.on('connection', function(dataConnection) {
 	  console.log(data);
 	})
 });
-console.log("start");
-peer.on('call', function(mediaConnection) {
-	mediaConnection.answer();
-	mediaConnection.on('stream', function(stream) {
-		console.log(stream);
-		var audio = new Audio();
-	  audio.src = (URL || webkitURL || mozURL).createObjectURL(stream);
-	  audio.play();
-	})
-});
 
 </script>

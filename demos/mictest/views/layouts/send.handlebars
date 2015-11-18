@@ -8,10 +8,25 @@ var peer = new Peer(1, {
 	port: 27000,
 	path: '/peerjs'
 })
+var mediaStreamSource;
+var rawstream;
+function successCallback(stream) {
+		var audioContext = new AudioContext();
+    // Create an AudioNode from the stream.
+    mediaStreamSource = audioContext.createMediaStreamSource( stream );
+		console.log(stream);
+		conn = peer.call(2, stream);
+    // Connect it to the destination to hear yourself (or any other node for processing!)
+    //mediaStreamSource.connect( audioContext.destination );
+}
+
+function errorCallback() {
+    console.log("The following error occurred: " + err);
+}
+
 var conn
 function connecttt() {
-  conn = peer.connect(2);
-  console.log(conn.peer);
+	var media = navigator.webkitGetUserMedia( {audio:true}, successCallback, errorCallback );
 }
 
 function sendD() {
