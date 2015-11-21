@@ -47,29 +47,31 @@ router.post('/auth', (req, res) => {
     var name = req.body.name;
     var pass = req.body.pass;
 
+
     if (!name || !pass) {
       req.flash('login', 'Did not provide the proper credentials.');
       res.redirect('/user/login');
     }
     else {
-      model.lookup(name, pass, function(error, user) {
-        if (error) {
-          // Pass a message to login:
-          req.flash('login', error);
-          res.redirect('/user/login');
-        }
-        else {
-          // add the user to the map of online users:
-          online[user.name] = user;
+      console.log(name, pass);
 
-          // create a session variable to represent stateful connection
-          req.session.user = user;
+      if(/*can find in database*/ true){
+        /*
+        online[user.name] = user;
+        req.session.user = user;
+        */
 
-          // Pass a message to main:
-          req.flash('about', 'Authentication Successful');
-          res.redirect('about');
-        }
-      });
+
+        /*Add message variable in splash.handlebars*/
+        req.flash('/', 'Authenication Successful');
+        res.redirect('/');
+
+      }
+      else{
+        req.flash('login', 'User could not be found.');
+        res.redirect('/user/login');
+      }
+
     }
   }
 });
