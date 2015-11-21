@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #banner {
     padding-left: 40%;
     font-size: 50px;
@@ -23,6 +24,15 @@ p {
 ul p {
     margin: 10px;
  }
+=======
+/*
+Red : rgb(174,14,14)
+White : rgb(255,255,255)
+Black : rgb(27,22,20)
+Yellow : rgb(222,207,39)
+*/
+
+>>>>>>> 268ff3eecbad4e203d3e2516b579134680589592
 body
 {
     background-color: rgb(250,250,250);
