@@ -1,8 +1,8 @@
 var express = require('express');
 
 // This gives us access to the user "model".
-var model = require('../lib/user');
-var db = require('db.js');
+var model = require('../lib/user.js');
+var db = require("../db.js");
 
 // This creates an express "router" that allows us to separate
 // particular routes from the main application.
@@ -13,6 +13,7 @@ var online = {};
 
 // Provides a login view
 router.get('/login', (req, res) => {
+
   // Grab the session if the user is logged in.
   var user = req.session.user;
 
@@ -31,6 +32,7 @@ router.get('/login', (req, res) => {
 // Performs **basic** user authentication.
 router.post('/auth', (req, res) => {
   // Grab the session if the user is logged in.
+
   var user = req.session.user;
 
   // Redirect to main if cookie and user is online:
@@ -56,6 +58,9 @@ router.post('/auth', (req, res) => {
         else {
           // add the user to the map of online users:
           online[user.name] = user;
+
+          
+          db.addUser(tim);
 
           // create a session variable to represent stateful connection
           req.session.user = user;
