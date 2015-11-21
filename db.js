@@ -12,5 +12,4 @@ db.users.insert({userName: user.screenName, password: user.pass, ID:user.ID, pos
   else console.log("User saved");
 });
 
-
 module.exports = db;

@@ -3,15 +3,12 @@
 // (2) handlebars - this provides the handlebars templating framework
 var express    = require('express');
 var handlebars = require('express-handlebars');
-<<<<<<< HEAD
 var db = require('./db');
-=======
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var flash = require('connect-flash');
 var morgan = require('morgan');
->>>>>>> 638a0a3c22956022f343a688f6aaf6f16c524bb9
 
 //////////////////////////////////////////////////////////////////////
 ///// Express App Setup //////////////////////////////////////////////
