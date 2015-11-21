@@ -135,7 +135,7 @@ app.get('/roomView', (req, res) => {
     notFound404(req, res);
   } else {
     res.render('wireframe', {
-      image: "/img/roomView.png",
+      layout: "chatroom",
     });
   }
 });
