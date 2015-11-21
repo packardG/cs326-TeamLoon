@@ -2,6 +2,7 @@
 Team Loon's Web App repo
 
 *Overview*
+
  SofaKing was designed to solve issues of wanting to enjoy videos in-sync with other users. Sometimes there are shows or music that you want 
  to enjoy with others at the same. SofaKing makes it easy to hop into chatrooms in your area, and allows you to explore videos with others. 
  It also provides basic communication needs (VOIP, chatbox) to allow to communicate and discuss topics about the video or just socialize. In 
