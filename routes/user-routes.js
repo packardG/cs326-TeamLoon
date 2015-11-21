@@ -17,7 +17,7 @@ router.get('/login', (req, res) => {
 
   // Redirect to main if cookie and user is online:
   if (user && online[user.name]) {
-    res.redirect('/user/main');
+    res.redirect('');
   }
   else {
     // Grab any messages being sent to us from redirect:
