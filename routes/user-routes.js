@@ -45,7 +45,7 @@ router.post('/auth', (req, res) => {
     var pass = req.body.pass;
 
     if (!name || !pass) {
-      req.flash('login', 'did not provide the proper credentials');
+      req.flash('login', 'Did not provide the proper credentials.');
       res.redirect('/user/login');
     }
     else {
@@ -66,7 +66,7 @@ router.post('/auth', (req, res) => {
           req.session.user = user;
 
           // Pass a message to main:
-          req.flash('main', 'authentication successful');
+          req.flash('main', 'Authentication Successful');
           res.redirect('/user/main');
         }
       });
@@ -126,7 +126,7 @@ router.get('/online', function(req, res) {
 
   // If no session, redirect to login.
   if (!user) {
-    req.flash('login', 'Not logged in');
+    req.flash('login', 'Not logged in.');
     res.redirect('/user/login');
   }
   else {
