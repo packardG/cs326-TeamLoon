@@ -57,9 +57,9 @@ app.use(flash());
 app.use(morgan('combined'));
 
 app.use('/user', require('./routes/user-routes'));
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
   res.redirect('/user/login');
-});
+});*/
 
 // The `testmw` function represents out testing middleware. We use
 // this in our views to conditionally include the Mocha and Chai
