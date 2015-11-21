@@ -3,22 +3,45 @@
 	<head>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="styleSheets/base.css"/>
+    <link rel="stylesheet" type="text/css" href="styleSheets/chatroom.css"/>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 		<title>Sofa King</title>
 		<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 	</head>
 	<body>
-    <div
+    <div>
       <div>
+        <div class="tab" style="background-color : rgb(60,190,60);">
 
+          <a class="tab" href="#myPopup" data-rel="popup">Suggest a New Video</a>
+
+          <div data-role="popup" id="myPopup" class="ui-content" style="min-width:1000px;">
+            <form method="post" action="demoform.asp">
+              <label for="usrnm" class="ui-hidden-accessible">URL:</label>
+              <input type="text" name="url" id="video" placeholder="URL">
+            </form>
+          </div>
+        </div>
+        <div class="tab" style="background-color : rgb(190,190,60);">Video Queue</div>
+        <div class="tab" style="background-color : rgb(190,60,190);">Voting</div>
+        <div class="tab" style="background-color : rgb(190,60,60);">User Options</div>
       </div>
-      <div style="float : left;">
-  		    <iframe width="560" height="315" src="https://www.youtube.com/embed/qaddgd8UI90" frameborder="0" allowfullscreen></iframe>
+      <div style="clear: left; float : left;">
+  		    <iframe width="640px" height="480px" src="https://www.youtube.com/embed/qaddgd8UI90" frameborder="0" allowfullscreen></iframe>
       </div>
-      <div style="float : left;">
-        try hard
+      <div class="userlist" style="float : left;">
+       User list
       </div>
-      <div style="clear : left">
-        testings
+      <div class="chatbox" style="clear : left">
+        <div class="chatlog">
+          Test
+        </div>
+        <div>
+          <input type="text" class="chatentry">
+        <div>
+      </input>
       </div>
     </div>
 	</body>

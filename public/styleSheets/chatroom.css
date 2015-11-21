@@ -1,0 +1,82 @@
+
+div.tab {
+	border-top-left-radius : 10px;
+	border-top-right-radius : 10px;
+	border-color : rgb(27,22,20);
+	border-width : 1px;
+	border-style : solid;
+	float: left;
+	text-align: center;
+	padding: 5px;
+	min-width : 5%;
+	color : rgb(255,255,255);
+	text-shadow:
+	-1px -1px 0 #000,
+	1px -1px 0 #000,
+	-1px 1px 0 #000,
+	1px 1px 0 #000;
+}
+
+a.tab {
+  text-decoration: none;
+	color : rgb(255,255,255);
+	text-shadow:
+	-1px -1px 0 #000,
+	1px -1px 0 #000,
+	-1px 1px 0 #000,
+	1px 1px 0 #000;
+}
+
+a.tab:link {
+color: inherit;
+}
+a.tab:visited {
+color: inherit;
+}
+a.tab:hover {
+color: inherit;
+}
+
+div.userlist {
+	border-radius: 10px;
+	width: 60%;
+	height: 440px;
+	padding : 20px;
+	background-color: rgb(255,255,255);
+	border-color : rgb(27,22,20);
+	border-width : 1px;
+	border-style : solid;
+	-moz-box-shadow:    inset 0 0 5px rgb(10,10,10);
+	-webkit-box-shadow: inset 0 0 5px rgb(10,10,10);
+	box-shadow:         inset 0 0 5px rgb(10,10,10);
+}
+
+div.chatbox {
+	border-radius: 10px;
+	padding : 20px;
+	background-color: rgb(255,255,255);
+	border-color : rgb(27,22,20);
+	border-width : 1px;
+	border-style : solid;
+	-moz-box-shadow:    inset 0 0 5px rgb(10,10,10);
+	-webkit-box-shadow: inset 0 0 5px rgb(10,10,10);
+	box-shadow:         inset 0 0 5px rgb(10,10,10);
+}
+
+div.chatlog {
+	width: 100%;
+	min-height: 100px;
+  padding: 2px;
+	background-color: rgb(255,255,255);
+  -moz-box-shadow:    inset 0 0 5px rgb(10,10,10);
+  -webkit-box-shadow: inset 0 0 5px rgb(10,10,10);
+  box-shadow:         inset 0 0 5px rgb(10,10,10);
+}
+
+input.chatentry {
+	width : 100%;
+	background-color: rgb(255,255,255);
+	border-color : rgb(27,22,20);
+	border-width : 1px;
+	border-style : solid;
+}
