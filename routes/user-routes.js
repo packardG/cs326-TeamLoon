@@ -2,6 +2,7 @@ var express = require('express');
 
 // This gives us access to the user "model".
 var model = require('../lib/user');
+var db = require('db.js');
 
 // This creates an express "router" that allows us to separate
 // particular routes from the main application.
