@@ -1,7 +1,8 @@
 var express = require('express');
 
 // This gives us access to the user "model".
-var model = require('../lib/user');
+var model = require('../lib/user.js');
+var db = require("../db.js");
 
 // This creates an express "router" that allows us to separate
 // particular routes from the main application.
@@ -12,6 +13,10 @@ var online = {};
 
 // Provides a login view
 router.get('/login', (req, res) => {
+
+   //var tim = user('tim','tim');
+   db.addUser({Yes: 'yes'});
+
   // Grab the session if the user is logged in.
   var user = req.session.user;
 
@@ -30,11 +35,12 @@ router.get('/login', (req, res) => {
 // Performs **basic** user authentication.
 router.post('/auth', (req, res) => {
   // Grab the session if the user is logged in.
+
   var user = req.session.user;
 
   // Redirect to main if cookie and user is online:
   if (user && online[user]) {
-    res.redirect('/user/main');
+    res.redirect('about');
   }
   else {
     // Pull the values from the form:
@@ -60,8 +66,8 @@ router.post('/auth', (req, res) => {
           req.session.user = user;
 
           // Pass a message to main:
-          req.flash('main', 'Authentication Successful');
-          res.redirect('/user/main');
+          req.flash('about', 'Authentication Successful');
+          res.redirect('about');
         }
       });
     }

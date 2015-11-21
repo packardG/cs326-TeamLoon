@@ -1,7 +1,7 @@
 # cs326-TeamLoon
 Team Loon's Web App repo
 
-*Overview*
+###Overview###
 
  SofaKing was designed to solve issues of wanting to enjoy videos in-sync with other users. Sometimes there are shows or music that you want 
  to enjoy with others at the same. SofaKing makes it easy to hop into chatrooms in your area, and allows you to explore videos with others. 
@@ -9,22 +9,24 @@ Team Loon's Web App repo
  addition it includes a voting system that allows users to suggest and pick videos they want to explore. Some chat features are included to 
  prevent poor user experience caused by others (local/global muting, kicking from chatroom). 
  
- *How to Run*
+###How to Run###
+ 
+ ```
+ node app.js
+ ```
+ 
+###Libraries###
  
  
  
- *Libraries*
+###Views###
  
  
  
- *Views*
+###Statefulness###
  
  
  
- *Statefulness*
- 
- 
- 
- *Persistence*
+###Persistence###
  
  
