@@ -160,6 +160,7 @@ app.get('/roomView', (req, res) => {
   var result = team.all();
   var user = req.session.user;
   if(!user || !online[user.name]){
+	req.flash('login', 'You must be logged in to view this page.');
 	res.redirect('/user/login');
   }
   else if (!result.success) {
@@ -176,6 +177,7 @@ app.get('/roomCreation', (req, res) => {
   var result = team.all();
   var user = req.session.user;
   if(!user || !online[user.name]){
+	req.flash('login', 'You must be logged in to view this page.');
 	res.redirect('/user/login');
   }
   else if (!result.success) {
@@ -192,6 +194,7 @@ app.get('/session', (req, res) => {
   var result = team.all();
   var user = req.session.user;
   if(!user || !online[user.name]){
+	req.flash('login', 'You must be logged in to view this page.');
 	res.redirect('/user/login');
   }
   else if (!result.success) {
