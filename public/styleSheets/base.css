@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #banner {
     padding-left: 40%;
     font-size: 50px;
@@ -15,8 +14,13 @@
     background-color: rgb(240,240,240);
     border-radius: 10px;
 }
+#sidebar{
+    background-color: rgb(240,240,240);
+    border-radius: 10px;
+}
 img{
     padding-left:35%;
+
 }
 p {
     font-size: 1em;
@@ -24,7 +28,6 @@ p {
 ul p {
     margin: 10px;
  }
-=======
 /*
 Red : rgb(174,14,14)
 White : rgb(255,255,255)
@@ -32,7 +35,6 @@ Black : rgb(27,22,20)
 Yellow : rgb(222,207,39)
 */
 
->>>>>>> 268ff3eecbad4e203d3e2516b579134680589592
 body
 {
     background-color: rgb(250,250,250);
@@ -41,13 +43,14 @@ html {
 	-moz-box-shadow:    inset 0 0 5px rgb(10,10,10);
 	-webkit-box-shadow: inset 0 0 5px rgb(10,10,10);
 	box-shadow:         inset 0 0 5px rgb(10,10,10);
+	font-family: "Helvetica", helvetica, sans-serif;
 }
-a {
+a:link {
    color: blue;
 }
 a:hover {
     color: red;
 }
 a:visited {
-    color: yellow;
+    color: purple;
 }
