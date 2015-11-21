@@ -47,9 +47,48 @@ Team Loon's Web App repo
  
  https://github.com/expressjs/morgan
  
+ *mongojs*
+ 
+ Database support
+ 
+ https://github.com/mafintosh/mongojs
+ 
 ###Views###
  
+ *About*
  
+ The about page is simply a writeup of our project. It includes a brief summary of our application
+ and its purpose, case uses of the application, and our app logo.
+ 
+ *Team*
+ 
+ This view provides a brief bio of each team member, his year, and his purpose in the project. It
+ also includes our app logo, and a count of the team members (including John Doe).
+ 
+ *404*
+ 
+ This view is used when the requested page is not found. 
+ 
+ *500*
+ 
+ This page appears when there is an internal serverside error.
+ 
+ *Login*
+ 
+ This page is a simplistic login page that allows registered users to login to the website. If a non-logged-in
+ user attempts to access a page that only logged in users are allowed to access, the website redirects to the login
+ page. The app authenticates the username and password when the user attempts to login and redirects back to the 
+ login page if there is a problem.
+ 
+ *Splash*
+ 
+ This is the "main" page of the application; upon connecting to the website, this page is what shows. It includes our team
+ logo and links to itself, the team page, and the about page.
+ 
+ *Video*
+ 
+ This is the temporary chatroom placeholder. Here is where a user will be directed when they join a room and it will include
+ the video being watched (synced up to other users) and a chat box.
  
 ###Statefulness###
  

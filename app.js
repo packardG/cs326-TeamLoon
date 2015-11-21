@@ -144,7 +144,7 @@ app.get('/about', (req, res) => {
   }
 });
 
-app.get('/aboutsofaking', (req, res) => {
+/*app.get('/aboutsofaking', (req, res) => {
 
   var result = team.all();
   if (!result.success) {
@@ -155,6 +155,7 @@ app.get('/aboutsofaking', (req, res) => {
     });
   }
 });
+*/
 
 app.get('/roomView', (req, res) => {
 
