@@ -158,7 +158,11 @@ app.get('/aboutsofaking', (req, res) => {
 app.get('/roomView', (req, res) => {
 
   var result = team.all();
-  if (!result.success) {
+  var user = req.session.user;
+  if(!user || !online[user.name]){
+	res.redirect('/user/login');
+  }
+  else if (!result.success) {
     notFound404(req, res);
   } else {
     res.render('wireframe', {
@@ -166,10 +170,15 @@ app.get('/roomView', (req, res) => {
     });
   }
 });
+
 app.get('/roomCreation', (req, res) => {
 
   var result = team.all();
-  if (!result.success) {
+  var user = req.session.user;
+  if(!user || !online[user.name]){
+	res.redirect('/user/login');
+  }
+  else if (!result.success) {
     notFound404(req, res);
   } else {
     res.render('wireframe', {
@@ -181,7 +190,11 @@ app.get('/roomCreation', (req, res) => {
 app.get('/session', (req, res) => {
 
   var result = team.all();
-  if (!result.success) {
+  var user = req.session.user;
+  if(!user || !online[user.name]){
+	res.redirect('/user/login');
+  }
+  else if (!result.success) {
     notFound404(req, res);
   } else {
     res.render('wireframe', {
