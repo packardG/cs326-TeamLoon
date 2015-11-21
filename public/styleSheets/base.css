@@ -1,6 +1,13 @@
+/*
+Red : rgb(174,14,14)
+White : rgb(255,255,255)
+Black : rgb(27,22,20)
+Yellow : rgb(222,207,39)
+*/
+
 body
 {
-	background-color: rgb(50,50,50);
+	background-color: rgb(200,200,200);
   padding: 50px;
   margin: 0px;
 	-moz-box-shadow:    inset 0 0 50px rgb(10,10,10);

@@ -11,10 +11,11 @@ the users coordinates.
 
 var position;
 
-function user(ID, screenName, getLocation) {
+function user(ID, screenName, password) {
   return {
     ID: ID,
     screenName: screenName,
+    pass: password,
     pos: getLocation()
   };
 }

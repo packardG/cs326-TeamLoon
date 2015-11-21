@@ -3,7 +3,15 @@
 // (2) handlebars - this provides the handlebars templating framework
 var express    = require('express');
 var handlebars = require('express-handlebars');
+<<<<<<< HEAD
 var db = require('./db');
+=======
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var flash = require('connect-flash');
+var morgan = require('morgan');
+>>>>>>> 638a0a3c22956022f343a688f6aaf6f16c524bb9
 
 //////////////////////////////////////////////////////////////////////
 ///// Express App Setup //////////////////////////////////////////////
@@ -37,6 +45,24 @@ app.set('view engine', 'handlebars');
 // matches. We use the __dirname special variable which indicates the
 // directory this server is running in and append it to '/public'.
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(session({
+  secret: 'octocat',
+  // Both of the options below are deprecated, but should be false
+  // until removed from the library - sometimes, the reality of
+  // libraries can be rather annoying!
+  saveUninitialized: false, // does not save uninitialized session.
+  resave: false             // does not save session if not modified.
+}));
+app.use(flash());
+app.use(morgan('combined'));
+
+app.use('/user', require('./routes/user-routes'));
+app.get('/', (req, res) => {
+  res.redirect('/user/login');
+});
 
 // The `testmw` function represents out testing middleware. We use
 // this in our views to conditionally include the Mocha and Chai
@@ -136,7 +162,7 @@ app.get('/roomView', (req, res) => {
     notFound404(req, res);
   } else {
     res.render('wireframe', {
-      image: "/img/roomView.png",
+      layout: "chatroom",
     });
   }
 });
