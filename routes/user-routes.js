@@ -34,7 +34,7 @@ router.post('/auth', (req, res) => {
 
   // Redirect to main if cookie and user is online:
   if (user && online[user]) {
-    res.redirect('/user/main');
+    res.redirect('about');
   }
   else {
     // Pull the values from the form:
@@ -60,8 +60,8 @@ router.post('/auth', (req, res) => {
           req.session.user = user;
 
           // Pass a message to main:
-          req.flash('main', 'Authentication Successful');
-          res.redirect('/user/main');
+          req.flash('about', 'Authentication Successful');
+          res.redirect('about');
         }
       });
     }
