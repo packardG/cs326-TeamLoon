@@ -11,7 +11,9 @@ Team Loon's Web App repo
  
 ###How to Run###
  
- 
+ ```
+ node app.js
+ ```
  
 ###Libraries###
  
