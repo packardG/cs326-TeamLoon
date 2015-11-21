@@ -97,8 +97,8 @@ app.get('/', (req, res) => {
   if (!result.success) {
     notFound404(req, res);
   } else {
-    res.render('wireframe', {
-      image: "/img/splash.png",
+    res.render('splash', {
+      logo: '/img/logo.png',
     });
   }
 
