@@ -1,9 +1,43 @@
+#banner {
+    padding-left: 40%;
+    font-size: 50px;
+}
+#body{
+   padding-bottom: 50px;
+   padding-left: 50px;
+   padding-right: 50px;
+   margin-bottom: 50px;
+   margin-left: 50px;
+   margin-right: 50px;
+}
+#box{
+    background-color: rgb(240,240,240);
+    border-radius: 10px;
+}
+img{
+    padding-left:35%;
+}
+p {
+    font-size: 1em;
+}
+ul p {
+    margin: 10px;
+ }
 body
 {
-	background-color: rgb(200,200,200);
-  padding: 50px;
-  margin: 0px;
-	-moz-box-shadow:    inset 0 0 50px rgb(10,10,10);
-	-webkit-box-shadow: inset 0 0 50px rgb(10,10,10);
-	box-shadow:         inset 0 0 50px rgb(10,10,10);
+    background-color: rgb(250,250,250);
+}
+html {
+	-moz-box-shadow:    inset 0 0 5px rgb(10,10,10);
+	-webkit-box-shadow: inset 0 0 5px rgb(10,10,10);
+	box-shadow:         inset 0 0 5px rgb(10,10,10);
+}
+a {
+   color: blue;
+}
+a:hover {
+    color: red;
+}
+a:visited {
+    color: yellow;
 }

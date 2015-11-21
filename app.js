@@ -80,6 +80,10 @@ app.get('/', (req, res) => {
 
 });
 
+app.get('/video', (req, res) => {
+    res.render('video');
+});
+
 app.get('/team', (req, res) => {
 
   var result;
