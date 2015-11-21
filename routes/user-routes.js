@@ -14,6 +14,9 @@ var online = {};
 // Provides a login view
 router.get('/login', (req, res) => {
 
+   //var tim = user('tim','tim');
+   db.addUser({Yes: 'yes'});
+
   // Grab the session if the user is logged in.
   var user = req.session.user;
 
@@ -58,9 +61,6 @@ router.post('/auth', (req, res) => {
         else {
           // add the user to the map of online users:
           online[user.name] = user;
-
-          
-          db.addUser(tim);
 
           // create a session variable to represent stateful connection
           req.session.user = user;
