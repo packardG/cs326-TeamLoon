@@ -44,6 +44,7 @@ router.post('/auth', (req, res) => {
     var name = req.body.name;
     var pass = req.body.pass;
 
+
     if (!name || !pass) {
       req.flash('login', 'Did not provide the proper credentials.');
       res.redirect('/user/login');
@@ -83,6 +84,7 @@ router.post('/auth', (req, res) => {
       //     res.redirect('about');
       //   }
       // });
+
     }
   }
 });

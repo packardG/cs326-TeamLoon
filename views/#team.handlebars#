@@ -1,10 +1,21 @@
 <h1 id="banner">SofaKing</h1>
 <img src="{{logo}}"/>
+
+
+
+<ul id="sidebar">
+
+	<a href="team">Team</a><br>
+	<a href="temp">Make a session name</a><br>
+	<a href="about">About SofaKing</a>
+</ul>
+
 <div id="body">
 <h1>Team Portfolio</h1>
-
 <h2>Team Members</h2>
 <h2>Total: ({{members.length}})</h2>
+
+
 <ul>
   {{#each members}}
   <div id="box">
