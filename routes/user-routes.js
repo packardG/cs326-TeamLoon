@@ -14,9 +14,6 @@ var online = {};
 // Provides a login view
 router.get('/login', (req, res) => {
 
-   //var tim = user('tim','tim');
-   db.addUser({Yes: 'yes'});
-
   // Grab the session if the user is logged in.
   var user = req.session.user;
 
@@ -52,24 +49,40 @@ router.post('/auth', (req, res) => {
       res.redirect('/user/login');
     }
     else {
-      model.lookup(name, pass, function(error, user) {
-        if (error) {
-          // Pass a message to login:
-          req.flash('login', error);
-          res.redirect('/user/login');
-        }
-        else {
-          // add the user to the map of online users:
-          online[user.name] = user;
+      function success() {
+         online[user.name] = user;
+         db.addUser(user);
+         req.session.user = user;
+         req.flash('about', 'Authentication Successful');
+         res.redirect('about');
+      }
 
-          // create a session variable to represent stateful connection
-          req.session.user = user;
+      function failure() {
+         req.flash('login', 'User not found!');
+         res.redirect('/user/login');
+      }
 
-          // Pass a message to main:
-          req.flash('about', 'Authentication Successful');
-          res.redirect('about');
-        }
-      });
+      db.checkUser(user,success,failure);
+      // model.lookup(name, pass, function(error, user) {
+      //   if (error) {
+      //     // Pass a message to login:
+      //     req.flash('login', error);
+      //     res.redirect('/user/login');
+      //   }
+      //   else {
+      //     // add the user to the map of online users:
+      //     online[user.name] = user;
+      //
+      //     db.addUser(user);
+      //
+      //     // create a session variable to represent stateful connection
+      //     req.session.user = user;
+      //
+      //     // Pass a message to main:
+      //     req.flash('about', 'Authentication Successful');
+      //     res.redirect('about');
+      //   }
+      // });
     }
   }
 });
