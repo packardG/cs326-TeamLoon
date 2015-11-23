@@ -15,6 +15,9 @@ Team Loon's Web App repo
  node app.js
  ```
  
+ There will be a boolean value inside of the application that will start it in "admin mode", which will only be used when performing maintenence
+ on the site.
+ 
 ###Libraries###
  
  *body-parser*
@@ -92,7 +95,13 @@ Team Loon's Web App repo
  
 ###Statefulness###
  
- [https://github.com/hawmalt/cs326-TeamLoon/blob/master/app.js](App)
+ Our application uses sessions for a very specific purpose. In the event that our website needs heavy maintenence or upkeep,
+ it will enter into an "admin mode," during which anonymous users who are not administrators will not be allowed to use the site. This will
+ be done by setting an admin-mode boolean to "true", and will gate the entire site behind the login page. This behavior is conducted
+ in the [app.js] (https://github.com/hawmalt/cs326-TeamLoon/blob/master/app.js) file, and is intended to prevent anonymous users from
+ accessing a non-working version of the site. We will not be implementing named accounts for regular users; this will only be used for
+ administrator accounts.
+ 
  
 ###Persistence###
  
