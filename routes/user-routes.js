@@ -51,15 +51,6 @@ router.post('/auth', (req, res) => {
     }
     else {
       var usr = {screenName: name, pass: pass, lat: undefined, long: undefined};
-<<<<<<< HEAD
-      function success() {
-         online[user.name] = user;
-         db.addUser(usr);
-         req.session.user = user;
-         db.addUser(user);
-         req.flash('about', 'Authentication Successful');
-         res.redirect('about');
-=======
       // function success() {
       //    online[usr.screenName] = usr;
       //    db.addUser(usr);
@@ -84,7 +75,6 @@ router.post('/auth', (req, res) => {
             req.flash('login', 'We didn\'t find you in our DB, so we added you!');
             res.redirect('/user/login');
         }
->>>>>>> 2aca60829df9803872db50654dfc8ebdae632d4b
       }
 
       function failure() {
@@ -118,8 +108,7 @@ router.post('/auth', (req, res) => {
       //     res.redirect('about');
       //   }
       // });
-
-    }
+  }
   }
 });
 

@@ -159,19 +159,9 @@ app.get('/aboutsofaking', (req, res) => {
 
 app.get('/roomView', (req, res) => {
 
-  var result = team.all();
-  var user = req.session.user;
-  if(!user || !online[user.name]){
-	req.flash('login', 'You must be logged in to view this page.');
-	res.redirect('/user/login');
-  }
-  else if (!result.success) {
-    notFound404(req, res);
-  } else {
     res.render('wireframe', {
       layout: "chatroom",
     });
-  }
 });
 
 app.get('/roomCreation', (req, res) => {
