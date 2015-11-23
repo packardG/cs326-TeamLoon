@@ -78,10 +78,10 @@ Team Loon's Web App repo
  
  *Login*
  
- This page is a simplistic page that allows registered users to login to the website. If a non-logged-in
- user attempts to access a page that only logged in users are allowed to access, the website redirects to the login
- page. The app authenticates the username and password when the user attempts to login and redirects back to the 
- login page if there is a problem.
+ This is a simplistic page that allows registered users to login to the website. When the application enters "admin mode",
+ the site will be locked behind the Login page. The app authenticates the username and password when the administrator
+ attempts to login and redirects back to the login page if there is a problem (See the Statefulness section for more 
+ info).
  
  *Splash*
  

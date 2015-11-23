@@ -24,7 +24,6 @@ app.listen(app.get('port'), () => {
               app.get('port') + '; press Ctrl-C to terminate');
 });
 
-
 // PEERJS stuff
 srv = app.listen(27000)
 app.use('/peerjs', require('peer').ExpressPeerServer(srv, {
