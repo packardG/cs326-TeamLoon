@@ -60,15 +60,17 @@ router.post('/auth', (req, res) => {
       // }
 
       function successV2() {
-        var result = db.db.userInfo.findOne({screenName: usr.screenName, pass: usr.pass});
-        if(!online[usr.screenName] && result !== null){
+        var result = db.db.userInfo.findOne({'screenName': usr.screenName}, function (){});
+        console.log(result);
+        if(!online[usr.screenName] && result !== undefined){
           online[usr.screenName] = usr;
           req.session.user = user;
           req.flash('login', 'Logged In Correctly');
           res.redirect('/user/login');
         }
-        else if(result === null) {
+        else if(result === undefined) {
             db.addUser(usr);
+            online[usr.screenName] = usr;
             req.session.user = user;
             req.flash('login', 'We didn\'t find you in our DB, so we added you!');
             res.redirect('/user/login');
