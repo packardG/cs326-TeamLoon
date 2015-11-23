@@ -53,7 +53,6 @@ router.post('/auth', (req, res) => {
       var usr = {screenName: name, pass: pass, lat: undefined, long: undefined};
       function success() {
          online[user.name] = user;
-         online[usr.name] = usr;
          db.addUser(usr);
          req.session.user = user;
          db.addUser(user);
