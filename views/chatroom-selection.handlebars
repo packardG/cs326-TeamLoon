@@ -1,5 +1,10 @@
+<style>
+#list {
+   list-style-type: none;
+}
+</style>
 <img src="{{logo}}"/>
-<h2 id="banner"><strong>Chatrooms</strong></h2>
+<h3 id="banner"><strong>Chatrooms</strong></h3>
 
 <ul id="sidebar">
 	<a href="/">Home</a><br>
@@ -7,10 +12,12 @@
 	<a href="temp">Make a session name</a><br>
 	<a href="about">About SofaKing</a>
 </ul>
+<br>
+<br>
 
-<h1>List of available chatrooms</h1>
+<h3>List of available chatrooms</h3>
 
-<ul>
+<ul id="list">
    {{#each rooms}}
    <div id="box">
       <li><a href="/">{{this.name}}</a><p>{{this.desc}}</p></li>
