@@ -52,8 +52,8 @@ router.post('/auth', (req, res) => {
     else {
       function success() {
          online[user.name] = user;
-         db.addUser(user);
          req.session.user = user;
+         db.addUser(user);
          req.flash('about', 'Authentication Successful');
          res.redirect('about');
       }

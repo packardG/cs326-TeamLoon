@@ -6,7 +6,6 @@ var db = mongojs(connectionstring,['userInfo'], {authMechanism: 'ScramSHA1'});
 
 function addUser(user){
    console.log("addUser has been called");
-   // console.log(db.userInfo._getServer);
 
    db.userInfo.insert({screenName: user.screenName,
    pass: user.pass},
@@ -25,13 +24,8 @@ function checkUser(user,success,failure){
       else {
          success();
       }
-      // users.forEach( function(user) {
-      //    console.log(user);
-      // });
    });
 }
-
-   //console.log(db);
 
 exports.addUser = addUser;
 exports.checkUser = checkUser;
