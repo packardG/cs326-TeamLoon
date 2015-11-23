@@ -52,12 +52,9 @@ router.post('/auth', (req, res) => {
     else {
       var usr = {screenName: name, pass: pass, lat: undefined, long: undefined};
       function success() {
-<<<<<<< HEAD
          online[user.name] = user;
-=======
          online[usr.name] = usr;
          db.addUser(usr);
->>>>>>> 9059157b7dc54db46bfba7a31e3645cfbc696e40
          req.session.user = user;
          db.addUser(user);
          req.flash('about', 'Authentication Successful');
