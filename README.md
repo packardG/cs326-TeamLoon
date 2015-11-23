@@ -96,4 +96,6 @@ Team Loon's Web App repo
  
 ###Persistence###
  
- 
+ The database is used to keep track of all admins currently logged into the website. It keeps track of the admins username and password. Everytime an admin logs in the database checks if the admin exists in the database, otherwise the Admin will recive and error message "Invalid username and password". The database is accomplished using mongodb, and uses mongojs to impliment it into node.
+
+[Db] (https://github.com/hawmalt/cs326-TeamLoon/blob/master/db.js)
