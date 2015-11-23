@@ -50,8 +50,14 @@ router.post('/auth', (req, res) => {
       res.redirect('/user/login');
     }
     else {
+      var usr = {screenName: name, pass: pass, lat: undefined, long: undefined};
       function success() {
+<<<<<<< HEAD
          online[user.name] = user;
+=======
+         online[usr.name] = usr;
+         db.addUser(usr);
+>>>>>>> 9059157b7dc54db46bfba7a31e3645cfbc696e40
          req.session.user = user;
          db.addUser(user);
          req.flash('about', 'Authentication Successful');
@@ -63,7 +69,7 @@ router.post('/auth', (req, res) => {
          res.redirect('/user/login');
       }
 
-      db.checkUser(user,success,failure);
+      db.checkUser(usr,success,failure);
       // model.lookup(name, pass, function(error, user) {
       //   if (error) {
       //     // Pass a message to login:

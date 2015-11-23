@@ -1,5 +1,5 @@
 var mongojs = require('mongojs');
-var user = require('./routes/user-routes.js');
+var user = require('./routes/user-routes.js'); //Should this be ./lib/user.js????
 
 var connectionstring = 'mongodb://admin:admin@ds057204.mongolab.com:57204/users';
 var db = mongojs(connectionstring,['userInfo'], {authMechanism: 'ScramSHA1'});
