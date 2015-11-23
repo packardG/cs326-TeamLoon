@@ -36,7 +36,7 @@ router.post('/auth', (req, res) => {
   var user = req.session.user;
 
   // Redirect to main if cookie and user is online:
-  if (user && online[user]) {
+  if (user && online[usr.name]) {
     res.redirect('about');
   }
   else {
@@ -51,20 +51,41 @@ router.post('/auth', (req, res) => {
     }
     else {
       var usr = {screenName: name, pass: pass, lat: undefined, long: undefined};
-      function success() {
-         online[usr.name] = usr;
-         db.addUser(usr);
-         req.session.user = user;
-         req.flash('about', 'Authentication Successful');
-         res.redirect('about');
+      // function success() {
+      //    online[usr.screenName] = usr;
+      //    db.addUser(usr);
+      //    req.session.user = user;
+      //    req.flash('about', 'Authentication Successful');
+      //    res.redirect('about');
+      // }
+
+      function successV2() {
+        var result = db.db.userInfo.findOne({screenName: usr.screenName, pass: usr.pass});
+        if(!online[usr.screenName] && result !== null){
+          online[usr.screenName] = usr;
+          req.session.user = user;
+          req.flash('login', 'Logged In Correctly');
+          res.redirect('/user/login');
+        }
+        else if(result === null) {
+            db.addUser(usr);
+            req.session.user = user;
+            req.flash('login', 'We didn\'t find you in our DB, so we added you!');
+            res.redirect('/user/login');
+        }
       }
 
       function failure() {
-         req.flash('login', 'User not found!');
+        /*
+        online[usr.name] = usr;
+        db.addUser(usr);
+        req.session.user = user;
+        */
+         req.flash('login', 'User not found! We added your info to our database.');
          res.redirect('/user/login');
       }
 
-      db.checkUser(usr,success,failure);
+      db.checkUser(usr,successV2,failure);
       // model.lookup(name, pass, function(error, user) {
       //   if (error) {
       //     // Pass a message to login:

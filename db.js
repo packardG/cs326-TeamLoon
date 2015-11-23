@@ -16,14 +16,14 @@ function addUser(user){
    });
 }
 
-function checkUser(user,success,failure){
+function checkUser(user,successV2,failure){
    db.userInfo.find({screenName: user.screenName, pass: user.pass},
    function(err, users) {
       if(err) {
          failure();
          console.log("No users found");}
       else {
-         success();
+         successV2();
       }
       // users.forEach( function(user) {
       //    console.log(user);
@@ -35,3 +35,4 @@ function checkUser(user,success,failure){
 
 exports.addUser = addUser;
 exports.checkUser = checkUser;
+exports.db = db;
