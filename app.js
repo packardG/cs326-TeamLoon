@@ -3,6 +3,7 @@
 // (2) handlebars - this provides the handlebars templating framework
 var express    = require('express');
 var handlebars = require('express-handlebars');
+var db = require('./db');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -96,8 +97,8 @@ app.get('/', (req, res) => {
   if (!result.success) {
     notFound404(req, res);
   } else {
-    res.render('wireframe', {
-      image: "/img/splash.png",
+    res.render('splash', {
+      logo: '/img/logo.png',
     });
   }
 
@@ -154,6 +155,7 @@ app.get('/aboutsofaking', (req, res) => {
     });
   }
 });
+
 
 app.get('/roomView', (req, res) => {
 
