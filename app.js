@@ -169,7 +169,7 @@ function room(name, desc, lat, long) {
 var rooms = [
   room('amherst', 'bleh', 0, 0),
   room('sunderland', 'neverland', 0, 0),
-  room('')
+  room('hadley', 'mall place', 0, 0)
 ];
 
 
