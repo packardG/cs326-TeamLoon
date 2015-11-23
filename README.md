@@ -63,7 +63,7 @@ Team Loon's Web App repo
  *Team*
  
  This view provides a brief bio of each team member, his year, and his purpose in the project. It
- also includes our app logo, and a count of the team members (including John Doe).
+ also includes our app logo, and a count of the team members (including the legendary John Doe).
  
  *404*
  
@@ -92,7 +92,7 @@ Team Loon's Web App repo
  
 ###Statefulness###
  
- 
+ (App)[app.js]
  
 ###Persistence###
  
