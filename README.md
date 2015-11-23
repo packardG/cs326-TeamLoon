@@ -85,7 +85,7 @@ Team Loon's Web App repo
  This is the "main" page of the application; upon connecting to the website, this page is what shows. It includes our team
  logo and links to itself, the team page, and the about page.
  
- *Video*
+ *Room View*
  
  This is the temporary chatroom placeholder. Here is where a user will be directed when they join a room and it will include
  the video being watched (synced up to other users) and a chat box.
@@ -96,6 +96,6 @@ Team Loon's Web App repo
  
 ###Persistence###
  
- The database is used to keep track of all admins currently logged into the website. It keeps track of the admins username and password. Everytime an admin logs in the database checks if the admin exists in the database, otherwise the Admin will recive and error message "Invalid username and password". The database is accomplished using mongodb, and uses mongojs to impliment it into node.
+ The database is used let admins log onto the website when in Admin mode. It keeps track of the admins username and password. Everytime an admin logs in the database checks if and account with the proper credentials exists in the database, otherwise the Admin will receive and error message "Invalid username and password". The database is accomplished using mongodb, and uses mongojs to impliment it into our node application (SofaKing).
 
 [Db] (https://github.com/hawmalt/cs326-TeamLoon/blob/master/db.js)
