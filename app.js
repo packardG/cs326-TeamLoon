@@ -157,22 +157,6 @@ app.get('/aboutsofaking', (req, res) => {
 });
 
 
-function room(name, desc, lat, long) {
-  return {
-    name: name,
-    desc: desc,
-    lat: lat,
-    long: long
-  };
-}
-
-var rooms = [
-  room('amherst', 'bleh', 0, 0),
-  room('sunderland', 'neverland', 0, 0),
-  room('')
-];
-
-
 app.get('/roomView', (req, res) => {
 
     res.render('wireframe', {
