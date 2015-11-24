@@ -156,6 +156,8 @@ app.get('/aboutsofaking', (req, res) => {
   }
 });
 
+
+//Used to create fake chatrooms for our chatroom-selection view.
 function room(name, desc, lat, long) {
   return {
     name: name,
@@ -164,7 +166,6 @@ function room(name, desc, lat, long) {
     long: long
   };
 }
-
 var rooms = [
   room('amherst', 'bleh', 0, 0),
   room('sunderland', 'neverland', 0, 0),
