@@ -33,6 +33,7 @@ app.use('/peerjs', require('peer').ExpressPeerServer(server, {
 
 var connected = [];
 server.on('connection', function (id) {
+  console.log(id);
   var idx = connected.indexOf(id); // only add id if it's not in the list yet
   if (idx === -1) {connected.push(id);}
 });
