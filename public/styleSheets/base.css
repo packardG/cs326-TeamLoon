@@ -20,8 +20,10 @@
     background-color: rgb(240,240,240);
     border-radius: 10px;
 }
-img{
-    padding-left:37%;
+img.logo{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 p {
     font-size: 1em;
