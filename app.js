@@ -82,7 +82,8 @@ app.post('/auth',(req,res) => {
 app.get('/login',(req,res) => {
   res.render('login', {
     title : "Oops, sorry! A janitor is cleaning up some nasty code",
-    message : "We'll be back in a jiff. If you are an admin please log in here!"
+    message : "We'll be back in a jiff. If you are an admin please log in here!",
+    layout : "none",
   });
 });
 
@@ -110,9 +111,7 @@ app.get('/', (req, res) => {
       res.redirect('/login');
       return;
     }
-    res.render('splash', {
-      logo: '/img/logo.png',
-    });
+    res.render('splash');
 });
 
 app.get('/team', (req, res) => {
@@ -138,8 +137,6 @@ app.get('/team', (req, res) => {
   } else {
     res.render('team', {
       members: result.data,
-      logo: '/img/logo.png',
-      pageTestScript: '/qa/tests-team.js'
     });
   }
 });
@@ -155,21 +152,7 @@ app.get('/about', (req, res) => {
   if (!result.success) {
     notFound404(req, res);
   } else {
-    res.render('about', {
-      logo : '/img/logo.png'
-    });
-  }
-});
-
-app.get('/aboutsofaking', (req, res) => {
-
-  var result = team.all();
-  if (!result.success) {
-    notFound404(req, res);
-  } else {
-    res.render('wireframe', {
-      image: "/img/aboutsofaking.png",
-    });
+    res.render('about');
   }
 });
 
@@ -189,39 +172,37 @@ var rooms = [
 ];
 
 app.get('/roomView', (req, res) => {
-
-   res.render('chatroom-selection', {
-      logo: '/img/logo.png',
-      rooms: rooms
-    });
+  var sessionUser = req.session.user;
+  if (maintanace && !loggedIn(sessionUser)) {
+    res.redirect('/login');
+    return;
+  }
+  res.render('wireframe', {
+    layout : "chatroom",
+  });
 });
 
-app.get('/roomCreation', (req, res) => {
-  var result = team.all();
-  var user = req.session.user;
-  if(!user || !online[user.name]){
-	req.flash('login', 'You must be logged in to view this page.');
-	res.redirect('/user/login');
+app.get('/roomSelection', (req, res) => {
+  var sessionUser = req.session.user;
+  if (maintanace && !loggedIn(sessionUser)) {
+    res.redirect('/login');
+    return;
   }
-  else if (!result.success) {
-    notFound404(req, res);
-  } else {
-    res.render('wireframe', {
-      image: "/img/roomCreation.png",
-    });
-  }
+  res.render('chatroom-selection', {
+    rooms: rooms
+  });
 });
 
 //Errors
 function notFound404(req, res) {
   res.status(404);
-  res.render('404');
+  res.render('404', {layout : 'none'});
 }
 
 function internalServerError500(err, req, res, next) {
   console.error(err.stack);
   res.status(500);
-  res.render('500');
+  res.render('500', {layout : 'none'});
 }
 
 app.use(notFound404);
