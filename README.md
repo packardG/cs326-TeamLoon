@@ -15,7 +15,10 @@ Team Loon's Web App repo
  node app.js
  ```
 
- There will be a boolean value inside of the application that will start it in "admin mode", which will only be used when performing maintenence
+
+ There will be a boolean value inside of the application that will start it in "admin mode", which will only be used when performing maintenance
+
+ There will be a boolean value inside of the application that will start it in "admin mode", which will only be used when performing maintenance
  on the site.
 
 ###Libraries###
@@ -91,12 +94,20 @@ Team Loon's Web App repo
  *Room View*
 
  This is the temporary chatroom placeholder. Here is where a user will be directed when they join a room and it will include
+
  the video being watched (synced up to other users) and a chat box. It is currently presenting
  a preview of fake chatrooms with a link and simple description.
 
 ###Statefulness###
 
- Our application uses sessions for a very specific purpose. In the event that our website needs heavy maintenence or upkeep,
+ Our application uses sessions for a very specific purpose. In the event that our website needs heavy maintenance or upkeep,
+
+ the video being watched (synced up to other users) and a chat box.
+
+###Statefulness###
+
+ Our application uses sessions for a very specific purpose. In the event that our website needs heavy maintenance or upkeep,
+
  it will enter into an "admin mode," during which anonymous users who are not administrators will not be allowed to use the site. This will
  be done by setting an admin-mode boolean to "true", and will gate the entire site behind the login page. This behavior is conducted
  in the [app.js] (https://github.com/hawmalt/cs326-TeamLoon/blob/master/app.js) file, and is intended to prevent anonymous users from
@@ -106,6 +117,12 @@ Team Loon's Web App repo
 
 ###Persistence###
 
- The database is used let admins log onto the website when in Admin mode. It keeps track of the admins username and password. Everytime an admin logs in the database checks if and account with the proper credentials exists in the database, otherwise the Admin will receive and error message "Invalid username and password". The database is accomplished using mongodb, and uses mongojs to impliment it into our node application (SofaKing).
+
+ The database is used let admins log onto the website when in Admin mode. It keeps track of the admins username and password. Every time an admin logs in the database checks if and account with the proper credentials exists in the database, otherwise the Admin will receive and error message "Invalid username and password". The database is accomplished using mongodb, and uses mongojs to implement it into our node application (SofaKing).
+
+
+
+ The database is used to let admins log onto the website when in maintenance mode. It keeps track of the admins username and password. Every time an admin logs in the database checks if and account with the proper credentials exists in the database, otherwise the Admin will receive and error message "Invalid username and password". The database is accomplished using mongodb, and uses mongojs to implement it into our node application (SofaKing).
+
 
 [Db] (https://github.com/hawmalt/cs326-TeamLoon/blob/master/db.js)

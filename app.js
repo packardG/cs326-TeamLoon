@@ -83,7 +83,7 @@ app.get('/login',(req,res) => {
   res.render('login', {
     title : "Oops, sorry! A janitor is cleaning up some nasty code",
     message : "We'll be back in a jiff. If you are an admin please log in here!",
-    layout : "none",
+   //  layout : "none",
   });
 });
 
