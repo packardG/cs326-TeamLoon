@@ -161,16 +161,6 @@ app.get('/about', (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-app.get('/roomView', (req, res) => {
-  var sessionUser = req.session.user;
-  if (maintanace && !loggedIn(sessionUser)) {
-    res.redirect('/login');
-    return;
-  }
-    res.render('wireframe', {
-      layout: "chatroom",
-=======
 app.get('/aboutsofaking', (req, res) => {
 
   var result = team.all();
@@ -203,7 +193,6 @@ app.get('/roomView', (req, res) => {
    res.render('chatroom-selection', {
       logo: '/img/logo.png',
       rooms: rooms
->>>>>>> bf9a81ca073b1d06ac5d3a016dd5110d3f94b08c
     });
 });
 
