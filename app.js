@@ -157,7 +157,7 @@ app.get('/about', (req, res) => {
 });
 
 
-//Used to create fake chatrooms for our chatroom-selection view.
+//Used to create temporary fake chatrooms for our chatroom-selection view.
 function room(name, desc, lat, long) {
   return {
     name: name,
