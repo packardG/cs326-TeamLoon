@@ -161,6 +161,7 @@ app.get('/about', (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 app.get('/roomView', (req, res) => {
   var sessionUser = req.session.user;
   if (maintanace && !loggedIn(sessionUser)) {
@@ -169,6 +170,40 @@ app.get('/roomView', (req, res) => {
   }
     res.render('wireframe', {
       layout: "chatroom",
+=======
+app.get('/aboutsofaking', (req, res) => {
+
+  var result = team.all();
+  if (!result.success) {
+    notFound404(req, res);
+  } else {
+    res.render('wireframe', {
+      image: "/img/aboutsofaking.png",
+    });
+  }
+});
+
+function room(name, desc, lat, long) {
+  return {
+    name: name,
+    desc: desc,
+    lat: lat,
+    long: long
+  };
+}
+
+var rooms = [
+  room('amherst', 'bleh', 0, 0),
+  room('sunderland', 'neverland', 0, 0),
+  room('hadley', 'mall place', 0, 0)
+];
+
+app.get('/roomView', (req, res) => {
+
+   res.render('chatroom-selection', {
+      logo: '/img/logo.png',
+      rooms: rooms
+>>>>>>> bf9a81ca073b1d06ac5d3a016dd5110d3f94b08c
     });
 });
 

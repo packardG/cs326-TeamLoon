@@ -1,0 +1,25 @@
+<style>
+#list {
+   list-style-type: none;
+}
+</style>
+<img src="{{logo}}"/>
+<h3 id="banner"><strong>Chatrooms</strong></h3>
+
+<ul id="sidebar">
+	<a href="/">Home</a><br>
+	<a href="team">Team</a><br>
+	<a href="about">About SofaKing</a>
+</ul>
+<br>
+<br>
+
+<h3>List of available chatrooms</h3>
+
+<ul id="list">
+   {{#each rooms}}
+   <div id="box">
+      <li><a href="/">{{this.name}}</a><p>{{this.desc}}</p></li>
+   </div>
+   {{/each}}
+</ul>
