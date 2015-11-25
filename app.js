@@ -83,7 +83,7 @@ app.get('/login',(req,res) => {
   res.render('login', {
     title : "Oops, sorry! A janitor is cleaning up some nasty code",
     message : "We'll be back in a jiff. If you are an admin please log in here!",
-    layout : "none",
+   //  layout : "none",
   });
 });
 
@@ -156,6 +156,8 @@ app.get('/about', (req, res) => {
   }
 });
 
+
+//Used to create temporary fake chatrooms for our chatroom-selection view.
 function room(name, desc, lat, long) {
   return {
     name: name,
@@ -164,7 +166,6 @@ function room(name, desc, lat, long) {
     long: long
   };
 }
-
 var rooms = [
   room('amherst', 'bleh', 0, 0),
   room('sunderland', 'neverland', 0, 0),
