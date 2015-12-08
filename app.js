@@ -7,14 +7,17 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var morgan = require('morgan');
 
+
 //local libraries
 var db = require('./lib/db');
 var team = require('./lib/team.js');
 
-var maintanace = true;
+var maintanace = false;
 
 // initialize our app
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 app.set('port', process.env.PORT || 3000);
 
@@ -156,6 +159,20 @@ app.get('/about', (req, res) => {
   }
 });
 
+app.get('/testChatRoom', (req, res) => {
+  var sessionUser = req.session.user;
+  if (maintanace && !loggedIn(sessionUser)) {
+    res.redirect('/login');
+    return;
+  }
+
+  var result = team.all();
+  if (!result.success) {
+    notFound404(req, res);
+  } else {
+    res.render('testChatRoom');
+  }
+});
 
 //Used to create temporary fake chatrooms for our chatroom-selection view.
 function room(name, desc, lat, long) {
@@ -194,6 +211,13 @@ app.get('/roomSelection', (req, res) => {
   });
 });
 
+io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    console.log('message: ' + msg);
+    io.sockets.emit('chat message', msg);
+  });
+});
+
 //Errors
 function notFound404(req, res) {
   res.status(404);
@@ -208,9 +232,8 @@ function internalServerError500(err, req, res, next) {
 
 app.use(notFound404);
 app.use(internalServerError500);
-//
 
-app.listen(app.get('port'), () => {
+http.listen(3000, () => {
   console.log('Express started on http://localhost:' +
-              app.get('port') + '; press Ctrl-C to terminate');
+      3000 + '; press Ctrl-C to terminate');
 });
