@@ -98,11 +98,6 @@ Team Loon's Web App repo
  the video being watched (synced up to other users) and a chat box. It is currently presenting
  a preview of fake chatrooms with a link and simple description.
 
-###Statefulness###
-
- Our application uses sessions for a very specific purpose. In the event that our website needs heavy maintenance or upkeep,
-
- the video being watched (synced up to other users) and a chat box.
 
 ###Statefulness###
 
@@ -116,11 +111,6 @@ Team Loon's Web App repo
 
 
 ###Persistence###
-
-
- The database is used let admins log onto the website when in Admin mode. It keeps track of the admins username and password. Every time an admin logs in the database checks if and account with the proper credentials exists in the database, otherwise the Admin will receive and error message "Invalid username and password". The database is accomplished using mongodb, and uses mongojs to implement it into our node application (SofaKing).
-
-
 
  The database is used to let admins log onto the website when in maintenance mode. It keeps track of the admins username and password. Every time an admin logs in the database checks if and account with the proper credentials exists in the database, otherwise the Admin will receive and error message "Invalid username and password". The database is accomplished using mongodb, and uses mongojs to implement it into our node application (SofaKing).
 
