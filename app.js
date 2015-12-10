@@ -44,9 +44,12 @@ function loggedIn(sessionUser) {
 }
 
 io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    console.log('message: ' + msg);
-    io.sockets.emit('chat message', msg);
+
+  console.log("Connection");
+
+  socket.on('chat message', function(data){
+    console.log('message: ' + data.message);
+    io.sockets.emit('chat message', {message: data.message});
   });
 });
 

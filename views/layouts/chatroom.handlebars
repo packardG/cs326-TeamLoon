@@ -46,17 +46,33 @@
   		    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/qaddgd8UI90" frameborder="0" allowfullscreen></iframe>
       </div>
       <div class="userlist" style="float : left;">
-       User list
+        User list
       </div>
       <div class="chatbox" style="clear : left">
-        <div class="chatlog">
-          Chatroom Messages
-        </div>
-        <div>
-          <input type="text" class="chatentry">
-        <div>
-      </input>
+          <ul id="chatlog"></ul>
+          <form action="">
+              <input id="m" autocomplete="off" />
+          </form>
       </div>
     </div>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+
+      $('form').submit(function(e){
+        e.preventDefault();
+        socket.emit('chat message', {message: $('#m').val()});
+        $('#m').val('');
+        return false;
+      });
+
+      socket.on('chat message', function(data){
+        $('#chatlog').append($('<li>').text(data.message));
+      });
+    </script>
+
 	</body>
+
 </html>
