@@ -116,45 +116,27 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/testChatRoom', (req, res) => {
-        var sessionUser = req.session.user;
-        if (maintanace && !loggedIn(sessionUser)) {
-            res.redirect('/login');
-            return;
-        }
-
-        var result = team.all();
-        if (!result.success) {
-            notFound404(req, res);
-        } else {
-            res.render('testChatRoom');
-        }
-    });
-
-//Used to create temporary fake chatrooms for our chatroom-selection view.
-    function room(name, desc, lat, long) {
-        return {
-            name: name,
-            desc: desc,
-            lat: lat,
-            long: long
-        };
-    }
-    var rooms = [
-        room('amherst', 'bleh', 0, 0),
-        room('sunderland', 'neverland', 0, 0),
-        room('hadley', 'mall place', 0, 0)
-    ];
-
     app.get('/roomView', (req, res) => {
         var sessionUser = req.session.user;
         if (maintanace && !loggedIn(sessionUser)) {
             res.redirect('/login');
             return;
         }
-        res.render('wireframe', {
-            layout : "chatroom",
-        });
+
+        var queryVal = req.query.roomName;
+
+        //Check to see if query was valid and if a room with that name is in the database
+        if(queryVal){
+            var room = db.findRoom(queryVal);
+            if(room){
+                res.render('wireframe', {
+                    layout : "chatroom",
+                });
+                return;
+            }
+        }
+
+        res.redirect('/roomSelection');
     });
 
     app.get('/roomSelection', (req, res) => {
@@ -163,8 +145,11 @@ module.exports = function (app) {
             res.redirect('/login');
             return;
         }
+
+        var allRooms = db.getAllRooms();
+
         res.render('chatroom-selection', {
-            rooms: rooms
+            rooms: allRooms
         });
     });
 

@@ -100,35 +100,40 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      var socket = io();
+        $( document ).ready(function() {
+            var socket = io();
 
-      $('#chatInput').submit(function(e){
-        e.preventDefault();
-        socket.emit('chat message', {message: $('#m').val()});
-        $('#m').val('');
-        return false;
-      });
+            var query = window.location.search.slice(10);
+            socket.emit('adduser', {room: query});
 
-      socket.on('chat message', function(data){
-        $('#chatlog').append($('<li>').text(data.message));
-          console.log(player.getVideoData());
-      });
+            $('#chatInput').submit(function (e) {
+                e.preventDefault();
+                socket.emit('chat message', $('#m').val());
+                $('#m').val('');
+                return false;
+            });
 
-      $('#suggestInput').submit(function(e){
-          e.preventDefault();
-          socket.emit('suggest video', {suggestedvideo: $('#videoSuggestion').val()});
-          $('#videoSuggestion').val('');
-          return false;
-      });
+            socket.on('chat message', function (userName, message) {
+                $('#chatlog').append($('<li>').text(userName + ": " + message));
+            });
 
-      socket.on('suggest video', function(data){
-          $('#votingArea').append($('<li>').text(data.suggestedvideo));
-          player.loadVideoById(data.suggestedvideo);
-      });
+            $('#suggestInput').submit(function (e) {
+                e.preventDefault();
+                socket.emit('suggest video', {suggestedvideo: $('#videoSuggestion').val()});
+                $('#videoSuggestion').val('');
+                return false;
+            });
 
-      socket.on('change video', function(data){
-          player.loadVideoById(data.videoid);
-      });
+            socket.on('suggest video', function (data) {
+                $('#votingArea').append($('<li>').text(data.suggestedvideo));
+                player.loadVideoById(data.suggestedvideo);
+            });
+
+            socket.on('change video', function (data) {
+                player.loadVideoById(data.videoid);
+                $('#votingArea').empty();
+            });
+        });
     </script>
 
 	</body>
