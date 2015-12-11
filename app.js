@@ -58,6 +58,7 @@ io.on('connection', function(socket){
     //TODO Look up title based on Youtube URL
 
     io.sockets.emit('suggest video', {suggestedvideo: data.suggestedvideo});
+    io.sockets.emit('change video', {videoid: data.suggestedvideo});
   });
 
 });
