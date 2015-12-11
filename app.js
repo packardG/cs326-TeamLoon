@@ -55,15 +55,13 @@ io.on('connection', function(socket){
   socket.on('suggest video', function(data){
     console.log('suggest video: ' + data.suggestedvideo);
 
-    //TODO Look up title based on Youtube URL
-
     io.sockets.emit('suggest video', {suggestedvideo: data.suggestedvideo});
     io.sockets.emit('change video', {videoid: data.suggestedvideo});
   });
 
 });
 
-http.listen(3000, '0.0.0.0', () => {
+http.listen(3000, "0.0.0.0", () => {
   console.log('Express started on http://localhost:' +
       3000 + '; press Ctrl-C to terminate');
 });
