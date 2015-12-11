@@ -51,6 +51,15 @@ io.on('connection', function(socket){
     console.log('message: ' + data.message);
     io.sockets.emit('chat message', {message: data.message});
   });
+
+  socket.on('suggest video', function(data){
+    console.log('suggest video: ' + data.suggestedvideo);
+
+    //TODO Look up title based on Youtube URL
+
+    io.sockets.emit('suggest video', {suggestedvideo: data.suggestedvideo});
+  });
+
 });
 
 http.listen(3000, '0.0.0.0', () => {

@@ -19,9 +19,9 @@
           <a class="tab" href="#urlPopup" data-rel="popup">Suggest a New Video</a>
 
           <div data-role="popup" id="urlPopup" class="ui-content" style="min-width:1000px;">
-            <form method="post" action="demoform.asp">
+            <form id="suggestInput" method="post" action="demoform.asp">
               <label for="usrnm" class="ui-hidden-accessible">URL:</label>
-              <input type="text" name="url" id="video" placeholder="URL">
+              <input type="text" name="url" id="videoSuggestion" placeholder="URL">
             </form>
           </div>
         </div>
@@ -37,8 +37,7 @@
           <a class="tab" href="#votingPopup" data-rel="popup">Voting</a>
 
           <div data-role="popup" id="votingPopup" class="ui-content" style="min-width:1000px;">
-            voting for the next videos are recorded here
-              <!-- Write video Queue display -->
+              <ul id="votingArea"></ul>
           </div>
         </div>
       </div>
@@ -50,18 +49,20 @@
       </div>
       <div class="chatbox" style="clear : left">
           <ul id="chatlog"></ul>
-          <form action="">
+          <form id="chatInput" action="">
               <input id="m" autocomplete="off" />
           </form>
       </div>
     </div>
 
+    <script>
 
+    </script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
 
-      $('form').submit(function(e){
+      $('#chatInput').submit(function(e){
         e.preventDefault();
         socket.emit('chat message', {message: $('#m').val()});
         $('#m').val('');
@@ -70,6 +71,17 @@
 
       socket.on('chat message', function(data){
         $('#chatlog').append($('<li>').text(data.message));
+      });
+
+      $('#suggestInput').submit(function(e){
+          e.preventDefault();
+          socket.emit('suggest video', {suggestedvideo: $('#videoSuggestion').val()});
+          $('#videoSuggestion').val('');
+          return false;
+      });
+
+      socket.on('suggest video', function(data){
+          $('#votingArea').append($('<li>').text(data.suggestedvideo));
       });
     </script>
 
