@@ -181,6 +181,10 @@
 	        first = 1;
 	        console.log(vidArr);
             });
+
+						socket.on('userAdded', function(data){
+							$('userlist').append($('<li>').text(user.userName));
+						});
         });
     </script>
 

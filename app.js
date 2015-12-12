@@ -63,11 +63,13 @@ io.on('connection', function(socket){
 
   console.log("Connection");
 
+
   //THIS SHOULD BE CALLED RIGHT WHEN THE USER CONNECTS
   socket.on('adduser', function(data){
-    console.log(data);
-    socket.room = data.room;
-    socket.u = chatroom.joinRoom(socket.room, "temp");
+    console.log(data.room);
+    socket.room = chatroom.findRoom(data.room);
+    // console.log(chatroom.findRoom(data.room));
+    socket.u = chatroom.joinRoom(socket.room.name, "temp");
 
     //TODO Generate a new username
 
@@ -96,19 +98,22 @@ io.on('connection', function(socket){
     // activeUsernames.push(socket.username);
 
     // send client to the room
-    socket.join(socket.room);
+    socket.join(socket.room.name);
 
-    io.sockets.in(socket.room).emit('chat message', 'SERVER', socket.username + ' has entered the chatroom');
+    io.sockets.in(socket.room.name).emit('chat message', 'SERVER', socket.username + ' has entered the chatroom');
   });
 
 
   socket.on('chat message', function(message){
-    io.sockets.in(socket.room).emit('chat message', socket.username, message);
+    io.sockets.in(socket.room.name).emit('chat message', socket.username, message);
   });
 
   socket.on('suggest video', function(data){
     console.log('suggest video: ' + splitter(data.suggestedvideo));
     var vid = splitter(data.suggestedvideo);
+
+    io.sockets.in(socket.room.name).emit('suggest video', {suggestedvideo: vid});
+    io.sockets.in(socket.room.name).emit('change video', {videoid: vid});
 //   suggestedVids.push(vid);
     io.sockets.in(socket.room).emit('suggest video', {suggestedvideo: vid});
     io.sockets.in(socket.room).emit('change video', {videoid: vid});
@@ -117,13 +122,13 @@ io.on('connection', function(socket){
 
   socket.on('disconnect', function(){
 
-    socket.broadcast.to(socket.room).emit('chat message', 'SERVER', socket.username + ' has disconnected');
+    // socket.broadcast.to(socket.room.name).emit('chat message', 'SERVER', socket.username + ' has disconnected');
     // var i = activeUsernames.indexOf(socket.username);
     // if(i != -1){
     //   activeUsernames.splice(i, 1);
     // }
-    chatroom.removeUser(chatroom.findRoom(socket.room),socket.u);
-    socket.leave(socket.room);
+    // socket.leave(socket.room.name);
+    chatroom.removeUser(socket.room,socket.u);
   });
 
  //  socket.on('Call Vote', function(){
