@@ -123,6 +123,7 @@
         var done = false;
         function onPlayerStateChange(event) {
             if (event.data === 0) {
+                    console.log("should play next vid");
                     player.loadVideoById(vidArr[0]);
                     $('#videoQ li').eq(0).remove();
 	            vidArr.shift();
@@ -136,6 +137,7 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        var first = 0;
         var vidArr = [];
         $( document ).ready(function() {
             var socket = io();
@@ -172,9 +174,18 @@
 
             socket.on('change video', function (data) {
 	        console.log(vidArr);
-                player.loadVideoById(vidArr[0]);
-	        vidArr.shift();
+	        if(first === 0){
+	            console.log('in the first if statement');
+                    player.loadVideoById(vidArr[0]);
+   	            vidArr.shift();
+	        }
+	        first = 1;
+	        console.log(vidArr);
             });
+
+						socket.on('userAdded', function(data){
+							$('userlist').append($('<li>').text(user.userName));
+						});
         });
     </script>
 
