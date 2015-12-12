@@ -43,11 +43,11 @@ function loggedIn(sessionUser) {
   return sessionUser && db.isOnline(sessionUser);
 }
 
-var usernames = ['Loon', 'Elephant', 'Lynx', 'Dog', 'Cat', 'Falcon', 'Eagle', 'Chimpanzee', 'Tick', 'DoDo', 'Penguin',
-'Cheetah', 'Whale', 'Philip Seymour Hoffman', 'Goldfish', 'Unicorn', 'Lion', 'Tiger', 'Bear', 'Chickadee', 'Liger',
-'Monkey', 'Giraffe', 'Seal', 'Walrus', 'Toucan', 'Chipmunk', 'Gorilla'];
-
-var activeUsernames = [];
+// var usernames = ['Loon', 'Elephant', 'Lynx', 'Dog', 'Cat', 'Falcon', 'Eagle', 'Chimpanzee', 'Tick', 'DoDo', 'Penguin',
+// 'Cheetah', 'Whale', 'Philip Seymour Hoffman', 'Goldfish', 'Unicorn', 'Lion', 'Tiger', 'Bear', 'Chickadee', 'Liger',
+// 'Monkey', 'Giraffe', 'Seal', 'Walrus', 'Toucan', 'Chipmunk', 'Gorilla'];
+//
+// var activeUsernames = [];
 
 function splitter(url){
     if (url.indexOf('=') === -1){
@@ -68,18 +68,18 @@ io.on('connection', function(socket){
 
     //TODO Generate a new username
 
-    function getName(nameString){
-      var tempName = nameString;
-      // var tempName = usernames[Math.floor((Math.random() * usernames.length) + 1)];
-      if(activeUsernames.indexOf(tempName) === -1){
-        return tempName;
-      }
-      else{
-        tempName = tempName + '+';
-        getName(tempName);
-        // getName(Math.floor((Math.random()* usernames.length) + 1));
-      }
-    }
+    // function getName(nameString){
+    //   var tempName = nameString;
+    //   // var tempName = usernames[Math.floor((Math.random() * usernames.length) + 1)];
+    //   if(activeUsernames.indexOf(tempName) === -1){
+    //     return tempName;
+    //   }
+    //   else{
+    //     tempName = tempName + '+';
+    //     getName(tempName);
+    //     // getName(Math.floor((Math.random()* usernames.length) + 1));
+    //   }
+    // }
 
     // var tempName = usernames[Math.floor((Math.random() * usernames.length) + 1)];
     // if(activeUsernames.indexOf(tempName) === -1){
@@ -88,8 +88,9 @@ io.on('connection', function(socket){
     // else{
     //   socket.
     // }
-    socket.username = getName(usernames[Math.floor((Math.random() * usernames.length) + 1)]);
-    activeUsernames.push(socket.username);
+    // socket.username = getName(usernames[Math.floor((Math.random() * usernames.length) + 1)]);
+    socket.username = 'Loon';
+    // activeUsernames.push(socket.username);
 
     // send client to the room
     socket.join(socket.room);
@@ -113,10 +114,10 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
 
     socket.broadcast.to(socket.room).emit('chat message', 'SERVER', socket.username + ' has disconnected');
-    var i = activeUsernames.indexOf(socket.username);
-    if(i != -1){
-      activeUsernames.splice(i, 1);
-    }
+    // var i = activeUsernames.indexOf(socket.username);
+    // if(i != -1){
+    //   activeUsernames.splice(i, 1);
+    // }
     socket.leave(socket.room);
   });
 
