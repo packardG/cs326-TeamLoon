@@ -3,6 +3,7 @@ module.exports = function (app) {
 
     //local libraries
     var db = require('../lib/db');
+    var chatroom = require('../lib/chatrooms');
     var team = require('../lib/team.js');
 
     app.post('/auth',(req,res) => {
@@ -127,10 +128,15 @@ module.exports = function (app) {
 
         //Check to see if query was valid and if a room with that name is in the database
         if(queryVal){
-            var room = db.findRoom(queryVal);
+            var room = chatroom.findRoom(queryVal);
             if(room){
+                /// joined the room
+                var mID = chatroom.joinRoom(queryVal, "temp");
+                console.log(chatroom.getUsers(room));
                 res.render('wireframe', {
                     layout : "chatroom",
+                    userList : chatroom.getUsers(room),
+                    myID : mID,
                 });
                 return;
             }
@@ -146,7 +152,7 @@ module.exports = function (app) {
             return;
         }
 
-        var allRooms = db.getAllRooms();
+        var allRooms = chatroom.getAllRooms();
 
         res.render('chatroom-selection', {
             rooms: allRooms

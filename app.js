@@ -7,7 +7,7 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var morgan = require('morgan');
 var db = require('./lib/db');
-
+var chatroom = require('./lib/chatrooms');
 
 
 // initialize our app
