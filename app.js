@@ -132,7 +132,9 @@ io.on('connection', function(socket){
   });
 
   socket.on('Call Vote', function(){
-     socket.broadcast.in(socket.room).emit('Vote Kick');
+     console.log('calling kick.');
+     io.sockets.broadcast.in(socket.room).emit('Vote Kick');
+     //socket.broadcast.in(socket.room).emit('Vote Kick');
  });
 
    socket.on('kick count', function(client){
