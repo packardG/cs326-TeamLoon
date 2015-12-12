@@ -42,22 +42,9 @@
 					  <h4>Select a User:</h4>
 					  <ul id="list">
 					     {{#each userList}}
-					   	<button id="voteButton" onclick="confirmVote()">{{this.userName}}</button>
+					   	<button id="voteButton">{{this.userName}}</button>
 					     {{/each}}
 						  <p id="demo"></p>
-						  <script>
-						  		function confirmVote() {
-		  							var txt;
-		  							var msg = confirm("Initiate vote to kick?");
-		  							if (msg == true) {
-		  								txt = "Initiating Vote...";
-		  								//socket.emit('Call Vote');
-		  							} else {
-		  								txt = "Vote cancelled";
-		  							}
-		  						document.getElementById("demo").innerHTML = txt;
-		  					}
-						</script>
 					  </ul>
 				  </ul>
           </div>
@@ -156,9 +143,27 @@
                 return false;
             });
 
-				// socket.on('Vote Kick', function(){
-				//
-				// });
+				$('button').click(function(){
+						var txt;
+						var msg = confirm("Initiate vote to kick?");
+						if (msg === true) {
+							txt = "Initiating Vote...";
+							socket.emit("Call Vote");
+						} else {
+							txt = "Vote cancelled";
+						}
+						document.getElementById("demo").innerHTML = txt;
+				});
+
+				socket.on('Vote Kick', function(){
+					var msg = confirm("Kick player?");
+					if(msg === true){
+						socket.emit("kick count", socket.id);
+					} else{
+						prompt("Vote cancelled");
+					}
+
+				});
 
             socket.on('suggest video', function (data) {
                 $('#videoQ').append($('<li>').text(data.suggestedvideo));

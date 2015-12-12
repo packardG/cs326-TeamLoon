@@ -121,10 +121,18 @@ io.on('connection', function(socket){
     socket.leave(socket.room);
   });
 
- //  socket.on('Call Vote', function(){
- //
- //     io.sockets.in(socket.room).emit('Vote Kick');
- // });
+  socket.on('Call Vote', function(){
+     socket.broadcast.in(socket.room).emit('Vote Kick');
+ });
+
+   socket.on('kick count', function(client){
+      if (typeof io.sockets.sockets[client] !== 'undefined') {
+      socket.emit('chat message', socket.username + ' kicked by Server.');
+      io.sockets.sockets[client].disconnect();
+    } else {
+      socket.emit('chat message', socket.username + ' does not exist.');
+    }
+   });
 
 });
 
