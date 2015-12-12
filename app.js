@@ -68,18 +68,18 @@ io.on('connection', function(socket){
 
     //TODO Generate a new username
 
-    function getName(nameString){
-      var tempName = nameString;
-      // var tempName = usernames[Math.floor((Math.random() * usernames.length) + 1)];
-      if(activeUsernames.indexOf(tempName) === -1){
-        return tempName;
-      }
-      else{
-        tempName = tempName + '+';
-        getName(tempName);
-        // getName(Math.floor((Math.random()* usernames.length) + 1));
-      }
-    }
+    // function getName(nameString){
+    //   var tempName = nameString;
+    //   // var tempName = usernames[Math.floor((Math.random() * usernames.length) + 1)];
+    //   if(activeUsernames.indexOf(tempName) === -1){
+    //     return tempName;
+    //   }
+    //   else{
+    //     tempName = tempName + '+';
+    //     getName(tempName);
+    //     // getName(Math.floor((Math.random()* usernames.length) + 1));
+    //   }
+    // }
 
     // var tempName = usernames[Math.floor((Math.random() * usernames.length) + 1)];
     // if(activeUsernames.indexOf(tempName) === -1){
@@ -90,7 +90,7 @@ io.on('connection', function(socket){
     // }
     // socket.username = getName(usernames[Math.floor((Math.random() * usernames.length) + 1)]);
     socket.username = 'Loon';
-    activeUsernames.push(socket.username);
+    // activeUsernames.push(socket.username);
 
     // send client to the room
     socket.join(socket.room);
@@ -114,10 +114,10 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
 
     socket.broadcast.to(socket.room).emit('chat message', 'SERVER', socket.username + ' has disconnected');
-    var i = activeUsernames.indexOf(socket.username);
-    if(i != -1){
-      activeUsernames.splice(i, 1);
-    }
+    // var i = activeUsernames.indexOf(socket.username);
+    // if(i != -1){
+    //   activeUsernames.splice(i, 1);
+    // }
     socket.leave(socket.room);
   });
 
