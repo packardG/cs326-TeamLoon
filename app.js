@@ -45,7 +45,15 @@ function loggedIn(sessionUser) {
 
 var usernames = [Loon, Elephant, Lynx, Dog, Cat, Falcon, Eagle, Chimpanzee, Tick, DoDo, Penguin,
 Cheetah, Whale, Philip Seymour Hoffman, Goldfish, Unicorn, Lion, Tiger, Bear, Chickadee, Liger,
-Monkey, Giraffe, Seal, Walrus, Toucan, Chipmunk, Gorilla]
+Monkey, Giraffe, Seal, Walrus, Toucan, Chipmunk, Gorilla];
+
+function splitter(url){
+    if (url.indexOf('=') === -1){
+	return url;
+    }
+    else
+	return url.split('=')[1];
+}
 
 io.on('connection', function(socket){
 
@@ -71,10 +79,11 @@ io.on('connection', function(socket){
   });
 
   socket.on('suggest video', function(data){
-    console.log('suggest video: ' + data.suggestedvideo);
+    console.log('suggest video: ' + splitter(data.suggestedvideo));
+    var vid = splitter(data.suggestedvideo);
 
-    io.sockets.in(socket.room).emit('suggest video', {suggestedvideo: data.suggestedvideo});
-    io.sockets.in(socket.room).emit('change video', {videoid: data.suggestedvideo});
+    io.sockets.in(socket.room).emit('suggest video', {suggestedvideo: vid});
+    io.sockets.in(socket.room).emit('change video', {videoid: vid});
   });
 
   socket.on('disconnect', function(){
