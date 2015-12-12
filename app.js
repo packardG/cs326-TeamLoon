@@ -47,6 +47,8 @@ var usernames = ['Loon', 'Elephant', 'Lynx', 'Dog', 'Cat', 'Falcon', 'Eagle', 'C
 'Cheetah', 'Whale', 'Philip Seymour Hoffman', 'Goldfish', 'Unicorn', 'Lion', 'Tiger', 'Bear', 'Chickadee', 'Liger',
 'Monkey', 'Giraffe', 'Seal', 'Walrus', 'Toucan', 'Chipmunk', 'Gorilla'];
 
+var activeUsernames = [];
+
 function splitter(url){
     if (url.indexOf('=') === -1){
 	return url;
@@ -65,7 +67,26 @@ io.on('connection', function(socket){
     socket.room = data.room;
 
     //TODO Generate a new username
-    socket.username = usernames[Math.floor((Math.random() * usernames.length) + 1)];
+
+    function getName(randInt){
+      var tempName = usernames[Math.floor((Math.random() * usernames.length) + 1)];
+      if(activeUsernames.indexOf(tempName) === -1){
+        return tempName;
+      }
+      else{
+        getName(Math.floor((Math.random()* usernames.length) + 1));
+      }
+    }
+
+    // var tempName = usernames[Math.floor((Math.random() * usernames.length) + 1)];
+    // if(activeUsernames.indexOf(tempName) === -1){
+    //   socket.username = tempName
+    // }
+    // else{
+    //   socket.
+    // }
+    socket.username = getName(Math.floor((Math.random() * usernames.length) + 1));
+    activeUsernames.push(socket.username);
 
     // send client to the room
     socket.join(socket.room);
@@ -89,6 +110,10 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
 
     socket.broadcast.to(socket.room).emit('chat message', 'SERVER', socket.username + ' has disconnected');
+    var i = activeUsernames.indexOf(socket.username);
+    if(i != -1){
+      activeUsernames.splice(i, 1);
+    }
     socket.leave(socket.room);
   });
 
