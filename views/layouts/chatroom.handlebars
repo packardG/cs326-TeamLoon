@@ -158,13 +158,12 @@
             });
 
             socket.on('suggest video', function (data) {
-                $('#votingArea').append($('<li>').text(data.suggestedvideo));
+                $('#videoQ').append($('<li>').text(data.suggestedvideo));
                 player.loadVideoById(data.suggestedvideo);
             });
 
             socket.on('change video', function (data) {
                 player.loadVideoById(data.videoid);
-                $('#votingArea').empty();
             });
         });
     </script>
