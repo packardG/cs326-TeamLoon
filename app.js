@@ -57,6 +57,10 @@ function splitter(url){
 	return url.split('=')[1];
 }
 
+var suggestedVids = [];
+
+var first = 0;
+
 io.on('connection', function(socket){
 
   console.log("Connection");
@@ -112,6 +116,13 @@ io.on('connection', function(socket){
 
     io.sockets.in(socket.room.name).emit('suggest video', {suggestedvideo: vid});
     io.sockets.in(socket.room.name).emit('change video', {videoid: vid});
+//   suggestedVids.push(vid);
+    io.sockets.in(socket.room).emit('suggest video', {suggestedvideo: vid});
+    if (first === 0){
+	io.sockets.in(socket.room).emit('change video', {videoid: vid});
+    }
+    first = 1;
+
   });
 
   socket.on('disconnect', function(){
