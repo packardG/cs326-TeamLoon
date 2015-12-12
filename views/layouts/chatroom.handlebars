@@ -121,9 +121,12 @@
         //    the player should play for six seconds and then stop.
         var done = false;
         function onPlayerStateChange(event) {
-            if (event.data == YT.PlayerState.PLAYING && !done) {
-
-            }
+            if (event.data === 0) {
+                    player.loadVideoById(vidArr[0]);
+                    $('#videoQ li').eq(0).remove();
+	            vidArr.shift();
+	            }  
+          
         }
         function stopVideo() {
             player.stopVideo();
@@ -132,6 +135,7 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        var vidArr = [];
         $( document ).ready(function() {
             var socket = io();
 
@@ -161,12 +165,14 @@
 				// });
 
             socket.on('suggest video', function (data) {
-                $('#videoQ').append($('<li>').text(data.suggestedvideo));
-                player.loadVideoById(data.suggestedvideo);
-            });
+	        vidArr.push(data.suggestedvideo);
+                $('#videoQ').append($('<li>fg').text(vidArr[0]));
+	    });
 
             socket.on('change video', function (data) {
-                player.loadVideoById(data.videoid);
+	        console.log(vidArr);
+                player.loadVideoById(vidArr[0]);
+	        vidArr.shift();
             });
         });
     </script>
