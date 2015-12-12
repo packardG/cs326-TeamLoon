@@ -43,9 +43,9 @@ function loggedIn(sessionUser) {
   return sessionUser && db.isOnline(sessionUser);
 }
 
-var usernames = [Loon, Elephant, Lynx, Dog, Cat, Falcon, Eagle, Chimpanzee, Tick, DoDo, Penguin,
-Cheetah, Whale, Philip Seymour Hoffman, Goldfish, Unicorn, Lion, Tiger, Bear, Chickadee, Liger,
-Monkey, Giraffe, Seal, Walrus, Toucan, Chipmunk, Gorilla];
+var usernames = ['Loon', 'Elephant', 'Lynx', 'Dog', 'Cat', 'Falcon', 'Eagle', 'Chimpanzee', 'Tick', 'DoDo', 'Penguin',
+'Cheetah', 'Whale', 'Philip Seymour Hoffman', 'Goldfish', 'Unicorn', 'Lion', 'Tiger', 'Bear', 'Chickadee', 'Liger',
+'Monkey', 'Giraffe', 'Seal', 'Walrus', 'Toucan', 'Chipmunk', 'Gorilla'];
 
 function splitter(url){
     if (url.indexOf('=') === -1){
