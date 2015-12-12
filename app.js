@@ -57,6 +57,10 @@ function splitter(url){
 	return url.split('=')[1];
 }
 
+var suggestedVids = [];
+
+var first = 0;
+
 io.on('connection', function(socket){
 
   console.log("Connection");
@@ -65,6 +69,7 @@ io.on('connection', function(socket){
   socket.on('adduser', function(data){
     console.log(data);
     socket.room = data.room;
+    socket.u = chatroom.joinRoom(socket.room, "temp");
 
     //TODO Generate a new username
 
@@ -89,7 +94,7 @@ io.on('connection', function(socket){
     //   socket.
     // }
     // socket.username = getName(usernames[Math.floor((Math.random() * usernames.length) + 1)]);
-    socket.username = 'Loon';
+    socket.username = socket.u.userName;
     // activeUsernames.push(socket.username);
 
     // send client to the room
@@ -106,9 +111,13 @@ io.on('connection', function(socket){
   socket.on('suggest video', function(data){
     console.log('suggest video: ' + splitter(data.suggestedvideo));
     var vid = splitter(data.suggestedvideo);
-
+//   suggestedVids.push(vid);
     io.sockets.in(socket.room).emit('suggest video', {suggestedvideo: vid});
-    io.sockets.in(socket.room).emit('change video', {videoid: vid});
+    if (first === 0){
+	io.sockets.in(socket.room).emit('change video', {videoid: vid});
+    }
+    first = 1;
+
   });
 
   socket.on('disconnect', function(){
@@ -118,6 +127,7 @@ io.on('connection', function(socket){
     // if(i != -1){
     //   activeUsernames.splice(i, 1);
     // }
+    chatroom.removeUser(chatroom.findRoom(socket.room),socket.u);
     socket.leave(socket.room);
   });
 
