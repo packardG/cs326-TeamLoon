@@ -43,6 +43,14 @@ function loggedIn(sessionUser) {
   return sessionUser && db.isOnline(sessionUser);
 }
 
+function splitter(url){
+    if (url.indexOf('=') === -1){
+	return url;
+    }
+    else
+	return url.split('=')[1];
+}
+
 io.on('connection', function(socket){
 
   console.log("Connection");
@@ -67,10 +75,11 @@ io.on('connection', function(socket){
   });
 
   socket.on('suggest video', function(data){
-    console.log('suggest video: ' + data.suggestedvideo);
+    console.log('suggest video: ' + splitter(data.suggestedvideo));
+    var vid = splitter(data.suggestedvideo);
 
-    io.sockets.in(socket.room).emit('suggest video', {suggestedvideo: data.suggestedvideo});
-    io.sockets.in(socket.room).emit('change video', {videoid: data.suggestedvideo});
+    io.sockets.in(socket.room).emit('suggest video', {suggestedvideo: vid});
+    io.sockets.in(socket.room).emit('change video', {videoid: vid});
   });
 
   socket.on('disconnect', function(){
