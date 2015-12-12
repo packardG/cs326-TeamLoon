@@ -68,13 +68,16 @@ io.on('connection', function(socket){
 
     //TODO Generate a new username
 
-    function getName(randInt){
-      var tempName = usernames[Math.floor((Math.random() * usernames.length) + 1)];
+    function getName(nameString){
+      var tempName = nameString;
+      // var tempName = usernames[Math.floor((Math.random() * usernames.length) + 1)];
       if(activeUsernames.indexOf(tempName) === -1){
         return tempName;
       }
       else{
-        getName(Math.floor((Math.random()* usernames.length) + 1));
+        tempName = tempName + '+';
+        getName(tempName);
+        // getName(Math.floor((Math.random()* usernames.length) + 1));
       }
     }
 
@@ -85,7 +88,7 @@ io.on('connection', function(socket){
     // else{
     //   socket.
     // }
-    socket.username = getName(Math.floor((Math.random() * usernames.length) + 1));
+    socket.username = getName(usernames[Math.floor((Math.random() * usernames.length) + 1)]);
     activeUsernames.push(socket.username);
 
     // send client to the room
