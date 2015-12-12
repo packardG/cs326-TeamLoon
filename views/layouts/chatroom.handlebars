@@ -111,33 +111,6 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-<<<<<<< HEAD
-      var socket = io();
-
-      $('#chatInput').submit(function(e){
-        e.preventDefault();
-        socket.emit('chat message', {message: $('#m').val()});
-        $('#m').val('');
-        return false;
-      });
-
-      socket.on('chat message', function(data){
-        $('#chatlog').append($('<li>').text(data.message));
-      });
-
-      $('#suggestInput').submit(function(e){
-          e.preventDefault();
-          socket.emit('suggest video', {suggestedvideo: $('#videoSuggestion').val()});
-          $('#videoSuggestion').val('');
-          return false;
-      });
-
-      socket.on('suggest video', function(data){
-	console.log(data.suggestedvideo);
-	alert(data.suggestedvideo);
-          $('#votingArea').append($('<li>').text(data.suggestedvideo));
-      });
-=======
         $( document ).ready(function() {
             var socket = io();
 
@@ -172,7 +145,6 @@
                 $('#votingArea').empty();
             });
         });
->>>>>>> 26f59490812f13cae47d3d39a42e0282fd98f469
     </script>
 
 	</body>

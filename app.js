@@ -43,13 +43,6 @@ function loggedIn(sessionUser) {
   return sessionUser && db.isOnline(sessionUser);
 }
 
-function splitter(url) {
-    if (url.length>13){
-	return url.split('=')[1];
-	}
-    else return url;
-}
-
 io.on('connection', function(socket){
 
   console.log("Connection");
@@ -82,12 +75,8 @@ io.on('connection', function(socket){
 
   socket.on('disconnect', function(){
 
-<<<<<<< HEAD
-    io.sockets.emit('suggest video', {suggestedvideo: splitter(data.suggestedvideo)});
-=======
     socket.broadcast.to(socket.room).emit('chat message', 'SERVER', socket.username + ' has disconnected');
     socket.leave(socket.room);
->>>>>>> 26f59490812f13cae47d3d39a42e0282fd98f469
   });
 
 });
