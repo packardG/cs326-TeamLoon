@@ -42,22 +42,22 @@
 					  <h4>Select a User:</h4>
 					  <ul id="list">
 					     {{#each userList}}
-					        <button id="voteButton" onclick="confirmVote()">{{this.userName}}</button>
-					        <p id="demo"></p>
+					   	<button id="voteButton" onclick="confirmVote()">{{this.userName}}</button>
 					     {{/each}}
+						  <p id="demo"></p>
 						  <script>
-								function confirmVote() {
-									var txt;
-									var msg = confirm("Initiate vote to kick?");
-									if (msg == true) {
-										txt = "Initiating Vote...";
-
-									} else {
-										txt = "Vote cancelled";
-									}
-									document.getElementById("demo").innerHTML = txt;
-								}
-						  </script>
+						  		function confirmVote() {
+		  							var txt;
+		  							var msg = confirm("Initiate vote to kick?");
+		  							if (msg == true) {
+		  								txt = "Initiating Vote...";
+		  								//socket.emit('Call Vote');
+		  							} else {
+		  								txt = "Vote cancelled";
+		  							}
+		  						document.getElementById("demo").innerHTML = txt;
+		  					}
+						</script>
 					  </ul>
 				  </ul>
           </div>
@@ -78,7 +78,6 @@
 					   </div>
 					   {{/each}}
 					</ul>
-
 				</div>
 			</div>
       <div class="chatbox" style="height:500px; clear:left; overflow:scroll;">
@@ -156,6 +155,10 @@
                 $('#videoSuggestion').val('');
                 return false;
             });
+
+				// socket.on('Vote Kick', function(){
+				//
+				// });
 
             socket.on('suggest video', function (data) {
                 $('#videoQ').append($('<li>').text(data.suggestedvideo));

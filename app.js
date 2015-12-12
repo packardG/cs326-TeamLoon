@@ -121,6 +121,11 @@ io.on('connection', function(socket){
     socket.leave(socket.room);
   });
 
+ //  socket.on('Call Vote', function(){
+ //
+ //     io.sockets.in(socket.room).emit('Vote Kick');
+ // });
+
 });
 
 http.listen(3000, "0.0.0.0", () => {
