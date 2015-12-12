@@ -43,6 +43,10 @@ function loggedIn(sessionUser) {
   return sessionUser && db.isOnline(sessionUser);
 }
 
+var usernames = [Loon, Elephant, Lynx, Dog, Cat, Falcon, Eagle, Chimpanzee, Tick, DoDo, Penguin,
+Cheetah, Whale, Philip Seymour Hoffman, Goldfish, Unicorn, Lion, Tiger, Bear, Chickadee, Liger,
+Monkey, Giraffe, Seal, Walrus, Toucan, Chipmunk, Gorilla]
+
 io.on('connection', function(socket){
 
   console.log("Connection");
@@ -53,7 +57,7 @@ io.on('connection', function(socket){
     socket.room = data.room;
 
     //TODO Generate a new username
-    socket.username = 'Loon';
+    socket.username = usernames[Math.floor((Math.random() * usernames.length) + 1)];
 
     // send client to the room
     socket.join(socket.room);
