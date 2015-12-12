@@ -59,8 +59,6 @@ function splitter(url){
 
 var suggestedVids = [];
 
-var first = 0;
-
 io.on('connection', function(socket){
 
   console.log("Connection");
@@ -68,7 +66,7 @@ io.on('connection', function(socket){
 
   //THIS SHOULD BE CALLED RIGHT WHEN THE USER CONNECTS
   socket.on('adduser', function(data){
-    console.log(data.room);
+    // console.log(data.room);
     socket.room = chatroom.findRoom(data.room);
     // console.log(chatroom.findRoom(data.room));
     socket.u = chatroom.joinRoom(socket.room.name, "temp");
@@ -118,10 +116,7 @@ io.on('connection', function(socket){
     io.sockets.in(socket.room.name).emit('change video', {videoid: vid});
 //   suggestedVids.push(vid);
     io.sockets.in(socket.room).emit('suggest video', {suggestedvideo: vid});
-    if (first === 0){
-	io.sockets.in(socket.room).emit('change video', {videoid: vid});
-    }
-    first = 1;
+    io.sockets.in(socket.room).emit('change video', {videoid: vid});
 
   });
 
