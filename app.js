@@ -111,13 +111,10 @@ io.on('connection', function(socket){
   socket.on('suggest video', function(data){
     console.log('suggest video: ' + splitter(data.suggestedvideo));
     var vid = splitter(data.suggestedvideo);
-
+    suggestedVids.push(vid);
     io.sockets.in(socket.room.name).emit('suggest video', {suggestedvideo: vid});
-    io.sockets.in(socket.room.name).emit('change video', {videoid: vid});
-//   suggestedVids.push(vid);
-    io.sockets.in(socket.room).emit('suggest video', {suggestedvideo: vid});
-    io.sockets.in(socket.room).emit('change video', {videoid: vid});
-
+    io.sockets.in(socket.room.name).emit('change video', {videoAr: suggestedVids});
+    suggestedVids.shift();
   });
 
   socket.on('disconnect', function(){
