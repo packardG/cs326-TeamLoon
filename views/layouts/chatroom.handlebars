@@ -125,7 +125,7 @@
                     console.log("should play next vid");
                     player.loadVideoById(vidArr[0]);
                     $('#videoQ li').eq(0).remove();
-	            vidArr.shift();
+  	            vidArr.shift();	         
 	            }  
           
         }
@@ -167,11 +167,11 @@
 				// });
 
             socket.on('suggest video', function (data) {
-	        vidArr.push(data.suggestedvideo);
-                $('#videoQ').append($('<li>fg').text(vidArr[0]));
+                $('#videoQ').append($('<li>fg').text(data.suggestedvideo));
 	    });
 
             socket.on('change video', function (data) {
+	        vidArr = data.videoAr.slice(0);
 	        console.log(vidArr);
 	        if(first === 0){
 	            console.log('in the first if statement');
@@ -182,9 +182,9 @@
 	        console.log(vidArr);
             });
 
-						socket.on('userAdded', function(data){
-							$('userlist').append($('<li>').text(user.userName));
-						});
+	socket.on('userAdded', function(data){
+	$('userlist').append($('<li>').text(user.userName));
+	});
         });
     </script>
 
