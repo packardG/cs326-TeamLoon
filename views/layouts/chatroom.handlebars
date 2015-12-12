@@ -21,7 +21,7 @@
           <div data-role="popup" id="urlPopup" class="ui-content" style="min-width:1000px;">
             <form id="suggestInput" method="post" action="demoform.asp">
               <label for="usrnm" class="ui-hidden-accessible">URL:</label>
-              <input type="text" name="url" id="videoSuggestion" placeholder="URL">
+              <input type="text" name="url" id="videoSuggestion" placeholder="Video ID">
             </form>
           </div>
         </div>
@@ -41,13 +41,25 @@
           </div>
         </div>
       </div>
-      <div style="clear: left; float : left; width: 50%; height : 480px;">
-  		    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/qaddgd8UI90" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <div class="userlist" style="float : left;">
-        User list
-      </div>
-      <div class="chatbox" style="clear : left">
+			<div>
+				<script src="scripts/peerinit.js">initialize({{myID}})</script>
+	      <div style="width:50%; height:480px; clear:left; float:left;">
+	          <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+	          <div id="player"></div>
+	      </div>
+				<div class="userlist" style="float:left;">
+	        User list <br>
+					<ul id="list">
+					   {{#each userList}}
+					   <div id="box">
+					      {{this.userName}}
+					   </div>
+					   {{/each}}
+					</ul>
+
+				</div>
+			</div>
+      <div class="chatbox" style="height:500px; clear:left; overflow:scroll;">
           <ul id="chatlog"></ul>
           <form id="chatInput" action="">
               <input id="m" autocomplete="off" />
@@ -56,10 +68,50 @@
     </div>
 
     <script>
+        // 2. This code loads the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
 
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // 3. This function creates an <iframe> (and YouTube player)
+        //    after the API code downloads.
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                //videoId: 'qaddgd8UI90',
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // 4. The API will call this function when the video player is ready.
+        function onPlayerReady(event) {
+            //event.target.playVideo();
+        }
+
+        // 5. The API calls this function when the player's state changes.
+        //    The function indicates that when playing a video (state=1),
+        //    the player should play for six seconds and then stop.
+        var done = false;
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING && !done) {
+
+            }
+        }
+        function stopVideo() {
+            player.stopVideo();
+        }
     </script>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
+<<<<<<< HEAD
       var socket = io();
 
       $('#chatInput').submit(function(e){
@@ -85,6 +137,42 @@
 	alert(data.suggestedvideo);
           $('#votingArea').append($('<li>').text(data.suggestedvideo));
       });
+=======
+        $( document ).ready(function() {
+            var socket = io();
+
+            var query = window.location.search.slice(10);
+            socket.emit('adduser', {room: query});
+
+            $('#chatInput').submit(function (e) {
+                e.preventDefault();
+                socket.emit('chat message', $('#m').val());
+                $('#m').val('');
+                return false;
+            });
+
+            socket.on('chat message', function (userName, message) {
+                $('#chatlog').append($('<li>').text(userName + ": " + message));
+            });
+
+            $('#suggestInput').submit(function (e) {
+                e.preventDefault();
+                socket.emit('suggest video', {suggestedvideo: $('#videoSuggestion').val()});
+                $('#videoSuggestion').val('');
+                return false;
+            });
+
+            socket.on('suggest video', function (data) {
+                $('#votingArea').append($('<li>').text(data.suggestedvideo));
+                player.loadVideoById(data.suggestedvideo);
+            });
+
+            socket.on('change video', function (data) {
+                player.loadVideoById(data.videoid);
+                $('#votingArea').empty();
+            });
+        });
+>>>>>>> 26f59490812f13cae47d3d39a42e0282fd98f469
     </script>
 
 	</body>

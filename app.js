@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var flash = require('connect-flash');
 var morgan = require('morgan');
-
-
+var db = require('./lib/db');
+var chatroom = require('./lib/chatrooms');
 
 
 // initialize our app
@@ -54,22 +54,45 @@ io.on('connection', function(socket){
 
   console.log("Connection");
 
-  socket.on('chat message', function(data){
-    console.log('message: ' + data.message);
-    io.sockets.emit('chat message', {message: data.message});
+  //THIS SHOULD BE CALLED RIGHT WHEN THE USER CONNECTS
+  socket.on('adduser', function(data){
+    console.log(data);
+    socket.room = data.room;
+
+    //TODO Generate a new username
+    socket.username = 'Loon';
+
+    // send client to the room
+    socket.join(socket.room);
+
+    io.sockets.in(socket.room).emit('chat message', 'SERVER', socket.username + ' has entered the chatroom');
+  });
+
+
+  socket.on('chat message', function(message){
+    io.sockets.in(socket.room).emit('chat message', socket.username, message);
   });
 
   socket.on('suggest video', function(data){
     console.log('suggest video: ' + data.suggestedvideo);
 
-    //TODO Look up title based on Youtube URL
+    io.sockets.in(socket.room).emit('suggest video', {suggestedvideo: data.suggestedvideo});
+    io.sockets.in(socket.room).emit('change video', {videoid: data.suggestedvideo});
+  });
 
+  socket.on('disconnect', function(){
+
+<<<<<<< HEAD
     io.sockets.emit('suggest video', {suggestedvideo: splitter(data.suggestedvideo)});
+=======
+    socket.broadcast.to(socket.room).emit('chat message', 'SERVER', socket.username + ' has disconnected');
+    socket.leave(socket.room);
+>>>>>>> 26f59490812f13cae47d3d39a42e0282fd98f469
   });
 
 });
 
-http.listen(3000, '0.0.0.0', () => {
+http.listen(3000, "0.0.0.0", () => {
   console.log('Express started on http://localhost:' +
       3000 + '; press Ctrl-C to terminate');
 });
