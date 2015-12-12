@@ -168,6 +168,10 @@
             socket.on('change video', function (data) {
                 player.loadVideoById(data.videoid);
             });
+
+						socket.on('userAdded', function(data){
+							$('userlist').append($('<li>').text(user.userName));
+						});
         });
     </script>
 
