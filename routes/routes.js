@@ -131,12 +131,12 @@ module.exports = function (app) {
             var room = chatroom.findRoom(queryVal);
             if(room){
                 /// joined the room
-                var mID = chatroom.joinRoom(queryVal, "temp");
+                // var mID = chatroom.joinRoom(queryVal, "temp");
                 console.log(chatroom.getUsers(room));
                 res.render('wireframe', {
                     layout : "chatroom",
                     userList : chatroom.getUsers(room),
-                    myID : mID,
+                    // myID : mID,
                 });
                 return;
             }

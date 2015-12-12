@@ -65,6 +65,7 @@ io.on('connection', function(socket){
   socket.on('adduser', function(data){
     console.log(data);
     socket.room = data.room;
+    socket.u = chatroom.joinRoom(socket.room, "temp");
 
     //TODO Generate a new username
 
@@ -89,7 +90,7 @@ io.on('connection', function(socket){
     //   socket.
     // }
     // socket.username = getName(usernames[Math.floor((Math.random() * usernames.length) + 1)]);
-    socket.username = 'Loon';
+    socket.username = socket.u.userName;
     // activeUsernames.push(socket.username);
 
     // send client to the room
@@ -118,6 +119,7 @@ io.on('connection', function(socket){
     // if(i != -1){
     //   activeUsernames.splice(i, 1);
     // }
+    chatroom.removeUser(chatroom.findRoom(socket.room),socket.u);
     socket.leave(socket.room);
   });
 
