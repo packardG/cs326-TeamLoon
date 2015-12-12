@@ -37,7 +37,29 @@
           <a class="tab" href="#votingPopup" data-rel="popup">Voting</a>
 
           <div data-role="popup" id="votingPopup" class="ui-content" style="min-width:1000px;">
-              <ul id="votingArea"></ul>
+              <ul id="votingArea">
+					  <h3>Vote to kick?</h3>
+					  <h4>Select a User:</h4>
+					  <ul id="list">
+					     {{#each userList}}
+					        <button id="voteButton" onclick="confirmVote()">{{this.userName}}</button>
+					        <p id="demo"></p>
+					     {{/each}}
+						  <script>
+								function confirmVote() {
+									var txt;
+									var msg = confirm("Initiate vote to kick?");
+									if (msg == true) {
+										txt = "Initiating Vote...";
+
+									} else {
+										txt = "Vote cancelled";
+									}
+									document.getElementById("demo").innerHTML = txt;
+								}
+						  </script>
+					  </ul>
+				  </ul>
           </div>
         </div>
       </div>
