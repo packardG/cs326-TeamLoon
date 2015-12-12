@@ -114,7 +114,6 @@ io.on('connection', function(socket){
 //   suggestedVids.push(vid);
     io.sockets.in(socket.room).emit('suggest video', {suggestedvideo: vid});
     if (first === 0){
-	console.log('first is zero!');
 	io.sockets.in(socket.room).emit('change video', {videoid: vid});
     }
     first = 1;
