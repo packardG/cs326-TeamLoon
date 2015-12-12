@@ -43,11 +43,11 @@ function loggedIn(sessionUser) {
   return sessionUser && db.isOnline(sessionUser);
 }
 
-var usernames = ['Loon', 'Elephant', 'Lynx', 'Dog', 'Cat', 'Falcon', 'Eagle', 'Chimpanzee', 'Tick', 'DoDo', 'Penguin',
-'Cheetah', 'Whale', 'Philip Seymour Hoffman', 'Goldfish', 'Unicorn', 'Lion', 'Tiger', 'Bear', 'Chickadee', 'Liger',
-'Monkey', 'Giraffe', 'Seal', 'Walrus', 'Toucan', 'Chipmunk', 'Gorilla'];
-
-var activeUsernames = [];
+// var usernames = ['Loon', 'Elephant', 'Lynx', 'Dog', 'Cat', 'Falcon', 'Eagle', 'Chimpanzee', 'Tick', 'DoDo', 'Penguin',
+// 'Cheetah', 'Whale', 'Philip Seymour Hoffman', 'Goldfish', 'Unicorn', 'Lion', 'Tiger', 'Bear', 'Chickadee', 'Liger',
+// 'Monkey', 'Giraffe', 'Seal', 'Walrus', 'Toucan', 'Chipmunk', 'Gorilla'];
+//
+// var activeUsernames = [];
 
 function splitter(url){
     if (url.indexOf('=') === -1){
@@ -88,7 +88,8 @@ io.on('connection', function(socket){
     // else{
     //   socket.
     // }
-    socket.username = getName(usernames[Math.floor((Math.random() * usernames.length) + 1)]);
+    // socket.username = getName(usernames[Math.floor((Math.random() * usernames.length) + 1)]);
+    socket.username = 'Loon';
     activeUsernames.push(socket.username);
 
     // send client to the room
