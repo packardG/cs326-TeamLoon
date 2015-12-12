@@ -115,8 +115,6 @@ io.on('connection', function(socket){
     io.sockets.in(socket.room.name).emit('suggest video', {suggestedvideo: vid});
     io.sockets.in(socket.room.name).emit('change video', {videoid: vid});
 //   suggestedVids.push(vid);
-    io.sockets.in(socket.room).emit('suggest video', {suggestedvideo: vid});
-    io.sockets.in(socket.room).emit('change video', {videoid: vid});
 
   });
 
@@ -127,8 +125,10 @@ io.on('connection', function(socket){
     // if(i != -1){
     //   activeUsernames.splice(i, 1);
     // }
-    // socket.leave(socket.room.name);
+
     chatroom.removeUser(socket.room,socket.u);
+    socket.leave(socket.room.name);
+
   });
 
  //  socket.on('Call Vote', function(){
