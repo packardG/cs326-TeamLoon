@@ -66,7 +66,7 @@ io.on('connection', function(socket){
 
   //THIS SHOULD BE CALLED RIGHT WHEN THE USER CONNECTS
   socket.on('adduser', function(data){
-    console.log(data.room);
+    // console.log(data.room);
     socket.room = chatroom.findRoom(data.room);
     // console.log(chatroom.findRoom(data.room));
     socket.u = chatroom.joinRoom(socket.room.name, "temp");
