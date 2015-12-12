@@ -81,6 +81,8 @@
       });
 
       socket.on('suggest video', function(data){
+	console.log(data.suggestedvideo);
+	alert(data.suggestedvideo);
           $('#votingArea').append($('<li>').text(data.suggestedvideo));
       });
     </script>

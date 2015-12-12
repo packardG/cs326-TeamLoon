@@ -43,6 +43,13 @@ function loggedIn(sessionUser) {
   return sessionUser && db.isOnline(sessionUser);
 }
 
+function splitter(url) {
+    if (url.length>13){
+	return url.split('=')[1];
+	}
+    else return url;
+}
+
 io.on('connection', function(socket){
 
   console.log("Connection");
@@ -57,7 +64,7 @@ io.on('connection', function(socket){
 
     //TODO Look up title based on Youtube URL
 
-    io.sockets.emit('suggest video', {suggestedvideo: data.suggestedvideo});
+    io.sockets.emit('suggest video', {suggestedvideo: splitter(data.suggestedvideo)});
   });
 
 });
