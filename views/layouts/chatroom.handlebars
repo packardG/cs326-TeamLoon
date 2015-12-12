@@ -45,19 +45,6 @@
 					        <button id="voteButton" onclick="confirmVote()">{{this.userName}}</button>
 					        <p id="demo"></p>
 					     {{/each}}
-						  <script>
-								function confirmVote() {
-									var txt;
-									var msg = confirm("Initiate vote to kick?");
-									if (msg == true) {
-										txt = "Initiating Vote...";
-
-									} else {
-										txt = "Vote cancelled";
-									}
-									document.getElementById("demo").innerHTML = txt;
-								}
-						  </script>
 					  </ul>
 				  </ul>
           </div>
@@ -78,7 +65,6 @@
 					   </div>
 					   {{/each}}
 					</ul>
-
 				</div>
 			</div>
       <div class="chatbox" style="height:500px; clear:left; overflow:scroll;">
@@ -156,6 +142,22 @@
                 $('#videoSuggestion').val('');
                 return false;
             });
+
+				function confirmVote() {
+					var txt;
+					var msg = confirm("Initiate vote to kick?");
+					if (msg == true) {
+						txt = "Initiating Vote...";
+						socket.emit('Call Vote');
+					} else {
+						txt = "Vote cancelled";
+					}
+					document.getElementById("demo").innerHTML = txt;
+				}
+
+				socket.on('Vote Kick', function(){
+					
+				});
 
             socket.on('suggest video', function (data) {
                 $('#votingArea').append($('<li>').text(data.suggestedvideo));
