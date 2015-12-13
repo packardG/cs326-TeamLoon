@@ -53,12 +53,7 @@ function splitter(url){
 
 //Global vars
 var suggestedVids = [];
-var vidYesCount = 0;
-var vidNoCount = 0;
-var totalVote = 0;
-var kickYesCount = 0;
-var kickNoCount = 0;
-totalKickCount = 0;
+
 
 
 io.on('connection', function(socket){
@@ -130,24 +125,25 @@ io.on('connection', function(socket){
 
 
   socket.on('kick player', function(userInput, userName){
-     var kickYesCount = 0;
-     var kickNoCount = 0;
+      socket.room.kickYesCount = 0;
+      socket.room.kickNoCount = 0;
      if(userInput === 'yes'){
-      kickYesCount++;
+         socket.room.kickYesCount++;
      }
      else{
-      kickNoCount++;
+         socket.room.kickNoCount++;
      }
-     totalKickCount = kickYesCount + kickNoCount;
+      socket.room.totalKickCount = socket.room.kickYesCount + socket.room.kickNoCount;
 
-     if(totalKickCount === socket.room.userList.length){
+     if(socket.room.totalKickCount === socket.room.userList.length){
 
-        if(kickYesCount > kickNoCount){
+        if(socket.room.kickYesCount > socket.room.kickNoCount){
          socket.username.id.disconnect();
+            console.log('Kicking');
          io.sockets.in(socket.roomName).emit('update userLists', socket.room.userList);
         }
-         kickYesCount = 0;
-         kickNoCount = 0;
+         socket.room.kickYesCount = 0;
+         socket.room.kickNoCount = 0;
       }
 
   });
@@ -160,21 +156,21 @@ io.on('connection', function(socket){
  socket.on('handle skip', function(userInput){
 
     if(userInput === 'yes'){
-      vidYesCount++;
+        socket.room.vidYesCount++;
     }
     else{
-      vidNoCount++;
+        socket.room.vidNoCount++;
     }
-    totalVote = vidYesCount + vidNoCount;
+     socket.room.totalVote = socket.room.vidYesCount + socket.room.vidNoCount;
 
-    if(totalVote === socket.room.userList.length){
+    if(socket.room.totalVote === socket.room.userList.length){
 
-      if(vidYesCount > vidNoCount){
+      if(socket.room.vidYesCount > socket.room.vidNoCount){
 
          io.sockets.in(socket.roomName).emit('pop vid');
       }
-      vidYesCount = 0;
-      vidNoCount = 0;
+        socket.room.vidYesCount = 0;
+        socket.room.vidNoCount = 0;
    }
 });
 
