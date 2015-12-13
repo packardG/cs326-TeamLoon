@@ -115,12 +115,12 @@
             if (event.data === YT.PlayerState.ENDED) {
 				if(vidArr.length == 0){
 					first = 0;
-					socket.on('Suggest video', function(data){
-						$('#videoQ').append($('<li>fg').text(data.suggestedvideo));
-						socket.emit('change video', vidArr);
-						});
+					socket.on('suggest video', function (data) {
+					$('#videoQ').append($('<li>fg').text(data.suggestedvideo));
+					socket.emit('change video', vidArr);
+					});
 				}
-				else {
+				else{
 					console.log("should play next vid");
 					player.loadVideoById(vidArr[0]);
 					$('#videoQ li').eq(0).remove();
