@@ -70,7 +70,7 @@ io.on('connection', function(socket){
     socket.join(socket.roomName);
 
     io.sockets.in(socket.roomName).emit('chat message', 'SERVER', socket.username + ' has entered the chatroom');
-    io.sockets.in(socket.roomName).emit('new user', socket.room.userList);
+    io.sockets.in(socket.roomName).emit('update userLists', socket.room.userList);
   });
 
 
@@ -93,10 +93,14 @@ io.on('connection', function(socket){
 
     socket.broadcast.in(socket.roomName).emit('chat message', 'SERVER', socket.username + ' has left the chatroom');
 
-    socket.leave(socket.roomName);
     chatroom.removeUser(socket.room,socket.u);
 
 
+    if(socket.room){
+      socket.broadcast.in(socket.roomName).emit('update userLists', socket.room.userList);
+    }
+
+    socket.leave(socket.roomName);
   });
 
   socket.on('Call Vote', function(){

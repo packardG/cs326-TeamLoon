@@ -34,20 +34,18 @@
               </div>
             </div>
             <div class="tab" style="background-color : rgb(190,60,190);">
-              <a class="tab" href="#votingPopup" data-rel="popup">Voting</a>
+                <a class="tab" href="#votingPopup" data-rel="popup">Voting</a>
 
-              <div data-role="popup" id="votingPopup" class="ui-content" style="min-width:1000px;">
-                  <ul id="votingArea">
-                          <h3>Vote to kick?</h3>
-                          <h4>Select a User:</h4>
-                          <ul id="list">
-                             {{#each userList}}
-                            <button id="voteButton">{{this.userName}}</button>
-                             {{/each}}
-                              <p id="demo"></p>
-                          </ul>
-                      </ul>
-              </div>
+                <div data-role="popup" id="votingPopup" class="ui-content" style="min-width:1000px;">
+                    <ul id="votingArea">
+                        <h3>Vote to kick?</h3>
+                        <h4>Select a User:</h4>
+                        <ul id="votelist">
+
+                            <p id="demo"></p>
+                        </ul>
+                    </ul>
+                </div>
             </div>
         </div>
         <div>
@@ -183,15 +181,23 @@
 	        console.log(vidArr);
             });
 
-	        socket.on('new user', function(userlist){
+	        socket.on('update userLists', function(userlist){
                 //Clear the list of the old list of users
                 $('#listOfUsers').empty();
 
                 //Then fill the list with the new list of users
                 for(var i = 0; i < userlist.length; i++){
-                    console.log(userlist[i].userName);
                     $('#listOfUsers').append($('<div id="box">').text(userlist[i].userName));
                 }
+
+                //Same with the voting list
+                $('#votelist').empty();
+
+                //Then fill the list with the new list of users
+                for(var i = 0; i < userlist.length; i++){
+                    $('#votelist').append($('<button id="voteButton">').text(userlist[i].userName));
+                }
+
 	        });
         });
     </script>
