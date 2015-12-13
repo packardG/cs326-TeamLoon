@@ -117,7 +117,7 @@ io.on('connection', function(socket){
   });
 
   socket.on('kick count', function(client){
-   
+
    client.disconnect();
    socket.broadcast.in(socket.roomName).emit('update userLists', socket.room.userList);
   });

@@ -66,7 +66,9 @@ function initializeMap() {
           minWidth: 320
       });
   });
-
+  $("#tochatroom").click(function() {
+    window.location.href = $(this).attr('url');
+  });
   $("#makecr").click(function() {
     $.ajax({
        url: '/createChatroom',
