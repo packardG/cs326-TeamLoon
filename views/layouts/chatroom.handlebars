@@ -198,7 +198,7 @@
             socket.on('Vote Kick', function(userName){
                 var msg = confirm("Kick " + userName + "?");
                 if(msg === true){
-                    socket.emit("kick count", socket.id);
+                    socket.emit("kick count", userName);
                 } else{
                     prompt("Vote cancelled");
                 }
