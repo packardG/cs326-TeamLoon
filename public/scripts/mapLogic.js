@@ -44,6 +44,28 @@ function clearMap() {
 }
 
 
+function checkMap() {
+  $.ajax({
+     url: '/rooms',
+     error: function(code) {
+       console.log(code);
+     },
+     dataType: 'json',
+     success: function(data) {
+       if (data.length != pins.length) {
+         clearMap();
+         for (var i = 0; i<data.length; i++) {
+           room = data[i];
+           addPin({name : room.name, desc : "<center><h3>"+room.name+"</h3><br>Join</center>", coords : [room.lat, room.long], url : "/roomView?roomName="+room.name});
+         }
+       }
+     },
+     type: 'GET'
+  });
+
+  setTimeout(checkMap, 2000);
+}
+
 function initializeMap() {
   // this just creates the map object. The size is still specified in the map.handlebars
   L.mapbox.accessToken = 'pk.eyJ1IjoiYWNiZW50bGUiLCJhIjoiY2lndTI4cm5pMGF1anVja28zOHI3ZXo4eSJ9.bC_CeR5LuW9S7K1oTHxh3Q';
@@ -78,11 +100,19 @@ function initializeMap() {
       }
   });
   $("#makecr").click(function() {
+    var name = $('crn').val();
+    var url = $('crv').val();
+    if (!name) {
+      name = "Default";
+    }
+    if (!url) {
+      url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO";
+    }
     $.ajax({
        url: '/createChatroom',
        data : {
-          name : $('#crn').val(),
-          url : $('#crv').val(),
+          name : name,
+          url : url,
           lat : $('#lat').val(),
           lon : $('#long').val(),
         },
@@ -93,34 +123,13 @@ function initializeMap() {
        success: function(data) {},
        type: 'POST'
     });
-    function reupdate() {
-      function callback() {
-        $.ajax({
-           url: '/rooms',
-           error: function(code) {
-             console.log(code);
-           },
-           dataType: 'json',
-           success: function(data) {
-             console.log(data);
-             clearMap();
-             for (var i = 0; i<data.length; i++) {
-               room = data[i];
-               addPin({name : room.name, desc : "<center><h3>"+room.name+"</h3><br>Join</center>", coords : [room.lat, room.long], url : "/roomView?roomName="+room.name});
-             }
-           },
-           type: 'GET'
-        });
-      }
-
-      setTimeout(callback, 1000);
-    };
-    reupdate();
+    map.setView([position.coords.latitude, position.coords.longitude], 16);
   });
+
 }
 
 function success(pos){
-  var position = pos;
+  position = pos;
   map.setView([pos.coords.latitude, pos.coords.longitude], 13);
   $('#lat').val(position.coords.latitude);
   $('#long').val(position.coords.longitude);
@@ -140,6 +149,7 @@ function success(pos){
      },
      type: 'GET'
   });
+  checkMap();
 }
 
 
