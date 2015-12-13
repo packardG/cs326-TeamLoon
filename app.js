@@ -122,12 +122,9 @@ io.on('connection', function(socket){
   });
 
   socket.on('kick count', function(client){
-    if (typeof io.sockets.sockets[client] !== 'undefined') {
-      socket.emit('chat message', socket.username + ' kicked by Server.');
-      io.sockets.sockets[client].disconnect();
-    } else {
-      socket.emit('chat message', socket.username + ' does not exist.');
-    }
+   
+   client.disconnect();
+   socket.broadcast.in(socket.roomName).emit('update userLists', socket.room.userList);
   });
 
 });
