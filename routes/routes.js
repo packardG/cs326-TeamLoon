@@ -97,7 +97,7 @@ module.exports = function (app) {
             notFound404(req, res);
         } else {
             res.render('team', {
-                members: result.data,
+                members: result.data
             });
         }
     });
@@ -131,12 +131,10 @@ module.exports = function (app) {
             var room = chatroom.findRoom(queryVal);
             if(room){
                 /// joined the room
-                // var mID = chatroom.joinRoom(queryVal, "temp");
                 console.log(chatroom.getUsers(room));
                 res.render('wireframe', {
                     layout : "chatroom",
-                    userList : chatroom.getUsers(room),
-                    // myID : mID,
+                    userList : chatroom.getUsers(room)
                 });
                 return;
             }
@@ -180,6 +178,7 @@ module.exports = function (app) {
     app.use(notFound404);
     app.use(internalServerError500);
 
-};/**
+};
+/**
  * Created by Hawmalt on 12/10/2015.
  */
