@@ -58,14 +58,15 @@ function success(pos){
      dataType: 'json',
      success: function(data) {
        console.log(data);
-       for (var i = 0; i<data.length-1; i++) {
+       for (var i = 0; i<data.length; i++) {
          room = data[i];
-         addPin({name : room.name, desc : "<center><h3>"+room.name+"</h3><br>Join</center>", coords : [room.lat, room.long], url : "Nerd"});
+         addPin({name : room.name, desc : "<center><h3>"+room.name+"</h3><br>Join</center>", coords : [room.lat, room.long], url : "/roomView?roomName="+room.name});
        }
      },
      type: 'GET'
   });
 }
+
 
 function addPin(data) {
   pins.splice(pins.length,0,{

@@ -155,8 +155,9 @@ module.exports = function (app) {
 
     app.post('/createChatroom', (req,res) => {
       chatroom.createChatroom(req.body.name, "", Number(req.body.lat[1]), Number(req.body.lat[0]), req.body.url);
-      res.redirect('/roomSelection');
+      res.redirect("/roomView?roomName="+req.body.name);
     });
+
 
     app.get('/roomSelection', (req, res) => {
         var sessionUser = req.session.user;
