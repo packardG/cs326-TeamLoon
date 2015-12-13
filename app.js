@@ -89,6 +89,14 @@ io.on('connection', function(socket){
 
   });
 
+  socket.on('PlayVideo', function(time){
+      socket.broadcast.in(socket.roomName).emit('PlayVideo', time);
+  });
+
+  socket.on('PauseVideo', function(time){
+      socket.broadcast.in(socket.roomName).emit('PauseVideo', time);
+  });
+
   socket.on('disconnect', function(){
 
     socket.broadcast.in(socket.roomName).emit('chat message', 'SERVER', socket.username + ' has left the chatroom');
@@ -106,16 +114,16 @@ io.on('connection', function(socket){
   socket.on('Call Vote', function(userName){
      console.log('calling kick.');
      socket.broadcast.in(socket.roomName).emit('Vote Kick', userName);
- });
+  });
 
-   socket.on('kick count', function(client){
-      if (typeof io.sockets.sockets[client] !== 'undefined') {
+  socket.on('kick count', function(client){
+    if (typeof io.sockets.sockets[client] !== 'undefined') {
       socket.emit('chat message', socket.username + ' kicked by Server.');
       io.sockets.sockets[client].disconnect();
     } else {
       socket.emit('chat message', socket.username + ' does not exist.');
     }
-   });
+  });
 
 });
 

@@ -97,22 +97,8 @@
             //event.target.playVideo();
         }
 
-        // 5. The API calls this function when the player's state changes.
-        //    The function indicates that when playing a video (state=1),
-        //    the player should play for six seconds and then stop.
-        var done = false;
-        function onPlayerStateChange(event) {
-            if (event.data === 0) {
-                    console.log("should play next vid");
-                    player.loadVideoById(vidArr[0]);
-                    $('#videoQ li').eq(0).remove();
-  	            vidArr.shift();
-	            }
 
-        }
-        function stopVideo() {
-            player.stopVideo();
-        }
+
     </script>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -121,6 +107,24 @@
         var vidArr = [];
 
         var socket = io();
+
+        // 5. The API calls this function when the player's state changes.
+        //    The function indicates that when playing a video (state=1),
+        //    the player should play for six seconds and then stop.
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+                console.log("should play next vid");
+                player.loadVideoById(vidArr[0]);
+                $('#videoQ li').eq(0).remove();
+                vidArr.shift();
+            }
+            else if(event.data === YT.PlayerState.PLAYING){
+                socket.emit('PlayVideo', player.getCurrentTime());
+            }
+            else if(event.data === YT.PlayerState.PAUSED){
+                socket.emit('PauseVideo', player.getCurrentTime());
+            }
+        }
 
         function onButtonVoteClick(element){
             var userName = element.innerHTML;
@@ -174,15 +178,23 @@
 	        });
 
             socket.on('change video', function (data) {
-	        vidArr = data.videoAr.slice(0);
-	        console.log(vidArr);
-	        if(first === 0){
-	            console.log('in the first if statement');
+	            vidArr = data.videoAr.slice(0);
+	            console.log(vidArr);
+	            if(first === 0){
+	                console.log('in the first if statement');
                     player.loadVideoById(vidArr[0]);
-   	            vidArr.shift();
-	        }
-	        first = 1;
-	        console.log(vidArr);
+   	                vidArr.shift();
+	            }
+	            first = 1;
+	            console.log(vidArr);
+            });
+
+            socket.on('PlayVideo', function(time){
+                player.playVideo();
+            });
+
+            socket.on('PauseVideo', function(time){
+                player.pauseVideo();
             });
 
 	        socket.on('update userLists', function(userlist){
