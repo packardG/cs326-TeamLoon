@@ -114,7 +114,7 @@ io.on('connection', function(socket){
     var vid = splitter(data.suggestedvideo);
 
     io.sockets.in(socket.roomName).emit('suggest video', {suggestedvideo: vid});
-    io.sockets.in(socket.roomName).emit('change video', {videoid: vid});
+    
 //   suggestedVids.push(vid);
     suggestedVids.push(vid);
     io.sockets.in(socket.room.name).emit('suggest video', {suggestedvideo: vid});
