@@ -145,6 +145,11 @@ module.exports = function (app) {
         res.redirect('/roomSelection');
     });
 
+    app.get('/rooms', (req, res) => {
+      console.log(req.query);
+      res.send(chatroom.getAllRooms());
+    });
+
     app.get('/roomSelection', (req, res) => {
         var sessionUser = req.session.user;
         if (maintanace && !loggedIn(sessionUser)) {
@@ -155,7 +160,8 @@ module.exports = function (app) {
         var allRooms = chatroom.getAllRooms();
 
         res.render('chatroom-selection', {
-            rooms: allRooms
+            rooms: allRooms,
+            layout : "none"
         });
     });
 
