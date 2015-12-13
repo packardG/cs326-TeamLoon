@@ -1,24 +1,84 @@
-<button style="height:10%;">Create Chatroom</button>
-<button style="height:10%;">Available Chatrooms</button>
-<div id="map" style="width:100%; height:90%;"></div>
-<script src="scripts/mapLogic.js"></script>
-
 <style>
 #list {
    list-style-type: none;
 }
+
+a.tab {
+  text-decoration: none;
+  color : rgb(255,255,255);
+  text-shadow:
+  -1px -1px 0 #000,
+  1px -1px 0 #000,
+  -1px 1px 0 #000,
+  1px 1px 0 #000;
+}
+
+
+div.tab {
+  border-top-left-radius : 10px;
+  border-top-right-radius : 10px;
+  border-color : rgb(27,22,20);
+  border-width : 1px;
+  border-style : solid;
+  float: left;
+  text-align: center;
+  padding: 5px;
+  min-width : 5%;
+  color : rgb(255,255,255);
+  text-shadow:
+  -1px -1px 0 #000,
+  1px -1px 0 #000,
+  -1px 1px 0 #000,
+  1px 1px 0 #000;
+}
+
+a.tab:link {
+color: inherit;
+}
+a.tab:visited {
+color: inherit;
+}
+a.tab:hover {
+color: inherit;
+}
+
 </style>
 
-<h3 id="banner"><strong>Chatrooms</strong></h3>
 
-<h4>List of available chatrooms</h4>
+<div class="tab" style="background-color : rgb(60,190,60); height:3%;">
+  <div data-role="popup" id="createRoom" class="ui-content">
+    <h3 id="banner"><strong>Create Chatroom</strong></h3>
 
-<p>There are ({{rooms.length}}) available chatrooms:</p>
+    <form action="/createChatroom" method="post">
+      <input type="hidden" name="lat" id="lat"></text>
+      <input type="hidden" name="lat" id="long"></text>
+      <input type="text" name="name" value="Enter Chatroom Name"></text>
+      <input type="text" name="url" value="Enter Chatroom Video URL"></text>
+      <input type="submit" value="Submit"></input>
+    </form>
 
-<ul id="list">
-   {{#each rooms}}
-   <div id="box">
-      <li><a href="/roomView?roomName={{name}}">{{this.name}}</a><p>--{{this.desc}}</p></li>
-   </div>
-   {{/each}}
-</ul>
+  </div>
+  <a class="tab" href="#createRoom" data-rel="popup">Create Chatroom</a>
+</div>
+<div class="tab" style="background-color : rgb(190,60,60); height:3%;">
+  <a class="tab" href="#roomList" data-rel="popup">Available Chatrooms</a>
+  <div data-role="popup" id="roomList" class="ui-content">
+    <h3 id="banner"><strong>Chatrooms</strong></h3>
+
+    <h4>List of available chatrooms</h4>
+
+    <p>There are ({{rooms.length}}) available chatrooms:</p>
+
+    <ul id="list">
+       {{#each rooms}}
+       <div id="box">
+          <li><a href="/roomView?roomName={{name}}">{{this.name}}</a><p>--{{this.desc}}</p></li>
+       </div>
+       {{/each}}
+    </ul>
+  </div>
+</div>
+<div>
+<div id="map" style="width:100%; height:960px;"></div>
+</div>
+<script src="scripts/mapLogic.js"></script>

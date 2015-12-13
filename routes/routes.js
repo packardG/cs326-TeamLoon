@@ -5,6 +5,7 @@ module.exports = function (app) {
     var db = require('../lib/db');
     var chatroom = require('../lib/chatrooms');
     var team = require('../lib/team.js');
+    var bodyParser = require("body-parser");
 
     app.post('/auth',(req,res) => {
         // Grab the session if the user is logged in.
@@ -144,8 +145,17 @@ module.exports = function (app) {
     });
 
     app.get('/rooms', (req, res) => {
-      console.log(req.query);
       res.send(chatroom.getAllRooms());
+    });
+
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+      extended: true
+    }));
+
+    app.post('/createChatroom', (req,res) => {
+      chatroom.createChatroom(req.body.name, "", Number(req.body.lat[1]), Number(req.body.lat[0]), req.body.url);
+      res.redirect('/roomSelection');
     });
 
     app.get('/roomSelection', (req, res) => {
