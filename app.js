@@ -85,7 +85,7 @@ io.on('connection', function(socket){
     suggestedVids.push(vid);
     io.sockets.in(socket.roomName).emit('suggest video', {suggestedvideo: vid});
     io.sockets.in(socket.roomName).emit('change video', {videoAr: suggestedVids});
-    suggestedVids.shift();
+   //  suggestedVids.shift();
 
   });
 
@@ -134,6 +134,28 @@ io.on('connection', function(socket){
          socket.broadcast.in(socket.roomName).emit('update userLists', socket.room.userList);
       }
   });
+
+  socket.on('skip video', function(){
+     console.log('Voting to skip video');
+    io.sockets.in(socket.roomName).emit('video vote');
+ });
+
+ socket.on('handle skip', function(result, size){
+    var yesCount = 0;
+    var noCount = 0;
+    var totalVote = yesCount + noCount;
+    
+    if(result === 'yes'){
+      yesCount++;
+   }
+   else{
+      noCount++;
+   }
+
+   if(yesCount > noCount){
+      socket.emit('pop vid');
+   }
+});
 
 });
 
