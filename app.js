@@ -43,12 +43,6 @@ function loggedIn(sessionUser) {
   return sessionUser && db.isOnline(sessionUser);
 }
 
-// var usernames = ['Loon', 'Elephant', 'Lynx', 'Dog', 'Cat', 'Falcon', 'Eagle', 'Chimpanzee', 'Tick', 'DoDo', 'Penguin',
-// 'Cheetah', 'Whale', 'Philip Seymour Hoffman', 'Goldfish', 'Unicorn', 'Lion', 'Tiger', 'Bear', 'Chickadee', 'Liger',
-// 'Monkey', 'Giraffe', 'Seal', 'Walrus', 'Toucan', 'Chipmunk', 'Gorilla'];
-//
-// var activeUsernames = [];
-
 function splitter(url){
     if (url.indexOf('=') === -1){
 	return url;
@@ -66,42 +60,17 @@ io.on('connection', function(socket){
 
   //THIS SHOULD BE CALLED RIGHT WHEN THE USER CONNECTS
   socket.on('adduser', function(data){
-    // console.log(data.room);
     socket.room = chatroom.findRoom(data.room);
     socket.roomName = socket.room.name;
-    // console.log(chatroom.findRoom(data.room));
     socket.u = chatroom.joinRoom(socket.roomName, "temp");
 
-    //TODO Generate a new username
-
-    // function getName(nameString){
-    //   var tempName = nameString;
-    //   // var tempName = usernames[Math.floor((Math.random() * usernames.length) + 1)];
-    //   if(activeUsernames.indexOf(tempName) === -1){
-    //     return tempName;
-    //   }
-    //   else{
-    //     tempName = tempName + '+';
-    //     getName(tempName);
-    //     // getName(Math.floor((Math.random()* usernames.length) + 1));
-    //   }
-    // }
-
-    // var tempName = usernames[Math.floor((Math.random() * usernames.length) + 1)];
-    // if(activeUsernames.indexOf(tempName) === -1){
-    //   socket.username = tempName
-    // }
-    // else{
-    //   socket.
-    // }
-    // socket.username = getName(usernames[Math.floor((Math.random() * usernames.length) + 1)]);
     socket.username = socket.u.userName;
-    // activeUsernames.push(socket.username);
 
     // send client to the room
     socket.join(socket.roomName);
 
     io.sockets.in(socket.roomName).emit('chat message', 'SERVER', socket.username + ' has entered the chatroom');
+    io.sockets.in(socket.roomName).emit('update userLists', socket.room.userList);
   });
 
 
@@ -113,34 +82,53 @@ io.on('connection', function(socket){
     console.log('suggest video: ' + splitter(data.suggestedvideo));
     var vid = splitter(data.suggestedvideo);
 
-    io.sockets.in(socket.roomName).emit('suggest video', {suggestedvideo: vid});
-    io.sockets.in(socket.roomName).emit('change video', {videoid: vid});
-//   suggestedVids.push(vid);
     suggestedVids.push(vid);
-    io.sockets.in(socket.room.name).emit('suggest video', {suggestedvideo: vid});
-    io.sockets.in(socket.room.name).emit('change video', {videoAr: suggestedVids});
+    io.sockets.in(socket.roomName).emit('suggest video', {suggestedvideo: vid});
+    io.sockets.in(socket.roomName).emit('change video', {videoAr: suggestedVids});
     suggestedVids.shift();
 
   });
 
+  socket.on('PlayVideo', function(){
+      socket.broadcast.in(socket.roomName).emit('PlayVideo');
+  });
+
+  socket.on('PauseVideo', function(){
+      socket.broadcast.in(socket.roomName).emit('PauseVideo');
+  });
+
+    socket.on('SeekVideo', function(time){
+        console.log("Seek To: " + time);
+        socket.broadcast.in(socket.roomName).emit('SeekVideo', time);
+    });
+
   socket.on('disconnect', function(){
 
-    // socket.broadcast.to(socket.room.name).emit('chat message', 'SERVER', socket.username + ' has disconnected');
-    // var i = activeUsernames.indexOf(socket.username);
-    // if(i != -1){
-    //   activeUsernames.splice(i, 1);
-    // }
+    socket.broadcast.in(socket.roomName).emit('chat message', 'SERVER', socket.username + ' has left the chatroom');
 
-    socket.leave(socket.roomName);
     chatroom.removeUser(socket.room,socket.u);
 
 
+    if(socket.room){
+      socket.broadcast.in(socket.roomName).emit('update userLists', socket.room.userList);
+    }
+
+    socket.leave(socket.roomName);
   });
 
- //  socket.on('Call Vote', function(){
- //
- //     io.sockets.in(socket.room).emit('Vote Kick');
- // });
+  socket.on('Call Vote', function(userName){
+     console.log('calling kick.');
+     socket.broadcast.in(socket.roomName).emit('Vote Kick', userName);
+  });
+
+  socket.on('kick count', function(client){
+    if (typeof io.sockets.sockets[client] !== 'undefined') {
+      socket.emit('chat message', socket.username + ' kicked by Server.');
+      io.sockets.sockets[client].disconnect();
+    } else {
+      socket.emit('chat message', socket.username + ' does not exist.');
+    }
+  });
 
 });
 
