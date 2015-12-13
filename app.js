@@ -122,8 +122,8 @@ io.on('connection', function(socket){
   });
 
   socket.on('kick count', function(result, userName){
-     yesCount = 0;
-     noCount = 0;
+     var yesCount = 0;
+     var noCount = 0;
      if(result === 'yes'){
       yesCount++;
      }
