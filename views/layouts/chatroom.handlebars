@@ -100,7 +100,7 @@
 
 
     </script>
-
+n
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var first = 0;
@@ -113,10 +113,19 @@
         //    the player should play for six seconds and then stop.
         function onPlayerStateChange(event) {
             if (event.data === YT.PlayerState.ENDED) {
-                console.log("should play next vid");
-                player.loadVideoById(vidArr[0]);
-                $('#videoQ li').eq(0).remove();
-                vidArr.shift();
+				if(vidArr.length == 0){
+					first = 0;
+					socket.on('suggest video', function (data) {
+					$('#videoQ').append($('<li>fg').text(data.suggestedvideo));
+					socket.emit('change video', vidArr);
+					});
+				}
+				else{
+					console.log("should play next vid");
+					player.loadVideoById(vidArr[0]);
+					$('#videoQ li').eq(0).remove();
+					vidArr.shift();
+				}
             }
             else if(event.data === YT.PlayerState.PLAYING){
                 console.log('Playing');
@@ -127,6 +136,9 @@
                 console.log('Paused');
                 socket.emit('PauseVideo', player.getCurrentTime());
             }
+	    else if (event.data === onError){
+	         
+	    }
         }
 
 

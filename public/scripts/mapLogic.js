@@ -48,7 +48,8 @@ function initializeMap() {
 function success(pos){
   var position = pos;
   map.setView([pos.coords.latitude, pos.coords.longitude], 13);
-
+  $('#lat').val(position.coords.latitude);
+  $('#long').val(position.coords.longitude);
   $.ajax({
      url: '/rooms?lat=' + position.coords.latitude + '&long=' + position.coords.longitude,
      error: function(code) {
@@ -57,14 +58,15 @@ function success(pos){
      dataType: 'json',
      success: function(data) {
        console.log(data);
-       for (var i = 0; data.length; i++) {
+       for (var i = 0; i<data.length; i++) {
          room = data[i];
-         addPin({name : room.name, desc : "<center>Join</center>", coords : [room.lat, room.long], url : "Nerd"});
+         addPin({name : room.name, desc : "<center><h3>"+room.name+"</h3><br>Join</center>", coords : [room.lat, room.long], url : "/roomView?roomName="+room.name});
        }
      },
      type: 'GET'
   });
 }
+
 
 function addPin(data) {
   pins.splice(pins.length,0,{
@@ -91,7 +93,7 @@ function addPin(data) {
   featureLayer.setGeoJSON(pins);
 }
 
-initializeMap();
+$(document).ready( initializeMap );
 
 // testing to see if it actually clears it
 // "1" is a key
@@ -104,6 +106,6 @@ initializeMap();
 // coords : [-72.5170, 42.3670]
 // }
 
-addPin({name : "Rocking", desc : "<center>Join</center>", coords : [-72.5170, 42.3670], url : "nerd"});
+//addPin({name : "Rocking", desc : "<center>Join</center>", coords : [-72.5170, 42.3670], url : "nerd"});
 
 //clearMap();
