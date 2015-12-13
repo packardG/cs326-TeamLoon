@@ -116,10 +116,25 @@ io.on('connection', function(socket){
      socket.broadcast.in(socket.roomName).emit('Vote Kick', userName);
   });
 
-  socket.on('kick count', function(client){
 
-   client.disconnect();
-   socket.broadcast.in(socket.roomName).emit('update userLists', socket.room.userList);
+  socket.on('kick count', function(result, userName){
+     var yesCount = 0;
+     var noCount = 0;
+     if(result === 'yes'){
+      yesCount++;
+     }
+      else if(result === 'no'){
+      noCount++;
+      }
+
+      if(yesCount > noCount){
+         client.disconnect();
+         socket.broadcast.in(socket.roomName).emit('update userLists', socket.room.userList);
+      }
+      else{
+         socket.broadcast.in(socket.roomName).emit('update userLists', socket.room.userList);
+      }
+
   });
 
 });
