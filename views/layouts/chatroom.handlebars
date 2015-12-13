@@ -106,10 +106,11 @@
         //    the player should play for six seconds and then stop.
         function onPlayerStateChange(event) {
             if (event.data === YT.PlayerState.ENDED) {
+			    $('#videoQ li').eq(0).remove();
 				if(vidArr.length == 0){
 					first = 0;
 					socket.on('suggest video', function (data) {
-					$('#videoQ').append($('<li>fg').text(data.suggestedvideo));
+					//$('#videoQ').append($('<li>fg').text(data.suggestedvideo));
 					socket.emit('change video', vidArr);
 					});
 				}
