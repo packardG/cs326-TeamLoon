@@ -72,7 +72,7 @@ color: inherit;
     <ul id="list">
        {{#each rooms}}
        <div id="box">
-          <li><a id="tochatroom" style="cursor: pointer;" url="/roomView?roomName={{name}}">{{this.name}}</a><p>--{{this.desc}}</p></li>
+          <li><a style="cursor: pointer;" url="/roomView?roomName={{this.name}}">{{this.name}}</a><p>--{{this.desc}}</p></li>
        </div>
        {{/each}}
     </ul>

@@ -66,8 +66,16 @@ function initializeMap() {
           minWidth: 320
       });
   });
-  $("#tochatroom").click(function() {
-    window.location.href = $(this).attr('url');
+  $("a").each(function() {
+      var t = $(this);
+      var url = t.attr('url');
+      if (url) {
+        console.log(url);
+        t.click(function() {
+          console.log(url);
+          window.location.href = url;
+        });
+      }
   });
   $("#makecr").click(function() {
     $.ajax({
