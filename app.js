@@ -52,6 +52,10 @@ function splitter(url){
 }
 
 var suggestedVids = [];
+var vidYesCount = 0;
+var vidNoCount = 0;
+var totalVote = 0;
+
 
 io.on('connection', function(socket){
 
@@ -142,20 +146,24 @@ io.on('connection', function(socket){
     io.sockets.in(socket.roomName).emit('video vote');
  });
 
- socket.on('handle skip', function(result, size){
-    var yesCount = 0;
-    var noCount = 0;
-    var totalVote = yesCount + noCount;
-    
-    if(result === 'yes'){
-      yesCount++;
-   }
-   else{
-      noCount++;
-   }
+ socket.on('handle skip', function(result){
 
-   if(yesCount > noCount){
-      socket.emit('pop vid');
+    if(result === 'yes'){
+      vidYesCount++;
+    }
+    else{
+      vidNoCount++;
+    }
+    totalVote = vidYesCount + vidNoCount;
+
+    if(totalVote === socket.room.userList.length){
+
+      if(vidYesCount > vidNoCount){
+         
+         io.sockets.in(socket.roomName).emit('pop vid');
+      }
+      vidYesCount = 0;
+      vidNoCount = 0;
    }
 });
 

@@ -196,9 +196,9 @@
 	 		  socket.on('video vote', function(){
 	 			  var msg = confirm("Skip to next video in queue?");
 	 			  if(msg === true){
-	 					socket.emit("handle skip", 'yes', userList.length);
+	 					socket.emit("handle skip", 'yes');
 	 			  } else{
-	 				 socket.emit("handle skip", 'no', userList.length);
+	 				 socket.emit("handle skip", 'no');
 	 			  }
 	 		  });
 
