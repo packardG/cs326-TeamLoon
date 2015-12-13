@@ -89,13 +89,18 @@ io.on('connection', function(socket){
 
   });
 
-  socket.on('PlayVideo', function(time){
-      socket.broadcast.in(socket.roomName).emit('PlayVideo', time);
+  socket.on('PlayVideo', function(){
+      socket.broadcast.in(socket.roomName).emit('PlayVideo');
   });
 
-  socket.on('PauseVideo', function(time){
-      socket.broadcast.in(socket.roomName).emit('PauseVideo', time);
+  socket.on('PauseVideo', function(){
+      socket.broadcast.in(socket.roomName).emit('PauseVideo');
   });
+
+    socket.on('SeekVideo', function(time){
+        console.log("Seek To: " + time);
+        socket.broadcast.in(socket.roomName).emit('SeekVideo', time);
+    });
 
   socket.on('disconnect', function(){
 
