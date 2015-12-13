@@ -89,6 +89,19 @@ io.on('connection', function(socket){
 
   });
 
+  socket.on('PlayVideo', function(){
+      socket.broadcast.in(socket.roomName).emit('PlayVideo');
+  });
+
+  socket.on('PauseVideo', function(){
+      socket.broadcast.in(socket.roomName).emit('PauseVideo');
+  });
+
+    socket.on('SeekVideo', function(time){
+        console.log("Seek To: " + time);
+        socket.broadcast.in(socket.roomName).emit('SeekVideo', time);
+    });
+
   socket.on('disconnect', function(){
 
     socket.broadcast.in(socket.roomName).emit('chat message', 'SERVER', socket.username + ' has left the chatroom');
@@ -103,19 +116,19 @@ io.on('connection', function(socket){
     socket.leave(socket.roomName);
   });
 
-  socket.on('Call Vote', function(){
+  socket.on('Call Vote', function(userName){
      console.log('calling kick.');
-     socket.broadcast.in(socket.roomName).emit('Vote Kick');
- });
+     socket.broadcast.in(socket.roomName).emit('Vote Kick', userName);
+  });
 
-   socket.on('kick count', function(client){
-      if (typeof io.sockets.sockets[client] !== 'undefined') {
+  socket.on('kick count', function(client){
+    if (typeof io.sockets.sockets[client] !== 'undefined') {
       socket.emit('chat message', socket.username + ' kicked by Server.');
       io.sockets.sockets[client].disconnect();
     } else {
       socket.emit('chat message', socket.username + ' does not exist.');
     }
-   });
+  });
 
 });
 
