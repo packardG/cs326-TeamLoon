@@ -30,7 +30,7 @@
 
           <div data-role="popup" id="videoQ" class="ui-content" style="min-width:1000px;">
               <!-- Write video Queue display -->
-              next video to be displayed
+              Next video to be displayed:
           </div>
         </div>
         <div class="tab" style="background-color : rgb(190,60,190);">
@@ -57,7 +57,7 @@
 	          <div id="player"></div>
 	      </div>
 				<div class="userlist" style="float:left;">
-	        User List <br>
+	        <strong>User List</strong> <br>
 					<ul id="list">
 					   <!-- {{#each userList}}
 					   <div id="box">
@@ -112,9 +112,9 @@
                     console.log("should play next vid");
                     player.loadVideoById(vidArr[0]);
                     $('#videoQ li').eq(0).remove();
-  	            vidArr.shift();	         
-	            }  
-          
+  	            vidArr.shift();
+	            }
+
         }
         function stopVideo() {
             player.stopVideo();

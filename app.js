@@ -139,8 +139,7 @@ io.on('connection', function(socket){
 
   socket.on('Call Vote', function(){
      console.log('calling kick.');
-     io.sockets.broadcast.in(socket.room).emit('Vote Kick');
-     //socket.broadcast.in(socket.room).emit('Vote Kick');
+     socket.broadcast.in(socket.roomName).emit('Vote Kick');
  });
 
    socket.on('kick count', function(client){
