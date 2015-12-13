@@ -223,6 +223,7 @@
 				socket.on('pop vid', function(){
 					console.log('popping top vid' + vidArr);
 					vidArr.shift();
+					$('#videoQ li').eq(0).remove();
 					if(vidArr.length > 0){
 						player.loadVideoById(vidArr[0]);
 					}
