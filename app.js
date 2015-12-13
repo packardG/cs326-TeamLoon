@@ -103,9 +103,9 @@ io.on('connection', function(socket){
     socket.leave(socket.roomName);
   });
 
-  socket.on('Call Vote', function(){
+  socket.on('Call Vote', function(userName){
      console.log('calling kick.');
-     socket.broadcast.in(socket.roomName).emit('Vote Kick');
+     socket.broadcast.in(socket.roomName).emit('Vote Kick', userName);
  });
 
    socket.on('kick count', function(client){

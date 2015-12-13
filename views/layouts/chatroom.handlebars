@@ -119,8 +119,24 @@
     <script>
         var first = 0;
         var vidArr = [];
+
+        var socket = io();
+
+        function onButtonVoteClick(element){
+            var userName = element.innerHTML;
+            var txt;
+            var msg = confirm("Initiate vote to kick?");
+            if (msg === true) {
+                txt = "Initiating Vote...";
+                socket.emit("Call Vote", userName);
+            } else {
+                txt = "Vote cancelled";
+            }
+            document.getElementById("demo").innerHTML = txt;
+        }
+
         $( document ).ready(function() {
-            var socket = io();
+
 
             var query = window.location.search.slice(10);
             socket.emit('adduser', {room: query});
@@ -143,27 +159,15 @@
                 return false;
             });
 
-				$('button').click(function(){
-						var txt;
-						var msg = confirm("Initiate vote to kick?");
-						if (msg === true) {
-							txt = "Initiating Vote...";
-							socket.emit("Call Vote");
-						} else {
-							txt = "Vote cancelled";
-						}
-						document.getElementById("demo").innerHTML = txt;
-				});
+            socket.on('Vote Kick', function(userName){
+                var msg = confirm("Kick " + userName + "?");
+                if(msg === true){
+                    socket.emit("kick count", socket.id);
+                } else{
+                    prompt("Vote cancelled");
+                }
 
-				socket.on('Vote Kick', function(){
-					var msg = confirm("Kick player?");
-					if(msg === true){
-						socket.emit("kick count", socket.id);
-					} else{
-						prompt("Vote cancelled");
-					}
-
-				});
+            });
 
             socket.on('suggest video', function (data) {
                 $('#videoQ').append($('<li>fg').text(data.suggestedvideo));
@@ -195,7 +199,7 @@
 
                 //Then fill the list with the new list of users
                 for(var i = 0; i < userlist.length; i++){
-                    $('#votelist').append($('<button id="voteButton">').text(userlist[i].userName));
+                    $('#votelist').append($('<button id="voteButton" onClick="onButtonVoteClick(this)">').text(userlist[i].userName));
                 }
 
 	        });
