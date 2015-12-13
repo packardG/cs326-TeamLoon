@@ -51,10 +51,14 @@ function splitter(url){
 	return url.split('=')[1];
 }
 
+//Global vars
 var suggestedVids = [];
 var vidYesCount = 0;
 var vidNoCount = 0;
 var totalVote = 0;
+var kickYesCount = 0;
+var kickNoCount = 0;
+totalKickCount = 0;
 
 
 io.on('connection', function(socket){
@@ -120,27 +124,30 @@ io.on('connection', function(socket){
   });
 
   socket.on('Call Vote', function(userName){
-     console.log('calling kick.');
+     console.log('Calling kick to vote on: ' + userName);
      socket.broadcast.in(socket.roomName).emit('Vote Kick', userName);
   });
 
 
-  socket.on('kick count', function(result, userName){
-     var yesCount = 0;
-     var noCount = 0;
-     if(result === 'yes'){
-      yesCount++;
+  socket.on('kick player', function(userInput, userName){
+     var kickYesCount = 0;
+     var kickNoCount = 0;
+     if(userInput === 'yes'){
+      kickYesCount++;
      }
-      else if(result === 'no'){
-      noCount++;
-      }
+     else{
+      kickNoCount++;
+     }
+     totalKickCount = kickYesCount + kickNoCount;
 
-      if(yesCount > noCount){
-         client.disconnect();
-         socket.broadcast.in(socket.roomName).emit('update userLists', socket.room.userList);
-      }
-      else{
-         socket.broadcast.in(socket.roomName).emit('update userLists', socket.room.userList);
+     if(totalKickCount === socket.room.userList.length){
+
+        if(kickYesCount > kickNoCount){
+         socket.username.id.disconnect();
+         io.sockets.in(socket.roomName).emit('update userLists', socket.room.userList);
+        }
+         kickYesCount = 0;
+         kickNoCount = 0;
       }
 
   });
@@ -150,9 +157,9 @@ io.on('connection', function(socket){
     io.sockets.in(socket.roomName).emit('video vote');
  });
 
- socket.on('handle skip', function(result){
+ socket.on('handle skip', function(userInput){
 
-    if(result === 'yes'){
+    if(userInput === 'yes'){
       vidYesCount++;
     }
     else{
@@ -163,7 +170,7 @@ io.on('connection', function(socket){
     if(totalVote === socket.room.userList.length){
 
       if(vidYesCount > vidNoCount){
-         
+
          io.sockets.in(socket.roomName).emit('pop vid');
       }
       vidYesCount = 0;

@@ -182,10 +182,10 @@
             socket.on('Vote Kick', function(userName){
                 var msg = confirm("Kick " + userName + "?");
                 if(msg === true){
-                    socket.emit("kick count", 'yes', userName);
+                    socket.emit("kick player", 'yes', userName);
                 } else{
                   //   prompt("Vote cancelled");
-						socket.emit("kick count", 'no', userName);
+						socket.emit("kick player", 'no', userName);
                 }
 
             });
@@ -227,6 +227,7 @@
 					if(vidArr.length > 0){
 						player.loadVideoById(vidArr[0]);
 					}
+
 				});
 
             socket.on('PlayVideo', function(time){
