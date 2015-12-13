@@ -87,7 +87,8 @@
                 //videoId: 'qaddgd8UI90',
                 events: {
                     'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
+                    'onStateChange': onPlayerStateChange,
+					'onError': onPlayerError
                 }
             });
         }
@@ -96,6 +97,11 @@
         function onPlayerReady(event) {
             //event.target.playVideo();
         }
+		//youtube player error handling -- stops attempting to load current video
+		function onPlayerError(event) {
+			console.log("ERROR: Could not play video.");
+			event.target.stopVideo();
+		}
 
 
 
@@ -116,8 +122,8 @@
 				if(vidArr.length == 0){
 					first = 0;
 					socket.on('suggest video', function (data) {
-					$('#videoQ').append($('<li>fg').text(data.suggestedvideo));
-					socket.emit('change video', vidArr);
+						$('#videoQ').append($('<li>fg').text(data.suggestedvideo));
+						socket.emit('change video', vidArr);
 					});
 				}
 				else{
