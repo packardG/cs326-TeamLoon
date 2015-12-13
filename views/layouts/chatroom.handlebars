@@ -14,78 +14,59 @@
 	</head>
 	<body>
     <div>
-      <div>
-        <div class="tab" style="background-color : rgb(60,190,60);">
-          <a class="tab" href="#urlPopup" data-rel="popup">Suggest a New Video</a>
+        <div>
+            <div class="tab" style="background-color : rgb(60,190,60);">
+              <a class="tab" href="#urlPopup" data-rel="popup">Suggest a New Video</a>
 
-          <div data-role="popup" id="urlPopup" class="ui-content" style="min-width:1000px;">
-            <form id="suggestInput" method="post" action="demoform.asp">
-              <label for="usrnm" class="ui-hidden-accessible">URL:</label>
-              <input type="text" name="url" id="videoSuggestion" placeholder="Video ID">
+              <div data-role="popup" id="urlPopup" class="ui-content" style="min-width:1000px;">
+                <form id="suggestInput" method="post" action="demoform.asp">
+                  <label for="usrnm" class="ui-hidden-accessible">URL:</label>
+                  <input type="text" name="url" id="videoSuggestion" placeholder="Video ID">
+                </form>
+              </div>
+            </div>
+            <div class="tab" style="background-color : rgb(190,60,60);">
+              <a class="tab" href="#videoQ" data-rel="popup">Video Queue</a>
+
+              <div data-role="popup" id="videoQ" class="ui-content" style="min-width:1000px;">
+                  <!-- Write video Queue display -->
+                  Next video to be displayed:
+              </div>
+            </div>
+            <div class="tab" style="background-color : rgb(190,60,190);">
+                <a class="tab" href="#votingPopup" data-rel="popup">Voting</a>
+
+                <div data-role="popup" id="votingPopup" class="ui-content" style="min-width:1000px;">
+                    <ul id="votingArea">
+                        <h3>Vote to kick?</h3>
+                        <h4>Select a User:</h4>
+                        <ul id="votelist">
+
+                            <p id="demo"></p>
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <script src="scripts/peerinit.js">initialize({{myID}})</script>
+            <div style="width:50%; height:480px; clear:left; float:left;">
+                <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+                <div id="player"></div>
+            </div>
+			<div class="userlist" style="float:left;">
+                <strong>User List</strong> <br>
+                <ul id="listOfUsers">
+
+                </ul>
+            </div>
+        </div>
+        <div class="chatbox" style="height:500px; clear:left; overflow:scroll;">
+            <ul id="chatlog"></ul>
+            <form id="chatInput" action="">
+                <input id="m" autocomplete="off" />
             </form>
-          </div>
         </div>
-        <div class="tab" style="background-color : rgb(190,60,60);">
-          <a class="tab" href="#videoQ" data-rel="popup">Video Queue</a>
-
-          <div data-role="popup" id="videoQ" class="ui-content" style="min-width:1000px;">
-              <!-- Write video Queue display -->
-              next video to be displayed
-          </div>
-        </div>
-        <div class="tab" style="background-color : rgb(190,60,190);">
-          <a class="tab" href="#votingPopup" data-rel="popup">Voting</a>
-
-          <div data-role="popup" id="votingPopup" class="ui-content" style="min-width:1000px;">
-              <ul id="votingArea">
-					  <h3>Vote to kick?</h3>
-					  <h4>Select a User:</h4>
-					  <ul id="list">
-					     {{#each userList}}
-					   	<button id="voteButton" onclick="confirmVote()">{{this.userName}}</button>
-					     {{/each}}
-						  <p id="demo"></p>
-						  <script>
-						  		function confirmVote() {
-		  							var txt;
-		  							var msg = confirm("Initiate vote to kick?");
-		  							if (msg == true) {
-		  								txt = "Initiating Vote...";
-		  								//socket.emit('Call Vote');
-		  							} else {
-		  								txt = "Vote cancelled";
-		  							}
-		  						document.getElementById("demo").innerHTML = txt;
-		  					}
-						</script>
-					  </ul>
-				  </ul>
-          </div>
-        </div>
-      </div>
-			<div>
-				<script src="scripts/peerinit.js">initialize({{myID}})</script>
-	      <div style="width:50%; height:480px; clear:left; float:left;">
-	          <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-	          <div id="player"></div>
-	      </div>
-				<div class="userlist" style="float:left;">
-	        User List <br>
-					<ul id="list">
-					   <!-- {{#each userList}}
-					   <div id="box">
-					      {{this.userName}}
-					   </div>
-					   {{/each}} -->
-					</ul>
-				</div>
-			</div>
-      <div class="chatbox" style="height:500px; clear:left; overflow:scroll;">
-          <ul id="chatlog"></ul>
-          <form id="chatInput" action="">
-              <input id="m" autocomplete="off" />
-          </form>
-      </div>
     </div>
 
     <script>
@@ -106,8 +87,7 @@
                 //videoId: 'qaddgd8UI90',
                 events: {
                     'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange,
-					'onError': onPlayerError
+                    'onStateChange': onPlayerStateChange
                 }
             });
         }
@@ -116,16 +96,11 @@
         function onPlayerReady(event) {
             //event.target.playVideo();
         }
-		//youtube player error handling -- stops attempting to load current video
-		function onPlayerError(event) {
-			console.log("ERROR: Could not play video.");
-			event.target.stopVideo();
-		}
 
 
 
     </script>
-
+n
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var first = 0;
@@ -141,8 +116,8 @@
 				if(vidArr.length == 0){
 					first = 0;
 					socket.on('suggest video', function (data) {
-						$('#videoQ').append($('<li>fg').text(data.suggestedvideo));
-						socket.emit('change video', vidArr);
+					$('#videoQ').append($('<li>fg').text(data.suggestedvideo));
+					socket.emit('change video', vidArr);
 					});
 				}
 				else{
@@ -160,6 +135,9 @@
                 console.log('Paused');
                 socket.emit('PauseVideo');
             }
+	    else if (event.data === onError){
+	         
+	    }
         }
 
 
@@ -223,16 +201,16 @@
             socket.on('Vote Kick', function(userName){
                 var msg = confirm("Kick " + userName + "?");
                 if(msg === true){
-                    socket.emit("kick count", userName);
+                    socket.emit("kick count", socket.id);
                 } else{
-                    alert("Vote cancelled");
+                    prompt("Vote cancelled");
                 }
 
             });
 
             socket.on('suggest video', function (data) {
                 $('#videoQ').append($('<li>fg').text(data.suggestedvideo));
-	    });
+	        });
 
             socket.on('change video', function (data) {
 	            vidArr = data.videoAr.slice(0);
@@ -281,7 +259,6 @@
                 }
 
 	        });
-
         });
     </script>
 
