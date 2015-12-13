@@ -21,6 +21,29 @@ function getDistance(roomPos, userPos){
   return dist;
 }
 
+function clearMap() {
+  map.removeLayer(featureLayer);
+  pins = [];
+  featureLayer = L.mapbox.featureLayer().addTo(map);
+
+  featureLayer.on('layeradd', function(e) {
+      var marker = e.layer,
+          feature = marker.feature;
+
+      // Create custom popup content
+      var popupContent =  '<a target="_blank" class="popup" href="' + feature.properties.url + '">' +
+                              feature.properties.desc +
+                          '</a>';
+
+      // http://leafletjs.com/reference.html#popup
+      marker.bindPopup(popupContent,{
+          closeButton: false,
+          minWidth: 320
+      });
+  });
+}
+
+
 function initializeMap() {
   // this just creates the map object. The size is still specified in the map.handlebars
   L.mapbox.accessToken = 'pk.eyJ1IjoiYWNiZW50bGUiLCJhIjoiY2lndTI4cm5pMGF1anVja28zOHI3ZXo4eSJ9.bC_CeR5LuW9S7K1oTHxh3Q';
@@ -43,6 +66,47 @@ function initializeMap() {
           minWidth: 320
       });
   });
+
+  $("#makecr").click(function() {
+    $.ajax({
+       url: '/createChatroom',
+       data : {
+          name : $('#crn').val(),
+          url : $('#crv').val(),
+          lat : $('#lat').val(),
+          lon : $('#long').val(),
+        },
+       error: function(code) {
+         console.log(code);
+       },
+       dataType: 'json',
+       success: function(data) {},
+       type: 'POST'
+    });
+    function reupdate() {
+      function callback() {
+        $.ajax({
+           url: '/rooms',
+           error: function(code) {
+             console.log(code);
+           },
+           dataType: 'json',
+           success: function(data) {
+             console.log(data);
+             clearMap();
+             for (var i = 0; i<data.length; i++) {
+               room = data[i];
+               addPin({name : room.name, desc : "<center><h3>"+room.name+"</h3><br>Join</center>", coords : [room.lat, room.long], url : "/roomView?roomName="+room.name});
+             }
+           },
+           type: 'GET'
+        });
+      }
+
+      setTimeout(callback, 1000);
+    };
+    reupdate();
+  });
 }
 
 function success(pos){
@@ -58,6 +122,7 @@ function success(pos){
      dataType: 'json',
      success: function(data) {
        console.log(data);
+       clearMap();
        for (var i = 0; i<data.length; i++) {
          room = data[i];
          addPin({name : room.name, desc : "<center><h3>"+room.name+"</h3><br>Join</center>", coords : [room.lat, room.long], url : "/roomView?roomName="+room.name});
