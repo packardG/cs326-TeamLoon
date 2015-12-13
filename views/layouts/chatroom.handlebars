@@ -73,8 +73,12 @@
             </form>
         </div>
     </div>
-
+    <script src="/socket.io/socket.io.js"></script>
     <script>
+	     var first = 0;
+        var vidArr = [];
+
+        var socket = io();
         // 2. This code loads the IFrame Player API code asynchronously.
         var tag = document.createElement('script');
 
@@ -102,26 +106,16 @@
             //event.target.playVideo();
         }
 
-
-
-    </script>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var first = 0;
-        var vidArr = [];
-
-        var socket = io();
-
         // 5. The API calls this function when the player's state changes.
         //    The function indicates that when playing a video (state=1),
         //    the player should play for six seconds and then stop.
         function onPlayerStateChange(event) {
             if (event.data === YT.PlayerState.ENDED) {
+			    $('#videoQ li').eq(0).remove();
 				if(vidArr.length == 0){
 					first = 0;
 					socket.on('suggest video', function (data) {
-					$('#videoQ').append($('<li>fg').text(data.suggestedvideo));
+					//$('#videoQ').append($('<li>fg').text(data.suggestedvideo));
 					socket.emit('change video', vidArr);
 					});
 				}

@@ -116,6 +116,7 @@ io.on('connection', function(socket){
      socket.broadcast.in(socket.roomName).emit('Vote Kick', userName);
   });
 
+
   socket.on('kick count', function(result, userName){
      var yesCount = 0;
      var noCount = 0;
@@ -133,6 +134,7 @@ io.on('connection', function(socket){
       else{
          socket.broadcast.in(socket.roomName).emit('update userLists', socket.room.userList);
       }
+
   });
 
   socket.on('skip video', function(){
