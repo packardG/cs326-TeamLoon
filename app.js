@@ -93,6 +93,10 @@ io.on('connection', function(socket){
 
   });
 
+  socket.on('remove vid', function(){
+      suggestedVids.shift();
+  });
+
   socket.on('PlayVideo', function(time){
       socket.broadcast.in(socket.roomName).emit('PlayVideo', time);
   });

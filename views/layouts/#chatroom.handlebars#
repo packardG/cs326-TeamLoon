@@ -45,11 +45,6 @@
                             <p id="demo"></p>
                         </ul>
                     </ul>
-						  <br>
-						  <ul>
-							  <h3>Vote to skip current video?</h3>
-							  <button id="voteVideo">Skip</button>
-						  </ul>
                 </div>
             </div>
         </div>
@@ -111,7 +106,6 @@
         //    the player should play for six seconds and then stop.
         function onPlayerStateChange(event) {
             if (event.data === YT.PlayerState.ENDED) {
-	                    socket.emit('remove vid');
 			    $('#videoQ li').eq(0).remove();
 				if(vidArr.length == 0){
 					first = 0;
@@ -190,19 +184,6 @@
 
             });
 
-				$('#voteVideo').click(function(){
-	 			  socket.emit('skip video');
-	 		  });
-
-	 		  socket.on('video vote', function(){
-	 			  var msg = confirm("Skip to next video in queue?");
-	 			  if(msg === true){
-	 					socket.emit("handle skip", 'yes');
-	 			  } else{
-	 				 socket.emit("handle skip", 'no');
-	 			  }
-	 		  });
-
             socket.on('suggest video', function (data) {
                 $('#videoQ').append($('<li>fg').text(data.suggestedvideo));
 	        });
@@ -213,20 +194,12 @@
 	            if(first === 0){
 	                console.log('in the first if statement');
                     player.loadVideoById(vidArr[0]);
-   	                //vidArr.shift();
+   	                vidArr.shift();
 	            }
 	            first = 1;
 	            console.log(vidArr);
 
             });
-
-				socket.on('pop vid', function(){
-					console.log('popping top vid' + vidArr);
-					vidArr.shift();
-					if(vidArr.length > 0){
-						player.loadVideoById(vidArr[0]);
-					}
-				});
 
             socket.on('PlayVideo', function(time){
 
