@@ -100,7 +100,7 @@
 
 
     </script>
-n
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var first = 0;
@@ -136,7 +136,7 @@ n
                 socket.emit('PauseVideo');
             }
 	    else if (event.data === onError){
-	         
+
 	    }
         }
 
@@ -201,9 +201,10 @@ n
             socket.on('Vote Kick', function(userName){
                 var msg = confirm("Kick " + userName + "?");
                 if(msg === true){
-                    socket.emit("kick count", socket.id);
+                    socket.emit("kick count", 'yes', userName);
                 } else{
-                    prompt("Vote cancelled");
+                  //   prompt("Vote cancelled");
+						socket.emit("kick count", 'no', userName);
                 }
 
             });
