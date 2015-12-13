@@ -68,8 +68,12 @@
             </form>
         </div>
     </div>
-
+    <script src="/socket.io/socket.io.js"></script>
     <script>
+	     var first = 0;
+        var vidArr = [];
+
+        var socket = io();
         // 2. This code loads the IFrame Player API code asynchronously.
         var tag = document.createElement('script');
 
@@ -96,17 +100,6 @@
         function onPlayerReady(event) {
             //event.target.playVideo();
         }
-
-
-
-    </script>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var first = 0;
-        var vidArr = [];
-
-        var socket = io();
 
         // 5. The API calls this function when the player's state changes.
         //    The function indicates that when playing a video (state=1),
