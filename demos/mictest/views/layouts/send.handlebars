@@ -16,8 +16,6 @@ function successCallback(stream) {
     mediaStreamSource = audioContext.createMediaStreamSource( stream );
 		console.log(stream);
 		conn = peer.call(2, stream);
-    // Connect it to the destination to hear yourself (or any other node for processing!)
-    //mediaStreamSource.connect( audioContext.destination );
 }
 
 function errorCallback() {
@@ -25,7 +23,7 @@ function errorCallback() {
 }
 
 var conn
-function connecttt() {
+function initializeMic() {
 	var media = navigator.webkitGetUserMedia( {audio:true}, successCallback, errorCallback );
 }
 
