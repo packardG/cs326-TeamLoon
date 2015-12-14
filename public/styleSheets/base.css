@@ -11,8 +11,8 @@
    margin-right: 70px;
 }
 #box{
-    background-color: rgb(240,240,240);
     border-radius: 10px;
+    list-style-type: circle;
 }
 /*#sidebar{
     float: right;
