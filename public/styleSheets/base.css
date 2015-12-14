@@ -11,15 +11,72 @@
    margin-right: 70px;
 }
 #box{
-    background-color: rgb(240,240,240);
     border-radius: 10px;
+    list-style-type: circle;
 }
-#sidebar{
+/*#sidebar{
     float: right;
     margin-right: 2%;
     background-color: rgb(240,240,240);
     border-radius: 10px;
+/*}*/
+
+#horizBar {
+   list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #e7e7e7;
+    background-color: #E0E0E0;
 }
+#horizBar li {
+   display: inline;
+   float: left;
+   border-right: 1px solid #bbb;
+}
+#horizBar li:last-child{
+   border-right: none;
+}
+
+#horizBar li a {
+   display: block;
+    color: #666;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#horizBar li a.active {
+   color: white;
+   background-color: #DE2121;
+}
+
+#horizBar li a:hover:not(.active){
+   background-color: #9CDCFF;
+}
+
+#imgBox img{
+   display: block;
+   /*margin: 5px;*/
+    width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+#imgBox h2{
+   text-align: center;
+}
+
+#imgBox ul{
+   list-style-type: none;
+}
+
+#imgBox li {
+   text-align: center;
+
+}
+
 img.logo{
   display: block;
   margin-left: auto;
@@ -40,7 +97,8 @@ Yellow : rgb(222,207,39)
 
 body
 {
-    background-color: rgb(250,250,250);
+    /*background-color: rgb(250,250,250);*/
+    background-color: #EAEBDD;
 }
 html {
 	-moz-box-shadow:    inset 0 0 5px rgb(10,10,10);

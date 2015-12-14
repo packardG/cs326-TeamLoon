@@ -100,8 +100,10 @@ function initializeMap() {
       }
   });
   $("#makecr").click(function() {
-    var name = $('crn').val();
-    var url = $('crv').val();
+    var name = $('#crn').val();
+    var url = $('#crv').val();
+
+      console.log(name);
     if (!name) {
       name = "Default";
     }
