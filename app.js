@@ -120,13 +120,12 @@ io.on('connection', function(socket){
 
   socket.on('Call Vote', function(userName){
      console.log('Calling kick to vote on: ' + userName);
-     socket.broadcast.in(socket.roomName).emit('Vote Kick', userName);
+      io.sockets.in(socket.roomName).emit('Vote Kick', userName);
   });
 
 
   socket.on('kick player', function(userInput, userName){
-      socket.room.kickYesCount = 0;
-      socket.room.kickNoCount = 0;
+
      if(userInput === 'yes'){
          socket.room.kickYesCount++;
      }
@@ -135,22 +134,25 @@ io.on('connection', function(socket){
      }
       socket.room.totalKickCount = socket.room.kickYesCount + socket.room.kickNoCount;
 
+
      if(socket.room.totalKickCount === socket.room.userList.length){
 
+
         if(socket.room.kickYesCount > socket.room.kickNoCount){
-         socket.username.id.disconnect();
             console.log('Kicking');
-         io.sockets.in(socket.roomName).emit('update userLists', socket.room.userList);
+            socket.username.id.disconnect();
+
+            io.sockets.in(socket.roomName).emit('update userLists', socket.room.userList);
         }
          socket.room.kickYesCount = 0;
          socket.room.kickNoCount = 0;
-      }
+     }
 
   });
 
   socket.on('skip video', function(){
      console.log('Voting to skip video');
-    io.sockets.in(socket.roomName).emit('video vote');
+      io.sockets.in(socket.roomName).emit('video vote');
  });
 
  socket.on('handle skip', function(userInput){
