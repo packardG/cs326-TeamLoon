@@ -148,8 +148,6 @@ module.exports = function (app) {
       var lat = Number(req.query.lat);
       var lon = Number(req.query.long);
 
-      console.log(lat);
-      console.log(lon);
       res.send(chatroom.getNearbyRooms(lat,lon));
     });
 
