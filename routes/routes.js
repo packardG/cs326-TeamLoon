@@ -1,11 +1,15 @@
 module.exports = function (app) {
-    var maintanace = false;
-
+    // puts it into maintance mode
+    var maintanace = true;
     //local libraries
     var db = require('../lib/db');
     var chatroom = require('../lib/chatrooms');
     var team = require('../lib/team.js');
     var bodyParser = require("body-parser");
+
+    function loggedIn(sessionUser) {
+      return sessionUser && db.isOnline(sessionUser);
+    }
 
     app.post('/auth',(req,res) => {
         // Grab the session if the user is logged in.
@@ -69,6 +73,7 @@ module.exports = function (app) {
 
     app.get('/', (req, res) => {
         var sessionUser = req.session.user;
+        console.log("Here");
         if (maintanace && !loggedIn(sessionUser)) {
             res.redirect('/login');
             return;

@@ -39,10 +39,6 @@ app.use(session({
 // handle routes
 var routes = require("./routes/routes.js")(app);
 
-function loggedIn(sessionUser) {
-  return sessionUser && db.isOnline(sessionUser);
-}
-
 function splitter(url){
     if (url.indexOf('=') === -1){
 	return url;
@@ -67,7 +63,6 @@ io.on('connection', function(socket){
     socket.roomName = socket.room.name;
 
     socket.username = chatroom.joinRoom(socket.roomName, socket);
-
 
     // send client to the room
     socket.join(socket.roomName);
