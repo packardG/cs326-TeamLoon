@@ -138,10 +138,10 @@ io.on('connection', function(socket){
 
      if(socket.room.totalKickCount === Object.keys(socket.room.userList).length){
         if(socket.room.kickYesCount > socket.room.kickNoCount){
-            console.log('Kicking');
+            console.log('Kicking' + socket.username);
 
-            socket.room.userList[socket.username].emit('force disconnect');
-            socket.room.userList[socket.username].disconnect();
+            socket.room.userList[userName].emit('force disconnect');
+            socket.room.userList[userName].disconnect();
 
             io.sockets.in(socket.roomName).emit('update userLists', Object.keys(socket.room.userList));
         }
