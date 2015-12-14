@@ -267,7 +267,7 @@
 
                 //Then fill the list with the new list of users
                 for(var i = 0; i < userlist.length; i++){
-                    $('#listOfUsers').append($('<div id="box">').text(userlist[i].userName));
+                    $('#listOfUsers').append($('<div id="box">').text(userlist[i]));
                 }
 
                 //Same with the voting list
@@ -275,10 +275,15 @@
 
                 //Then fill the list with the new list of users
                 for(var i = 0; i < userlist.length; i++){
-                    $('#votelist').append($('<button id="voteButton" onClick="onButtonVoteClick(this)">').text(userlist[i].userName));
+                    $('#votelist').append($('<button id="voteButton" onClick="onButtonVoteClick(this)">').text(userlist[i]));
                 }
 
 	        });
+
+            socket.on('force disconnect', function(){
+                alert("You have been kicked");
+
+            });
         });
     </script>
 
