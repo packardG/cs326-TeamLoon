@@ -46,7 +46,7 @@ function clearMap() {
 
 function checkMap() {
   $.ajax({
-     url: '/rooms',
+     url: '/rooms?lat=' + position.coords.latitude + '&long=' + position.coords.longitude,
      error: function(code) {
        console.log(code);
      },
@@ -56,7 +56,7 @@ function checkMap() {
          clearMap();
          for (var i = 0; i<data.length; i++) {
            room = data[i];
-           addPin({name : room.name, desc : "<center><h3>"+room.name+"</h3><br>Join</center>", coords : [room.lat, room.long], url : "/roomView?roomName="+room.name});
+           addPin({name : room.name, desc : "<center><h3>"+room.name+"</h3><br>Join</center>", coords : [room.long, room.lat], url : "/roomView?roomName="+room.name});
          }
        }
      },
@@ -100,8 +100,10 @@ function initializeMap() {
       }
   });
   $("#makecr").click(function() {
-    var name = $('crn').val();
-    var url = $('crv').val();
+    var name = $('#crn').val();
+    var url = $('#crv').val();
+
+      console.log(name);
     if (!name) {
       name = "Default";
     }
@@ -144,7 +146,7 @@ function success(pos){
        clearMap();
        for (var i = 0; i<data.length; i++) {
          room = data[i];
-         addPin({name : room.name, desc : "<center><h3>"+room.name+"</h3><br>Join</center>", coords : [room.lat, room.long], url : "/roomView?roomName="+room.name});
+         addPin({name : room.name, desc : "<center><h3>"+room.name+"</h3><br>Join</center>", coords : [room.long, room.lat], url : "/roomView?roomName="+room.name});
        }
      },
      type: 'GET'

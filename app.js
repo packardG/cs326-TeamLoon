@@ -53,12 +53,7 @@ function splitter(url){
 
 //Global vars
 var suggestedVids = [];
-var vidYesCount = 0;
-var vidNoCount = 0;
-var totalVote = 0;
-var kickYesCount = 0;
-var kickNoCount = 0;
-totalKickCount = 0;
+
 
 
 io.on('connection', function(socket){
@@ -70,15 +65,15 @@ io.on('connection', function(socket){
   socket.on('adduser', function(data){
     socket.room = chatroom.findRoom(data.room);
     socket.roomName = socket.room.name;
-    socket.u = chatroom.joinRoom(socket.roomName, "temp");
 
-    socket.username = socket.u.userName;
+    socket.username = chatroom.joinRoom(socket.roomName, socket);
+
 
     // send client to the room
     socket.join(socket.roomName);
 
     io.sockets.in(socket.roomName).emit('chat message', 'SERVER', socket.username + ' has entered the chatroom');
-    io.sockets.in(socket.roomName).emit('update userLists', socket.room.userList);
+    io.sockets.in(socket.roomName).emit('update userLists', Object.keys(socket.room.userList));
   });
 
 
@@ -113,11 +108,11 @@ io.on('connection', function(socket){
 
     socket.broadcast.in(socket.roomName).emit('chat message', 'SERVER', socket.username + ' has left the chatroom');
 
-    chatroom.removeUser(socket.room,socket.u);
+    chatroom.removeUser(socket.room,socket.username);
 
 
     if(socket.room){
-      socket.broadcast.in(socket.roomName).emit('update userLists', socket.room.userList);
+      socket.broadcast.in(socket.roomName).emit('update userLists', Object.keys(socket.room.userList));
     }
 
     socket.leave(socket.roomName);
@@ -126,55 +121,60 @@ io.on('connection', function(socket){
   socket.on('Call Vote', function(userName){
      console.log('Calling kick to vote on: ' + userName);
      io.sockets.in(socket.roomName).emit('Vote Kick', userName);
+      io.sockets.in(socket.roomName).emit('Vote Kick', userName);
   });
 
 
   socket.on('kick player', function(userInput, userName){
-     var kickYesCount = 0;
-     var kickNoCount = 0;
+
      if(userInput === 'yes'){
-      kickYesCount++;
+         socket.room.kickYesCount++;
      }
      else{
-      kickNoCount++;
+         socket.room.kickNoCount++;
      }
-     totalKickCount = kickYesCount + kickNoCount;
+      socket.room.totalKickCount = socket.room.kickYesCount + socket.room.kickNoCount;
 
-     if(totalKickCount === socket.room.userList.length){
 
-        if(kickYesCount > kickNoCount){
-         socket.username.id.disconnect();
-         io.sockets.in(socket.roomName).emit('update userLists', socket.room.userList);
+
+     if(socket.room.totalKickCount === Object.keys(socket.room.userList).length){
+        if(socket.room.kickYesCount > socket.room.kickNoCount){
+            console.log('Kicking' + socket.username);
+
+            socket.room.userList[userName].emit('force disconnect');
+            socket.room.userList[userName].disconnect();
+
+            io.sockets.in(socket.roomName).emit('update userLists', Object.keys(socket.room.userList));
         }
-         kickYesCount = 0;
-         kickNoCount = 0;
-      }
+         socket.room.kickYesCount = 0;
+         socket.room.kickNoCount = 0;
+     }
 
   });
 
   socket.on('skip video', function(){
      console.log('Voting to skip video');
-    io.sockets.in(socket.roomName).emit('video vote');
+      io.sockets.in(socket.roomName).emit('video vote');
  });
 
  socket.on('handle skip', function(userInput){
 
     if(userInput === 'yes'){
-      vidYesCount++;
+        socket.room.vidYesCount++;
     }
     else{
-      vidNoCount++;
+        socket.room.vidNoCount++;
     }
-    totalVote = vidYesCount + vidNoCount;
+     socket.room.totalVote = socket.room.vidYesCount + socket.room.vidNoCount;
 
-    if(totalVote === socket.room.userList.length){
+    if(socket.room.totalVote === Object.keys(socket.room.userList).length){
 
-      if(vidYesCount > vidNoCount){
+      if(socket.room.vidYesCount > socket.room.vidNoCount){
 
          io.sockets.in(socket.roomName).emit('pop vid');
       }
-      vidYesCount = 0;
-      vidNoCount = 0;
+        socket.room.vidYesCount = 0;
+        socket.room.vidNoCount = 0;
    }
 });
 
