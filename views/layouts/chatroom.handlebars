@@ -206,7 +206,7 @@
             });
 
 				$('#voteVideo').click(function(){
-	 			  socket.emit('skip video');
+				  socket.emit('skip video');
 	 		  });
 
 	 		  socket.on('video vote', function(){
@@ -217,6 +217,16 @@
 	 				 socket.emit("handle skip", 'no');
 	 			  }
 	 		  });
+
+			  socket.on('pop vid', function(){
+				  console.log('popping top vid' + vidArr);
+				  vidArr.shift();
+				  $('#videoQ li').eq(0).remove();
+				  if(vidArr.length > 0){
+					  player.loadVideoById(vidArr[0]);
+				  }
+
+			  });
 
             socket.on('suggest video', function (data) {
                 $('#videoQ').append($('<li>fg').text(data.suggestedvideo));
@@ -234,16 +244,6 @@
 	            console.log(vidArr);
 
             });
-
-				socket.on('pop vid', function(){
-					console.log('popping top vid' + vidArr);
-					vidArr.shift();
-					$('#videoQ li').eq(0).remove();
-					if(vidArr.length > 0){
-						player.loadVideoById(vidArr[0]);
-					}
-
-				});
 
             socket.on('PlayVideo', function(time){
 

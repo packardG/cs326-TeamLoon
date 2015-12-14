@@ -125,7 +125,7 @@ io.on('connection', function(socket){
 
   socket.on('Call Vote', function(userName){
      console.log('Calling kick to vote on: ' + userName);
-     socket.broadcast.in(socket.roomName).emit('Vote Kick', userName);
+     io.sockets.in(socket.roomName).emit('Vote Kick', userName);
   });
 
 
