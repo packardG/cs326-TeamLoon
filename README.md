@@ -36,6 +36,18 @@ Team Loon's Web App repo
 
  https://github.com/expressjs/cookie-parser
 
+ *express*
+
+ Middleware for supporting HTTP webpages
+
+ https://github.com/strongloop/express
+
+ *express-handlebars*
+
+ Middleware for supporting handlebars view/templates
+
+ https://github.com/ericf/express-handlebars
+
  *express-session*
 
  Middleware for supporting sessions in the application
@@ -59,6 +71,10 @@ Team Loon's Web App repo
  Database support
 
  https://github.com/mafintosh/mongojs
+
+*socket.io*
+
+Middleware for handling sockets from client and server sides
 
 ###Views###
 
@@ -90,7 +106,7 @@ Team Loon's Web App repo
  *Splash*
 
  This is the "main" page of the application; upon connecting to the website, this page is what shows. It includes our team
- logo and links to itself, the team page, and the about page.
+ logo and links to itself, the team page, and the about page. It also includes screenshots and use cases.
 
  *Room View*
 
