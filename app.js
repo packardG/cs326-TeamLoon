@@ -8,7 +8,7 @@ var flash = require('connect-flash');
 var morgan = require('morgan');
 var db = require('./lib/db');
 var chatroom = require('./lib/chatrooms');
-
+var tracking = require('./lib/tracking');
 
 // initialize our app
 var app = express();
@@ -84,7 +84,7 @@ io.on('connection', function(socket){
   socket.on('suggest video', function(data){
     console.log('suggest video: ' + splitter(data.suggestedvideo));
     var vid = splitter(data.suggestedvideo);
-
+    tracking.updateVideo(vid, 1, 0);
     suggestedVids.push(vid);
     io.sockets.in(socket.roomName).emit('suggest video', {suggestedvideo: vid});
     io.sockets.in(socket.roomName).emit('change video', {videoAr: suggestedVids});
@@ -169,7 +169,7 @@ io.on('connection', function(socket){
     if(socket.room.totalVote === Object.keys(socket.room.userList).length){
 
       if(socket.room.vidYesCount > socket.room.vidNoCount){
-
+         tracking.updateVideo(suggestedVids[0],0,socket.room.vidYesCount);
          io.sockets.in(socket.roomName).emit('pop vid');
       }
         socket.room.vidYesCount = 0;
