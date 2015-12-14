@@ -55,6 +55,28 @@
    background-color: #9CDCFF;
 }
 
+#imgBox img{
+   display: block;
+   /*margin: 5px;*/
+    width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+#imgBox h2{
+   text-align: center;
+}
+
+#imgBox ul{
+   list-style-type: none;
+}
+
+#imgBox li {
+   text-align: center;
+
+}
+
 img.logo{
   display: block;
   margin-left: auto;
