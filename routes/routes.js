@@ -145,7 +145,12 @@ module.exports = function (app) {
     });
 
     app.get('/rooms', (req, res) => {
-      res.send(chatroom.getAllRooms());
+      var lat = Number(req.query.lat);
+      var lon = Number(req.query.long);
+
+      console.log(lat);
+      console.log(lon);
+      res.send(chatroom.getNearbyRooms(lat,lon));
     });
 
     app.use(bodyParser.json());
@@ -164,7 +169,7 @@ module.exports = function (app) {
 
     app.post('/createChatroom', (req,res) => {
       console.log(req.body);
-      chatroom.createChatroom(req.body.name, "", Number(req.body.lon), Number(req.body.lat), splitter(req.body.url));
+      chatroom.createChatroom(req.body.name, "", Number(req.body.lat), Number(req.body.lon), splitter(req.body.url));
     });
 
 
