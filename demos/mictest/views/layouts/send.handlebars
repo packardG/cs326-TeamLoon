@@ -1,0 +1,36 @@
+{{body}}
+<script> console.log(location.port);</script>
+<script src="scripts/peerjs/peer.js"></script>
+<script>
+console.log("sanity Check1");
+var peer = new Peer(1, {
+	host: location.hostname,
+	port: 27000,
+	path: '/peerjs'
+})
+var mediaStreamSource;
+var rawstream;
+function successCallback(stream) {
+		var audioContext = new AudioContext();
+    // Create an AudioNode from the stream.
+    mediaStreamSource = audioContext.createMediaStreamSource( stream );
+		console.log(stream);
+		conn = peer.call(2, stream);
+}
+
+function errorCallback() {
+    console.log("The following error occurred: " + err);
+}
+
+var conn
+function initializeMic() {
+	var media = navigator.webkitGetUserMedia( {audio:true}, successCallback, errorCallback );
+}
+
+function sendD() {
+	conn.send("Hello");
+}
+</script>
+
+<button onclick="connecttt();">Connect</button>
+<button onclick="sendD();">Hello</button>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="styleSheets/base.css"/>
+    <link rel="stylesheet" type="text/css" href="styleSheets/chatroom.css"/>
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+		<title>Sofa King</title>
+		<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+	</head>
+	<body>
+    <div>
+        <div>
+            <div class="tab" style="background-color : rgb(60,190,60);">
+              <a class="tab" href="#urlPopup" data-rel="popup">Suggest a New Video</a>
+
+              <div data-role="popup" id="urlPopup" class="ui-content" style="min-width:1000px;">
+                <form id="suggestInput" method="post" action="demoform.asp">
+                  <label for="usrnm" class="ui-hidden-accessible">URL:</label>
+                  <input type="text" name="url" id="videoSuggestion" placeholder="Video ID">
+                </form>
+              </div>
+            </div>
+            <div class="tab" style="background-color : rgb(190,60,60);">
+              <a class="tab" href="#videoQ" data-rel="popup">Video Queue</a>
+
+              <div data-role="popup" id="videoQ" class="ui-content" style="min-width:1000px;">
+                  <!-- Write video Queue display -->
+                  Next video to be displayed:
+              </div>
+            </div>
+            <div class="tab" style="background-color : rgb(190,60,190);">
+                <a class="tab" href="#votingPopup" data-rel="popup">Voting</a>
+
+                <div data-role="popup" id="votingPopup" class="ui-content" style="min-width:1000px;">
+                    <ul id="votingArea">
+                        <h3>Vote to kick?</h3>
+                        <h4>Select a User:</h4>
+                        <ul id="votelist">
+
+                            <p id="demo"></p>
+                        </ul>
+                    </ul>
+						  <br>
+						  <ul>
+							  <h3>Vote to skip current video?</h3>
+							  <button id="voteVideo">Skip</button>
+						  </ul>
+                </div>
+            </div>
+
+				<div class="tab" style="background-color : rgb(68,106,255); height:3%;">
+				   <div data-role="popup" id="redirectTab" class="ui-content">
+				      <h3 id="banner"><strong>Links to:</strong></h3>
+				      <ul>
+							<li><a class="active" href="/">Home</a></li>
+							<li><a href="team">Team</a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="roomSelection">Chatroom Map</a></li>
+						</ul>
+				   </div>
+				   <a class="tab" href="#redirectTab" data-rel="popup">Redirect</a>
+				</div>
+
+
+        </div>
+        <div>
+            <script src="scripts/peerinit.js">initialize({{myID}})</script>
+            <div style="width:50%; height:480px; clear:left; float:left;">
+                <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+                <div id="player"></div>
+            </div>
+			<div class="userlist" style="float:left;">
+                <strong>User List</strong> <br>
+                <ul id="listOfUsers">
+
+                </ul>
+            </div>
+        </div>
+        <div class="chatbox" style="height:500px; clear:left; overflow:scroll;">
+            <ul id="chatlog"></ul>
+            <form id="chatInput" action="">
+                <input id="m" autocomplete="off" />
+            </form>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="/scripts/chatroomScript.js"></script>
+
+	</body>
+
+</html>
