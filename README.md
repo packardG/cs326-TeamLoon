@@ -3,6 +3,7 @@ Team Loon's Web App repo
 
 Our 3 videos can be found here:
 (We encourage you to watch these together using SofaKing!)
+
 -[Code walkthru screencast](https://www.youtube.com/watch?v=VU16cLr1kQM)
 
 -[Application use case screencast](https://www.youtube.com/watch?v=wRFx6xjWZRA)
