@@ -9,6 +9,8 @@ Team Loon's Web App repo
  addition it includes a voting system that allows users to suggest and pick videos they want to explore. Some chat features are included to
  prevent poor user experience caused by others (kicking from chatroom). For more information, see our
  [Final Project Document](https://docs.google.com/document/d/10Ry11kDxrAS6hF58ACVqZ_flG4xd5b_fdzNJwG2IOEs/edit?usp=sharing).
+ 
+ Videos will be added to the "public" directory.
 
 ###How to Run###
 
@@ -17,7 +19,7 @@ Team Loon's Web App repo
  ```
 
  There will be a boolean value inside of the application that will start it in "admin mode", which will only be used when performing maintenance
- on the site.
+ on the site. When in admin mode, the user will have to enter a usernamme (grader) and password (a+).
 
 ###Libraries###
 
