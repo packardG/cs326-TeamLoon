@@ -19,7 +19,6 @@ Our 3 videos can be found here:
  prevent poor user experience caused by others (kicking from chatroom). For more information, see our
  [Final Project Document](https://docs.google.com/document/d/10Ry11kDxrAS6hF58ACVqZ_flG4xd5b_fdzNJwG2IOEs/edit?usp=sharing).
 
- Videos will be added to the "public" directory.
 
 ###How to Run###
 
