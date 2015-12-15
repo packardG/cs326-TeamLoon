@@ -51,11 +51,9 @@ function splitter(url){
 var suggestedVids = [];
 
 
-
 io.on('connection', function(socket){
 
   // console.log("Connection");
-
 
   //THIS SHOULD BE CALLED RIGHT WHEN THE USER CONNECTS
   socket.on('adduser', function(data){
