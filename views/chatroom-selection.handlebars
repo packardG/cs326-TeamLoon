@@ -1,0 +1,98 @@
+<style>
+#list {
+   list-style-type: none;
+}
+
+a.tab {
+  text-decoration: none;
+  color : rgb(255,255,255);
+  text-shadow:
+  -1px -1px 0 #000,
+  1px -1px 0 #000,
+  -1px 1px 0 #000,
+  1px 1px 0 #000;
+}
+
+
+div.tab {
+  border-top-left-radius : 10px;
+  border-top-right-radius : 10px;
+  border-color : rgb(27,22,20);
+  border-width : 1px;
+  border-style : solid;
+  float: left;
+  text-align: center;
+  padding: 5px;
+  min-width : 5%;
+  color : rgb(255,255,255);
+  text-shadow:
+  -1px -1px 0 #000,
+  1px -1px 0 #000,
+  -1px 1px 0 #000,
+  1px 1px 0 #000;
+}
+
+a.tab:link {
+color: inherit;
+}
+a.tab:visited {
+color: inherit;
+}
+a.tab:hover {
+color: inherit;
+}
+
+</style>
+
+
+<div class="tab" style="background-color : rgb(60,190,60); height:3%;">
+  <div data-role="popup" id="createRoom" class="ui-content">
+    <h3 id="banner"><strong>Create Chatroom</strong></h3>
+
+    <form method="post">
+      <input type="hidden" name="lat" id="lat"></text>
+      <input type="hidden" name="lat" id="long"></text>
+      Enter Chatroom Name <input type="text" name="name"  id="crn"></text>
+      <!--Enter First Video URL : <input type="text" name="url" id="crv"></text>-->
+      <button type="submit" id="makecr" value="Submit">Submit</button>
+    </form>
+
+  </div>
+  <a class="tab" href="#createRoom" data-rel="popup">Create Chatroom</a>
+</div>
+<div class="tab" style="background-color : rgb(190,60,60); height:3%;">
+  <a class="tab" href="#roomList" data-rel="popup">Available Chatrooms</a>
+  <div data-role="popup" id="roomList" class="ui-content">
+    <h3 id="banner"><strong>Chatrooms</strong></h3>
+
+    <h4>List of available chatrooms</h4>
+
+    <p>There are ({{rooms.length}}) available chatrooms:</p>
+
+    <ul id="list">
+       {{#each rooms}}
+       <div id="box">
+          <li><a style="cursor: pointer;" url="/roomView?roomName={{this.name}}">{{this.name}}</a></li>
+       </div>
+       {{/each}}
+    </ul>
+  </div>
+</div>
+
+<div class="tab" style="background-color : rgb(190,60,190); height:3%;">
+   <div data-role="popup" id="redirectTab" class="ui-content">
+      <h3 id="banner"><strong>Links to:</strong></h3>
+      <ul>
+			<li><a class="active" href="/">Home</a></li>
+			<li><a href="team">Team</a></li>
+			<li><a href="about">About</a></li>
+		</ul>
+
+   </div>
+   <a class="tab" href="#redirectTab" data-rel="popup">Redirect</a>
+</div>
+
+<div>
+<div id="map" style="width:100%; height:960px;"></div>
+</div>
+<script src="scripts/mapLogic.js"></script>
