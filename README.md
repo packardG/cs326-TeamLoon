@@ -1,6 +1,12 @@
 # cs326-TeamLoon
 Team Loon's Web App repo
 
+Our 3 videos can be found here:
+(We encourage you to watch these together using SofaKing!)
+-Code walkthru screencast: https://www.youtube.com/watch?v=VU16cLr1kQM
+-Application use case screencast: https://www.youtube.com/watch?v=wRFx6xjWZRA
+-Commercial: https://www.youtube.com/watch?v=P9Bu_QKzWcI
+
 ###Overview###
 
  SofaKing was designed to solve issues of wanting to enjoy videos in-sync with other users. Sometimes there are shows or music that you want
@@ -9,7 +15,7 @@ Team Loon's Web App repo
  addition it includes a voting system that allows users to suggest and pick videos they want to explore. Some chat features are included to
  prevent poor user experience caused by others (kicking from chatroom). For more information, see our
  [Final Project Document](https://docs.google.com/document/d/10Ry11kDxrAS6hF58ACVqZ_flG4xd5b_fdzNJwG2IOEs/edit?usp=sharing).
- 
+
  Videos will be added to the "public" directory.
 
 ###How to Run###
